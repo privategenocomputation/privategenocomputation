@@ -20,7 +20,7 @@ CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -march=native -I$(IDIR)
 AES = AESFullTest
 LARGE = LargeCircuitTest
 FILE = CircuitFileTest
-GWAS = GWASTest
+GWAS = AddTest
 rm = rm --f
 
 all: AES LARGE FILE GWAS
