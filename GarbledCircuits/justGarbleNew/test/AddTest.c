@@ -54,14 +54,14 @@ int main() {
 
 	block extractedLabels[inputsNb];
 	int extractedInputs[inputsNb];
-	int input1 = 1;
-	int input2 = 1;
+	int input1 = 35;
+	int input2 = 60;
 	int i;
 	for (i = 0; i < 8; i++) {
-		extractedInputs[i] = (input1 >> (7-i)) % 2;
+		extractedInputs[i] = (input1 >> (i)) % 2;
 	}
 	for (i = 8; i < 16; i++) {
-		extractedInputs[i] = (input2 >> (7-(i-8))) % 2;
+		extractedInputs[i] = (input2 >> ((i-8))) % 2;
 	}
 	block computedOutputMap[outputsNb];
 	int outputVals[outputsNb];
@@ -70,11 +70,12 @@ int main() {
 	evaluate(&garbledCircuit, extractedLabels, computedOutputMap);
 	mapOutputs(outputMap, computedOutputMap, outputVals, outputsNb);
 
-	int res = 0;
+
+    int res = 0;
 	for (i = 0; i < 8; i++) {
-		res += outputVals[i]*pow(2,(7-i));
+		res+= outputVals[i]*pow(2,(i));
 	}
-	printf("RESULT IS : %d\n", res);
+	printf("RESULT IS : %d\n",res);
 	return 0;
 }
 
