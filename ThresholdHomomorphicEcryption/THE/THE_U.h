@@ -7,7 +7,7 @@ namespace the{
 	class The_U{
 
 		public:
-			The_U();
+			The_U(const EncryptionParameters &params, const BigPoly &publicKey, const BigPoly &secretKey_U, const BigPoly &evaluationKey, const BigPoly &e_U);
 			BigPoly add(const BigPoly &cypherText_1, const BigPoly &cypherText_2);
 			BigPoly mult(const BigPoly &cypherText_1, const BigPoly &cypherText_2);
 			BigPoly shareDec_U(const BigPoly &secretKey_MU, const BigPoly &cypherText);

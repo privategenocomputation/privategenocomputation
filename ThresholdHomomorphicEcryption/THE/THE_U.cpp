@@ -4,9 +4,13 @@
 using namespace std;
 
 namespace the{
-	The::The_U(){
-		// FIXME Where do I get the evalKeys?
-		EvaluationKeys evaluation_keys = generator.evaluation_keys();
+	The::The_U(const EncryptionParameters &params, const BigPoly &publicKey, const BigPoly &secretKey_U, const BigPoly &evaluationKey, const BigPoly &e_U){
+		//Initialization
+		this.params = params;
+		this.publicKey = publicKey;
+		this.secretKey_U = secretKey_U;
+		this.evaluationKey = evaluationKey;
+		this.e_U = e_U;
 		// XXX Need to store the evaluator
 		//Generate evaluator
 		Evaluator evaluator(parms, evaluationKeys);
