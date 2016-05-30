@@ -18,6 +18,7 @@ namespace the{
 			BigPoly secretKey_H;
 			BigPoly secretKey_SPU;
 			BigPoly secretKey_MU;
+			BigPoly evaluationKey;
 			BigPoly e_SPU;
 			BigPoly e_MU;
 	};

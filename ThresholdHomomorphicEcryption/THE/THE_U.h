@@ -16,6 +16,7 @@ namespace the{
 		private:
 			EcryptionParameters params;
 			BigPoly publicKey;
+			BigPoly evaluationKey;
 			BigPoly secretKey_U;
 			BigPoly e_U;
 	};

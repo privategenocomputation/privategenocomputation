@@ -4,7 +4,8 @@
 using namespace std;
 
 namespace the{
-	The::The_CI(){};
+	The::The_CI(){
+	};
 
 	The::gen(const EncryptionParameters &parms){
 		// XXX Is it correct?
@@ -22,7 +23,8 @@ namespace the{
 		generator_H.generate();
 		this.publicKey_H = generator_H.public_key();
 		this.secretKey_H = generator_H.secret_key();
-		// XXX Evaluation keys come form here
+		//Generate evaluation keys
+		this.evaluationKey = generator_H.evaluation_keys();
 		//Generate MU key
 		KeyGenerator generator_MU(parms);
 		generator_MU.generate();
