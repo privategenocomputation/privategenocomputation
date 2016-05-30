@@ -2,3 +2,4 @@
 *.vcxproj*
 *.swp
 **/bin
+**/bin/**
