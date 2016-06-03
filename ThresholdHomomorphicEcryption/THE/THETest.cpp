@@ -1,22 +1,32 @@
 #include "THE_CI.cpp"
 #include "THE_U.cpp"
 
-using namespace std, the;
+using namespace std;
+using namespace the;
 
 int main(){
+	// TODO Define parameters
+	EncryptionParameters parms;
+	parms.poly_modulus() = "1x^2048 + 1";
+	parms.coeff_modulus() = ChooserEvaluator::default_parameter_options().at(2048);
+	parms.plain_modulus() = 1 << 8;
+	parms.decomposition_bit_count() = 32;
+	parms.noise_standard_deviation() = ChooserEvaluator::default_noise_standard_deviation();
+	parms.noise_max_deviation() = ChooserEvaluator::default_noise_max_deviation();
+
 	// Creating The_CI
 	The_CI myCI = The_CI();
-	myCI.generate()
+	myCI.gen(parms);
 
 	// Creating The_U for SPU and MU
 	The_U myMU = The_U(myCI.getParams(), myCI.getSecretKey_MU(), myCI.getEvaluationKey(), myCI.getE_MU());
 	The_U mySPU = The_U(myCI.getParams(), myCI.getSecretKey_SPU(), myCI.getEvaluationKey(), myCI.getE_SPU());
 
 	// Test integers
-	int t1 = 1;
-	int t2 = 2;
-	int t3 = 3;
-	int t4 = 4;
+	const int t1 = 1;
+	const int t2 = 2;
+	const int t3 = 3;
+	const int t4 = 4;
 
 	// Ecryption
 	BigPoly c1 = myCI.enc(t1);
