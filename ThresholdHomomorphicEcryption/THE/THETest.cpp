@@ -5,12 +5,12 @@ using namespace std, the;
 
 int main(){
 	// Creating The_CI
-	THE myCI = The_CI();
+	The_CI myCI = The_CI();
 	myCI.generate()
 
 	// Creating The_U for SPU and MU
-	THE myMU = The_U(myCI.getParams(), myCI.getPublicKey(), myCI.getSecretKey_MU(), myCI.getEvaluationKey(), myCI.getE_MU());
-	THE mySPU = The_U(myCI.getParams(), myCI.getPublicKey(), myCI.getSecretKey_SPU(), myCI.getEvaluationKey(), myCI.getE_SPU());
+	The_U myMU = The_U(myCI.getParams(), myCI.getSecretKey_MU(), myCI.getEvaluationKey(), myCI.getE_MU());
+	The_U mySPU = The_U(myCI.getParams(), myCI.getSecretKey_SPU(), myCI.getEvaluationKey(), myCI.getE_SPU());
 
 	// Test integers
 	int t1 = 1;
