@@ -24,7 +24,11 @@ namespace the{
 	};
 
 	The::shareDec_U(const BigPoly &secretKey_U, const BigPoly &cypherText){
-		return The::add(The::mult(secretKey_U, cypherText), e_U)
+		return The::add(The::mult(secretKey_U, cypherText), this.e_U)
+	};
+
+	The::shareDec_U(const BigPoly &cypherText){
+		return this.shareDec_U(this.secretKey_U, cypherText);
 	};
 
 // XXX Work to do... Separate class for MU? hierarchy

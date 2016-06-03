@@ -11,6 +11,7 @@ namespace the{
 			BigPoly add(const BigPoly &cypherText_1, const BigPoly &cypherText_2);
 			BigPoly mult(const BigPoly &cypherText_1, const BigPoly &cypherText_2);
 			BigPoly shareDec_U(const BigPoly &secretKey_U, const BigPoly &cypherText);
+			BigPoly shareDec_U(const BigPoly &cypherText);
 			BigPoly combine(const BigPoly &cypherText_SPU, const BigPoly &cypherText_MU);
 
 		private:
