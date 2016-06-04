@@ -3,7 +3,6 @@
 
 #include "seal.h"
 using namespace seal;
-using namespace seal::util;
 
 namespace the{
 	class The_CI{
