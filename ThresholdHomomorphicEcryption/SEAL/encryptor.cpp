@@ -245,7 +245,16 @@ namespace seal
         }
     }
 
-		void getE(){
-			return set_poly_coeffs_normal(noise.get());
+		// AX return noise E
+		void Encryptor::getE(BigPoly &destination){
+			int coeff_count = poly_modulus_.coeff_count();
+			int coeff_bit_count = poly_modulus_.coeff_bit_count();
+			int coeff_uint64_count = divide_round_up(coeff_bit_count, bits_per_uint64);
+			if (destination.coeff_count() != coeff_count || destination.coeff_bit_count() != coeff_bit_count){
+				destination.resize(coeff_count, coeff_bit_count);
+			}
+			Pointer noise(allocate_poly(coeff_count, coeff_uint64_count, pool_));
+			set_poly_coeffs_normal(noise.get());
+			add_poly_poly_coeffmod(noise.get(), destination.pointer(), coeff_count, coeff_modulus_.pointer(), coeff_uint64_count, destination.pointer());
 		}
 }

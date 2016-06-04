@@ -1,7 +1,7 @@
 #ifndef THE_CI_H
 #define THE_CI_H
-
 #include "seal.h"
+
 using namespace seal;
 
 namespace the{
@@ -17,7 +17,7 @@ namespace the{
 			inline BigPoly getPulicKey_H(){return this->publicKey_H;};
 			inline BigPoly getSecretKey_SPU(){return this->secretKey_SPU;};
 			inline BigPoly getSecretKey_MU(){return this->secretKey_MU;};
-			inline EvaluationKeys getEvaluationKey(){return this->evaluationKey;};
+			inline EvaluationKeys getEvaluationKey(){return *(this->evaluationKey);};
 			inline BigPoly getE_SPU(){return this->e_SPU;};
 			inline BigPoly getE_MU(){return this->e_MU;};
 

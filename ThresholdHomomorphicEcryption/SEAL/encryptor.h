@@ -72,6 +72,14 @@ namespace seal
             return public_key_;
         }
 
+		// AX return noise E
+		void getE(BigPoly &destination);
+		BigPoly getE(){
+			BigPoly result;
+			getE(result);
+			return result;
+		}
+
     private:
         Encryptor(const Encryptor &copy) = delete;
 
