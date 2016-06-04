@@ -7,21 +7,21 @@ using namespace std;
 using namespace seal;
 using namespace the;
 
-	// Printing
-	void printResult(int r1, int r2){
-		if(r1 == r2)
-			cout << "[OK]\t";
-		else
-			cout << "[  ]\t";
-		cout << r1 << " (expected: " << r2 << ")" << endl;
-	};
+// Printing
+void printResult(int r1, int r2){
+	if(r1 == r2)
+		cout << "[OK]\t";
+	else
+		cout << "[  ]\t";
+	cout << r1 << " (expected: " << r2 << ")" << endl;
+};
 
-	// Decryption
-	int testDec(BigPoly r,The_U mySPU,The_U myMU){
-		BigPoly c_SPU = mySPU.shareDec_U(r);
-		BigPoly c_MU = myMU.shareDec_U(r);
-		return (int) myMU.combine(c_MU, c_SPU);
-	};
+// Decryption
+int testDec(BigPoly r,The_U mySPU,The_U myMU){
+	BigPoly c_SPU = mySPU.shareDec_U(r);
+	BigPoly c_MU = myMU.shareDec_U(r);
+	return (int) myMU.combine(c_MU, c_SPU);
+};
 
 int main(){
 	// XXX Define parameters
@@ -63,7 +63,7 @@ int main(){
 	BigPoly m2 = mySPU.add(m1,c3);
 	BigPoly m3 = mySPU.add(m2,c4);
 
-// Printing results
+	// Printing results
 	cout << "--Add--" << endl;
 	printResult(testDec(a1, mySPU, myMU), t1+t2);
 	printResult(testDec(a2, mySPU, myMU), t1+t2+t3);
