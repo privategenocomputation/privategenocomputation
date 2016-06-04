@@ -2,8 +2,6 @@
 #include "seal.h"
 #include "bigpolyarith.h"
 
-#include <iostream>
-
 namespace the{
 	void The_CI::gen(const EncryptionParameters &params){
 		this->params = params;
@@ -27,9 +25,7 @@ namespace the{
 		//Set Encoder
 		this->encoder = new BalancedEncoder(this->params.plain_modulus());
 		//Set Encryptor
-std::cout << "prout!" << std::endl;
 		this->encryptor = new Encryptor(this->params, this->publicKey_H);
-std::cout << "bitch, plz!" << std::endl;
 		//Retrive normal noise
 		// XXX Is the E recovered correctly?
 		//return set_poly_coeffs_normal(noise.get());
