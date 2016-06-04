@@ -1,42 +1,32 @@
 #include "THE_U.h"
-//#include "seal"
+#include "seal.h"
+#include "util/polyarithmod.h"
 
 using namespace std;
 
 namespace the{
-	The::The_U(const EncryptionParameters &params, const BigPoly &secretKey_U, const BigPoly &evaluationKey, const BigPoly &e_U){
-		//Initialization
-		this.params = params;
-		this.secretKey_U = secretKey_U;
-		this.evaluationKey = evaluationKey;
-		this.e_U = e_U;
-		// XXX Need to store the evaluator
-		//Generate evaluator
-		Evaluator evaluator(parms, evaluationKeys);
+	BigPoly The_U::add(const BigPoly &cypherText_1, const BigPoly &cypherText_2){
+		return this->evaluator->add(cypherText_1, cypherText_2);
 	};
 
-	The::add(const BigPoly &cypherText_1, const BigPoly &cypherText_2){
-		return evaluator.add(cypherText_1, cypherText_2);
+	BigPoly The_U::mult(const BigPoly &cypherText_1, const BigPoly &cypherText_2){
+		return this->evaluator->multiply(cypherText_1, cypherText_2);
 	};
 
-	The::mult(const BigPoly &cypherText_1, const BigPoly &cypherText_2){
-		return evaluator.multiply(cypherText_1, cypherText_2);
+	BigPoly The_U::shareDec_U(const BigPoly &secretKey_U, const BigPoly &cypherText){
+		return this->add(this->mult(secretKey_U, cypherText), this->e_U);
 	};
 
-	The::shareDec_U(const BigPoly &secretKey_U, const BigPoly &cypherText){
-		return The::add(The::mult(secretKey_U, cypherText), this.e_U)
-	};
-
-	The::shareDec_U(const BigPoly &cypherText){
-		return this.shareDec_U(this.secretKey_U, cypherText);
+	BigPoly The_U::shareDec_U(const BigPoly &cypherText){
+		return this->shareDec_U(this->secretKey_U, cypherText);
 	};
 
 // XXX Work to do... Separate class for MU? hierarchy
-	The::combine(const BigPoly &cypherText_SPU, const BigPoly &cypherText_MU){
+	uint64_t The_U::combine(const BigPoly &cypherText_SPU, const BigPoly &cypherText_MU){
 	//	return The::add(cypherText_SPU, cypherText_MU);
 		BigPoly destination;
 		// XXX decryptor no key
-		BigPoly sumPatialDecrypt = The::add(cypherText_SPU, cypherText_MU);
+		BigPoly sumPatialDecrypt = this->add(cypherText_SPU, cypherText_MU);
 		// TODO t/q and round and mod t
 
 // ----------------------------------- FIXME ---------------------------------------------
@@ -62,6 +52,6 @@ namespace the{
 
 // ---------------------------------------------------------------------------------------
 
-		return destination
+		return destination;
 	};
 };

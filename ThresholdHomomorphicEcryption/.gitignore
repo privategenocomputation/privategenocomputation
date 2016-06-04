@@ -1,5 +1,6 @@
 *.[oa]
 *.vcxproj*
 *.swp
+*.out
 **/bin
 **/bin/**

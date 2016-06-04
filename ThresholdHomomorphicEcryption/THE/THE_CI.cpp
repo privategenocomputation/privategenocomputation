@@ -1,15 +1,11 @@
 #include "THE_CI.h"
-//#include "seal"
+#include "seal.h"
 
 using namespace std;
 
 namespace the{
-	The::The_CI(){
-	};
-
-	The::gen(const EncryptionParameters &parms){
-		// XXX Is it correct?
-		this.params = params;
+	void The_CI::gen(const EncryptionParameters &params){
+		this->params = params;
 
 		//Set parameters for poly arithmetic
 		const int bits_per_uint64 = sizeof(std::uint64_t) * 8;
@@ -19,37 +15,30 @@ namespace the{
 
 		//Generate keys
 		//Generate H keys
-		KeyGenerator generator_H(parms);
+		KeyGenerator generator_H(this->params);
 		generator_H.generate();
-		this.publicKey_H = generator_H.public_key();
-		this.secretKey_H = generator_H.secret_key();
+		this->publicKey_H = generator_H.public_key();
+		this->secretKey_H = generator_H.secret_key();
 		//Generate evaluation keys
-		this.evaluationKey = generator_H.evaluation_keys();
+		this->evaluationKey = new EvaluationKeys(generator_H.evaluation_keys());
 		//Generate MU key
-		KeyGenerator generator_MU(parms);
+		KeyGenerator generator_MU(this->params);
 		generator_MU.generate();
-		this.secretKey_MU = generator_MU.secret_key();
+		this->secretKey_MU = generator_MU.secret_key();
 		//Generate SPU key
-		sub_poly_poly(this.secretKey_H, this.secretKey_MU, coeff_count, coeff_uint64_count, this.secretKey_SPU);
-		// TODO Store encoder
+		seal::util::sub_poly_poly(this->secretKey_H, this->secretKey_MU, coeff_count, coeff_uint64_count, this->secretKey_SPU);
 		//Set Encoder
-		BalancedEncoder encoder(parms.plain_modulus());
-		// TODO Store encryptor
+		this->encoder = new BalancedEncoder(this->params.plain_modulus());
 		//Set Encryptor
-		Encryptor encryptor(parms, publicKey_H);
+		this->encryptor = new Encryptor(this->params, this->publicKey_H);
 		//Retrive normal noise
 		// XXX Is the E recovered correctly?
 		//return set_poly_coeffs_normal(noise.get());
-		this.e_SPU = encryptor.getE();
-		this.e_MU = encryptor.getE();
+		this->e_SPU = this->encryptor->getE();
+		this->e_MU = this->encryptor->getE();
 	};
 
-	The::enc(const BigPoly &publicKey, const BigPoly &plainText){
-		BigPoly encodedText = encoder.encode(plainText);
-		return encryptor.encrypt(plainText);
-	};
-
-	The::enc(const BigPoly &plainText){
-		return this.enc(this.publicKey, playnText);
+	BigPoly The_CI::enc(const uint64_t &plainText){
+		return this->encryptor->encrypt(this->encoder->encode(plainText));
 	};
 };
