@@ -81,6 +81,12 @@ int fixedZeroWire(GarbledCircuit *garbledCircuit,
 	Wire *wire = &garbledCircuit->wires[ind];
 	if (wire->id != 0)
 		printf("ERROR: Reusing output at wire %d\n", ind);
+
+	block labels[2];
+	createInputLabels(labels, 1);
+	InputLabels inputLabels = labels;
+
+
 	wire->id = ind;
 	wire->label0 = randomBlock();
 	wire->label1 = xorBlocks(garblingContext->R, wire->label0);
