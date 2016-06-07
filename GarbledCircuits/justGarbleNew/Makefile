@@ -17,8 +17,8 @@ CC=gcc
 CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I$(IDIR)
 
 
-GWAS = SumTest
-GWAS2 = CombLinTest
+GWAS = SumLinTest
+GWAS2 = AddTest
 GWAS3 = crypto
 rm = rm --f
 

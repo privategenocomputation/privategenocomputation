@@ -43,7 +43,6 @@ int mul(int inputsNb, GarbledCircuit* garbledCircuit,
 	for (i = 0; i < 2 * xLength; i++) {
 		outputs[i] = zeros[0];
 	}
-
 	int tempMux[xLength];
 	mux(zeros, inp, inp[xLength], garbledCircuit, garblingContext, xLength,
 			tempMux);
@@ -102,28 +101,42 @@ int sum(GarbledCircuit* garbledCircuit,
 	return 0;
 }
 
-int sumCombLin(GarbledCircuit* garbledCircuit,
-		GarblingContext* garblingContext, int* a, int* b, int* c, int inputsize, int zerowire, int* outputs) {
-	int i;
-	int temp[inputsize*inputsize*4];
-	for(i=0; i<inputsize;i++) {
-		int tempMul1[inputsize*2];
-		int tempRes1[inputsize];
-		memcpy(tempMul1,a,inputsize);
-		memcpy(tempMul1+inputsize,b,inputsize);
+int sumLin(GarbledCircuit* garbledCircuit,
+		GarblingContext* garblingContext, int* a, int* b, int* c, int inputNumber, int inputsize, int zerowire, int* outputs) {
+	int i,j;
+	int tempMulRes[inputsize*4*inputNumber];
+	for (i = 0; i < inputNumber; i++) {
+		int tempMul1[inputsize*3];
+		int tempRes1[inputsize*3];
+
+		for (j=0;j<inputsize;j++) {
+			tempMul1[j] = a[(i*inputsize) + j];
+		}
+		for (j=inputsize;j<inputsize*2;j++) {
+			tempMul1[j] = b[(i*inputsize) + j - inputsize];
+		}
 		mul(inputsize*2,garbledCircuit,garblingContext,tempMul1,tempRes1);
 
 		int tempMul2[inputsize*4];
 		int tempRes2[inputsize*4];
-		memset(tempMul2+(3*inputsize),zerowire,inputsize);
-		memcpy(tempMul2,tempRes1,inputsize*2);
-		memcpy(tempMul2+(2*inputsize),c,inputsize);
-		mul(inputsize*4,garbledCircuit,garblingContext,tempMul2,tempRes2);
 
-		memcpy(temp+(i*inputsize*4), tempRes2,inputsize*4);
+		for(j=0; j<inputsize*2; j++){
+			tempMul2[j] = tempRes1[j];
+		}
+		for(j=inputsize*2;j<inputsize*3;j++){
+			tempMul2[j] = c[(i*inputsize) + j - inputsize*2];
+		}
+		for(j=inputsize*3;j<inputsize*4;j++){
+			tempMul2[j] = zerowire;
+		}
+		mul(inputsize*4,garbledCircuit,garblingContext,tempMul2,tempRes2);
+		for(j=0;j<inputsize*4;j++) {
+			tempMulRes[(i*inputsize*4) + j] = tempRes2[j];
+		}
 	}
-	sum(garbledCircuit, garblingContext,temp,inputsize,inputsize*4,outputs);
+	sum(garbledCircuit,garblingContext,tempMulRes,inputNumber,inputsize*4,outputs);
 	return 0;
+
 }
 
 int int_into_ints(int input, int* out) {
