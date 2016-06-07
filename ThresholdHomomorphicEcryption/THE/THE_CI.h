@@ -14,7 +14,7 @@ namespace the{
 
 			// Getters
 			inline EncryptionParameters getParams(){return this->params;};
-			inline BigPoly getPulicKey_H(){return this->publicKey_H;};
+			//inline BigPoly getPulicKey_H(){return this->publicKey_H;};
 			inline BigPoly getSecretKey_SPU(){return this->secretKey_SPU;};
 			inline BigPoly getSecretKey_MU(){return this->secretKey_MU;};
 			inline EvaluationKeys getEvaluationKey(){return *(this->evaluationKey);};
@@ -25,7 +25,7 @@ namespace the{
 			EncryptionParameters params;
 			BalancedEncoder *encoder;
 			Encryptor *encryptor;
-			BigPoly publicKey_H;
+			//BigPoly publicKey_H;
 			BigPoly secretKey_H;
 			BigPoly secretKey_SPU;
 			BigPoly secretKey_MU;

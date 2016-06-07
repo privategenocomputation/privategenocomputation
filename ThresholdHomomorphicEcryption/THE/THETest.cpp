@@ -18,8 +18,10 @@ void printResult(int r1, int r2){
 
 // Decryption
 int testDec(BigPoly r,The_U mySPU,The_U myMU){
-	BigPoly c_SPU = mySPU.shareDec_U(r);
+cout << "testDec: c_MU" << endl;
 	BigPoly c_MU = myMU.shareDec_U(r);
+cout << "testDec: c_SPU" << endl;
+	BigPoly c_SPU = mySPU.shareDec_U(r);
 	return (int) myMU.combine(c_MU, c_SPU);
 };
 
@@ -43,6 +45,8 @@ int main(){
 	pState("\tmyCi.gen");
 	myCI.gen(parms);
 
+//cout << myCI.getSecretKey_MU().to_string() << endl;
+Decryptor dec(parms, myCI.getSecretKey_MU());
 	// Creating The_U for SPU and MU
 	pState("Creating myMU");
 	The_U myMU{myCI.getParams(), myCI.getSecretKey_MU(), myCI.getEvaluationKey(), myCI.getE_MU()};
@@ -64,6 +68,10 @@ int main(){
 	BigPoly c3 = myCI.enc(t3);
 	BigPoly c4 = myCI.enc(t4);
 
+//	// Decryption test
+//	pState("Decryption test");
+//	printResult(testDec(c1, mySPU, myMU), t1);
+
 	// Arythmetic
 	pState("Performing Arytmetics");
 	// Addition
@@ -73,9 +81,9 @@ int main(){
 	BigPoly a3 = mySPU.add(a2,c4);
 	// Multiplication
 	pState("\tMultiplications");
-	BigPoly m1 = mySPU.add(c1,c2);
-	BigPoly m2 = mySPU.add(m1,c3);
-	BigPoly m3 = mySPU.add(m2,c4);
+	BigPoly m1 = mySPU.mult(c1,c2);
+	BigPoly m2 = mySPU.mult(m1,c3);
+	BigPoly m3 = mySPU.mult(m2,c4);
 
 	// Printing results
 	pState("Results");

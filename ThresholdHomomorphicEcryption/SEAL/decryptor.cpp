@@ -24,6 +24,46 @@ namespace seal
         }
     }
 
+void Decryptor::multSkKey(const BigPoly &encrypted, BigPoly &destination)
+    {
+        // Extract encryption parameters.
+        // Remark: poly_modulus_ has enlarged coefficient size set in constructor
+        int coeff_count = poly_modulus_.coeff_count();
+        int coeff_bit_count = poly_modulus_.coeff_bit_count();
+        int coeff_uint64_count = divide_round_up(coeff_bit_count, bits_per_uint64);
+
+        // Verify parameters.
+        if (encrypted.coeff_count() != coeff_count || encrypted.coeff_bit_count() != coeff_bit_count)
+        {
+            throw invalid_argument("encrypted is not valid for encryption parameters");
+        }
+#ifdef _DEBUG
+        if (encrypted.significant_coeff_count() == coeff_count || !are_poly_coefficients_less_than(encrypted, coeff_modulus_))
+        {
+            throw invalid_argument("encrypted is not valid for encryption parameters");
+        }
+#endif
+        // Make sure destination is of right size to perform all computations. At the end we will
+        // resize the coefficients to be the size of plain_modulus.
+        // Remark: plain_modulus_ has enlarged coefficient size set in constructor
+        if (destination.coeff_count() != coeff_count || destination.coeff_bit_count() != coeff_bit_count)
+        {
+            destination.resize(coeff_count, coeff_bit_count);
+        }
+
+        // Handle test-mode case.
+        if (mode_ == TEST_MODE)
+        {
+            set_poly_poly(encrypted.pointer(), coeff_count, coeff_uint64_count, destination.pointer());
+            modulo_poly_coeffs(destination.pointer(), coeff_count, mod_, pool_);
+            return;
+        }
+
+        // Multiply encrypted by secret_key.
+        multiply_poly_poly_polymod_coeffmod(encrypted.pointer(), secret_key_.pointer(), polymod_, mod_, destination.pointer(), pool_);
+
+}
+
     void Decryptor::decrypt(const BigPoly &encrypted, BigPoly &destination)
     {
         // Extract encryption parameters.
@@ -141,7 +181,7 @@ namespace seal
         if (secret_key_.coeff_count() != coeff_count || secret_key_.coeff_bit_count() != coeff_bit_count ||
             secret_key_.significant_coeff_count() == coeff_count || !are_poly_coefficients_less_than(secret_key_, coeff_modulus_))
         {
-            throw invalid_argument("secret_key is not valid for encryption parameters");
+            throw invalid_argument("secret_key is not valid for encryption parameters here");
         }
 
         // Calculate coeff_modulus / plain_modulus.

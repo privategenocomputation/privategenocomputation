@@ -11,6 +11,8 @@
 #include "util/polyfftmult.h"
 #include "bigpoly.h"
 
+#include <iostream>
+
 using namespace std;
 using namespace seal::util;
 
@@ -78,20 +80,23 @@ namespace seal
         // Verify parameters.
         if (encrypted1.coeff_count() != coeff_count || encrypted1.coeff_bit_count() != coeff_bit_count)
         {
-            throw invalid_argument("encrypted1 is not valid for encryption parameters");
+            std::cout << "coeff_count [" << (encrypted1.coeff_count() != coeff_count) << "]\t"
+                 << "coeff_bit_count [" << (encrypted1.coeff_bit_count() != coeff_bit_count) << "]"
+                 << endl;
+            throw invalid_argument("encrypted1 is not valid for encryption parameters 1");
         }
         if (encrypted2.coeff_count() != coeff_count || encrypted2.coeff_bit_count() != coeff_bit_count)
         {
-            throw invalid_argument("encrypted2 is not valid for encryption parameters");
+            throw invalid_argument("encrypted2 is not valid for encryption parameters 2");
         }
 #ifdef _DEBUG
         if (encrypted1.significant_coeff_count() == coeff_count || !are_poly_coefficients_less_than(encrypted1, coeff_modulus_))
         {
-            throw invalid_argument("encrypted1 is not valid for encryption parameters");
+            throw invalid_argument("encrypted1 is not valid for encryption parameters 3");
         }
         if (encrypted2.significant_coeff_count() == coeff_count || !are_poly_coefficients_less_than(encrypted2, coeff_modulus_))
         {
-            throw invalid_argument("encrypted2 is not valid for encryption parameters");
+            throw invalid_argument("encrypted2 is not valid for encryption parameters 4");
         }
 #endif
         if (destination.coeff_count() != coeff_count || destination.coeff_bit_count() != coeff_bit_count)

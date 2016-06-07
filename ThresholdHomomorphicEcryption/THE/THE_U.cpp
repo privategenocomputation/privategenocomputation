@@ -17,27 +17,43 @@
 #include "util/uintarithmod.h"
 #include "util/polyextras.h"
 
+#include <iostream>
+
 using namespace std;
+using namespace seal;
 using namespace seal::util;
 
 namespace the{
 	BigPoly The_U::add(const BigPoly &cypherText_1, const BigPoly &cypherText_2){
-		return this->evaluator->add(cypherText_1, cypherText_2);
+cout << "add";
+		BigPoly result = this->evaluator->add(cypherText_1, cypherText_2);
+cout << "\t[OK]" << endl;
+		return result;
 	};
 
 	BigPoly The_U::mult(const BigPoly &cypherText_1, const BigPoly &cypherText_2){
-		return this->evaluator->multiply(cypherText_1, cypherText_2);
+cout << "mult";
+		BigPoly result = this->evaluator->multiply(cypherText_1, cypherText_2);
+cout << "\t[OK]" << endl;
+		return result;
 	};
 
 	BigPoly The_U::shareDec_U(const BigPoly &secretKey_U, const BigPoly &cypherText){
-		return this->add(this->mult(secretKey_U, cypherText), this->e_U);
+cout << "shareDec_U long" << endl;
+//cout << "\tsecretKey_U: " << secretKey_U.to_string() << endl;
+cout << "\tdecryptor";
+Decryptor decryptor(this->params, this->secretKey_U);
+cout << "\t[OK]" << endl;
+		return this->add(decryptor.multSkKey(cypherText), this->e_U);
 	};
 
 	BigPoly The_U::shareDec_U(const BigPoly &cypherText){
+cout << "shareDec_U short" << endl;
 		return this->shareDec_U(this->secretKey_U, cypherText);
 	};
 
 	uint64_t The_U::combine(const BigPoly &cypherText_SPU, const BigPoly &cypherText_MU){
+cout << "combine" << endl;
 		BigPoly result;
 		BigPoly sumPartialDecrypt = this->add(cypherText_SPU, cypherText_MU);
 		// TODO t/q and round and mod t

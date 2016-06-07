@@ -67,6 +67,13 @@ namespace seal
             return secret_key_;
         }
 
+        void multSkKey(const BigPoly &encrypted, BigPoly &destination);
+        BigPoly multSkKey(const BigPoly encrypted){
+            BigPoly result;
+            multSkKey(encrypted, result);
+            return result;
+        }
+
     private:
         Decryptor(const Decryptor &copy) = delete;
 
