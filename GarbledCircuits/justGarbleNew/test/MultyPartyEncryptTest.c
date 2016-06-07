@@ -93,6 +93,7 @@ int main() {
     memset(state.ecount, 0, AES_BLOCK_SIZE);
     memcpy(state.ivec, iv, AES_BLOCK_SIZE);
     AES_ctr128_encrypt(zeros, skey, inputslength, &enc_key, state.ivec, state.ecount, &state.num);
+
     int i,j;
 
     //printf("temp:\t");
@@ -102,7 +103,7 @@ int main() {
 	GarbledCircuit garbledCircuit;
 	GarblingContext garblingContext;
 
-	int inputsNb = encslength*2*32;
+	int inputsNb = encslength*32;
 	int wiresNb = 50000;
 	int gatesNb = 50000;
 	int outputsNb = encslength*32;
@@ -115,22 +116,47 @@ int main() {
 			wiresNb, inputLabels);
 	startBuilding(&garbledCircuit, &garblingContext);
 
-	int outputs[outputsNb];
-	int *inp = (int *) malloc(sizeof(int) * inputsNb);
+	// Transform generator's input into fixed wire
+	int zero = fixedZeroWire(&garbledCircuit,&garblingContext);
+	int one = fixedOneWire(&garbledCircuit,&garblingContext);
+	int onewire = getNextWire(&garblingContext);
+	NOTGate(&garbledCircuit,&garblingContext,zero,onewire);
+
+	int zerowire = getNextWire(&garblingContext);
+	NOTGate(&garbledCircuit,&garblingContext,one,zerowire);
+
+	int *inp = (int *) malloc(sizeof(int) * inputsNb * 2);
 	countToN(inp, inputsNb);
 
-	XORCircuit(&garbledCircuit, &garblingContext, inputsNb, inp, outputs);
+	int bits[inputsNb*2];
+	chars_into_pointer2(enc_out,skey,encslength,bits);
+	for (i=0; i<encslength*32;i++) {
+		if(bits[i]) {
+			inp[inputsNb+i] = onewire;
+		} else {
+			inp[inputsNb+i] = zerowire;
+		}
+	}
+
+	int outputs[outputsNb];
+
+	XORCircuit(&garbledCircuit, &garblingContext, inputsNb*2, inp, outputs);
 
 	block *outputbs = (block*) malloc(sizeof(block) * outputsNb);
 	OutputMap outputMap = outputbs;
 	finishBuilding(&garbledCircuit, &garblingContext, outputMap, outputs);
 	garbleCircuit(&garbledCircuit, inputLabels, outputMap);
+	//writeCircuitToFile(&garbledCircuit, "../MultyPartyEncryptCircuit");
 
 	// MU -> Evaluation part
+
+	//GarbledCircuit garbledCircuit2;
+	//readCircuitFromFile(&garbledCircuit2, "../MultyPartyEncryptCircuit");
+
 	block extractedLabels[inputsNb];
 
 	int extractedInputs[inputsNb];
-	chars_into_pointer2(enc_out,skey,encslength,extractedInputs);
+	chars_to_ints(skey,encslength,extractedInputs);
 
 	extractLabels(extractedLabels, inputLabels, extractedInputs, inputsNb);
 	block computedOutputMap[outputsNb];

@@ -27,8 +27,8 @@
 #include "../include/justGarble.h"
 
 int main() {
-	int inputsNb = 32;
-	int outputsNb = inputsNb/2;
+	int inputsNb = 16;
+	int outputsNb = inputsNb;
 	int wiresNb = 5000;
 	int gatesNb = 5000;
 	GarbledCircuit garbledCircuit;
@@ -36,17 +36,39 @@ int main() {
 	block labels[2*inputsNb];
 
 
-
-	int outputs[outputsNb];
-	int *inp = (int *) malloc(sizeof(int) * inputsNb);
-	countToN(inp, inputsNb);
-
 	//Create a circuit.
 	createInputLabels(labels, inputsNb);
 	InputLabels inputLabels = labels;
 	createEmptyGarbledCircuit(&garbledCircuit, inputsNb, outputsNb, gatesNb, wiresNb, inputLabels);
 	startBuilding(&garbledCircuit, &garblingContext);
-	ADDCircuit(&garbledCircuit, &garblingContext, inputsNb, inp, outputs);
+
+	// Transform generator's input into fixed wire
+	int zero = fixedZeroWire(&garbledCircuit,&garblingContext);
+	int one = fixedOneWire(&garbledCircuit,&garblingContext);
+
+	int onewire = getNextWire(&garblingContext);
+	NOTGate(&garbledCircuit,&garblingContext,zero,onewire);
+
+	int zerowire = getNextWire(&garblingContext);
+	NOTGate(&garbledCircuit,&garblingContext,one,zerowire);
+
+	int outputs[outputsNb];
+	int *inp = (int *) malloc(sizeof(int) * inputsNb*2);
+	countToN(inp, inputsNb);
+	//countToN(outputs, inputsNb);
+
+	int input1 = 23;
+	int i;
+	for (i = 0; i < inputsNb; i++) {
+		int temp = (input1 >> (i)) % 2;
+		if (temp) {
+			inp[inputsNb+i] = onewire;
+		} else {
+			inp[inputsNb+i] = zerowire;
+		}
+	}
+
+	ADDCircuit(&garbledCircuit, &garblingContext, inputsNb*2, inp, outputs);
 
 	block *outputbs = (block*) malloc(sizeof(block) * outputsNb);
 	OutputMap outputMap = outputbs;
@@ -56,14 +78,9 @@ int main() {
 
 	block extractedLabels[inputsNb];
 	int extractedInputs[inputsNb];
-	int input1 = 27;
 	int input2 = 41;
-	int i;
-	for (i = 0; i < inputsNb/2; i++) {
-		extractedInputs[i] = (input1 >> (i)) % 2;
-	}
-	for (i = inputsNb/2; i < inputsNb; i++) {
-		extractedInputs[i] = (input2 >> ((i-inputsNb/2))) % 2;
+	for (i = 0; i < inputsNb; i++) {
+		extractedInputs[i] = (input2 >> (i)) % 2;
 	}
 	block computedOutputMap[outputsNb];
 	int outputVals[outputsNb];
@@ -74,12 +91,9 @@ int main() {
 
 
     int res = 0;
-	for (i = 0; i < outputsNb; i++) {
+	for (i = 0; i < 8; i++) {
 		res+= outputVals[i]*pow(2,(i));
 	}
 	printf("RESULT IS : %d\n",res);
 	return 0;
 }
-
-
-
