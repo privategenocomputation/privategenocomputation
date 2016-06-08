@@ -17,9 +17,9 @@ CC=gcc
 CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I$(IDIR)
 
 
-GWAS = EncryptTest
-GWAS2 = MultyPartyEncryptTest
-GWAS3 = vcfreader
+GWAS = MultyPartyGWASTest_OneParticipant
+GWAS2 = MultyPartyGWASTest
+GWAS3 = AddTest
 rm = rm --f
 
 all: GWAS GWAS2 GWAS3
