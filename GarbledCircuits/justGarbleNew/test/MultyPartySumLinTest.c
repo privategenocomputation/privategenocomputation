@@ -29,13 +29,16 @@
 
 int main() {
 
-	char* refId = "rs1048659";
+	char* refId = "rs55725292";
+	int phenotypeId = 1;
+	int ancestryId = 1;
 
 	// CI part
 
     int i,j;
     read_names();
     read_ids();
+
     int size_names = size_of_names();
     int size_ids = size_of_ids();
 
@@ -52,16 +55,36 @@ int main() {
     for (i= 0; i< size_names;i++) {
     	skeyC[i] = get_char_in_skeys((size_names*refId_id)+i);
     }
+    read_ancs();
+    char ancC[size_names];
+    for (i= 0; i< size_names;i++) {
+    	ancC[i] = get_char_in_anc((size_names*ancestryId)+i);
+    }
+    read_ancSkeys();
+    char ancskeyC[size_names];
+    for (i= 0; i< size_names;i++) {
+    	ancskeyC[i] = get_char_in_ancSkeys((size_names*ancestryId)+i);
+    }
+    read_phens();
+    char phenC[size_names];
+    for (i= 0; i< size_names;i++) {
+    	phenC[i] = get_char_in_phens((size_names*phenotypeId)+i);
+    }
+    read_skeys();
+    char phenskeyC[size_names];
+    for (i= 0; i< size_names;i++) {
+    	phenskeyC[i] = get_char_in_phensSkeys((size_names*phenotypeId)+i);
+    }
 
     // SPU -> GC building part
 
 	GarbledCircuit garbledCircuit;
 	GarblingContext garblingContext;
 
-	int inputsNb = 32*size_names;
-	int wiresNb = 120000;
-	int gatesNb = 120000;
-	int outputsNb = 32;
+	int inputsNb = 32*size_names*3;
+	int wiresNb = 100000000;
+	int gatesNb = 100000000;
+	int outputsNb = 32*4;
 
 	//Create a circuit.
 	block labels[2 * inputsNb];
@@ -84,10 +107,12 @@ int main() {
 	int outputs[outputsNb];
 	int *inp = (int *) malloc(sizeof(int) * inputsNb*2);
 	countToN(inp, inputsNb);
-	//countToN(outputs, inputsNb);
+	countToN(outputs, outputsNb);
 
 	int bits[inputsNb];
 	chars_to_ints(encC,size_names,bits);
+	chars_to_ints(ancC,size_names,bits+32*size_names);
+	chars_to_ints(phenC,size_names,bits+64*size_names);
 
 	for (i = 0; i < inputsNb; i++) {
 		if (bits[i]) {
@@ -99,30 +124,7 @@ int main() {
 	int tempOutPut[inputsNb];
 	XORCircuit(&garbledCircuit, &garblingContext, inputsNb*2, inp, tempOutPut);
 
-	/*int tempChar[outputsNb];
-	char a = '0';
-	char_to_ints(a,tempChar);
-	for (i = 0; i < outputsNb; i++) {
-		if (tempChar[i]) {
-			tempChar[i] = onewire;
-		} else {
-			tempChar[i] = zerowire;
-		}
-	}
-	int tempOutPutShifted[inputsNb];
-	for(i=0; i<size_names;i++) {
-		int tempSub[32*2];
-		for(j=0; j<32;j++) {
-			tempSub[j] = tempOutPut[(i*32) + j];
-		}
-		for(j=32;j<2*32;j++){
-			tempSub[j] = tempChar[j-32];
-		}
-		SUBCircuit(&garbledCircuit, &garblingContext,2*32,tempSub,tempOutPutShifted+(i*32));
-	}*/
-
-	sum(&garbledCircuit, &garblingContext, tempOutPut, size_names, 32, outputs);
-
+	sumLin(&garbledCircuit, &garblingContext, tempOutPut, tempOutPut + (size_names * 32), tempOutPut + (2 * size_names * 32), size_names, 32, zerowire, outputs);
 
 	block *outputbs = (block*) malloc(sizeof(block) * outputsNb);
 	OutputMap outputMap = outputbs;
@@ -134,6 +136,8 @@ int main() {
 
 	int extractedInputs[inputsNb];
 	chars_to_ints(skeyC,size_names,extractedInputs);
+	chars_to_ints(ancskeyC,size_names,extractedInputs+32*size_names);
+	chars_to_ints(phenskeyC,size_names,extractedInputs+64*size_names);
 
 	extractLabels(extractedLabels, inputLabels, extractedInputs, inputsNb);
 	block computedOutputMap[outputsNb];

@@ -108,7 +108,6 @@ int sumLin(GarbledCircuit* garbledCircuit,
 	for (i = 0; i < inputNumber; i++) {
 		int tempMul1[inputsize*3];
 		int tempRes1[inputsize*3];
-
 		for (j=0;j<inputsize;j++) {
 			tempMul1[j] = a[(i*inputsize) + j];
 		}
@@ -119,7 +118,6 @@ int sumLin(GarbledCircuit* garbledCircuit,
 
 		int tempMul2[inputsize*4];
 		int tempRes2[inputsize*4];
-
 		for(j=0; j<inputsize*2; j++){
 			tempMul2[j] = tempRes1[j];
 		}
@@ -129,10 +127,13 @@ int sumLin(GarbledCircuit* garbledCircuit,
 		for(j=inputsize*3;j<inputsize*4;j++){
 			tempMul2[j] = zerowire;
 		}
-		mul(inputsize*4,garbledCircuit,garblingContext,tempMul2,tempRes2);
+
+		mul(inputsize*2,garbledCircuit,garblingContext,tempMul2,tempRes2);
+
 		for(j=0;j<inputsize*4;j++) {
 			tempMulRes[(i*inputsize*4) + j] = tempRes2[j];
 		}
+
 	}
 	sum(garbledCircuit,garblingContext,tempMulRes,inputNumber,inputsize*4,outputs);
 	return 0;

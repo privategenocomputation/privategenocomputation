@@ -23,6 +23,11 @@ enc_node_t * enc;
 enc_node_t * skeys;
 enc_node_t * xorRes;
 
+enc_node_t * phens;
+enc_node_t * phensSkeys;
+enc_node_t * anc;
+enc_node_t * ancSkeys;
+
 node_t* init_new_node(node_t* list, char* val) {
 	node_t* newnode = malloc(sizeof(node_t));
 	newnode->next = list;
@@ -60,6 +65,19 @@ void insert_enc(char val) {
 
 void insert_skeys(char val) {
 	skeys = init_new_enc_node(skeys, val);
+}
+
+void insert_phens(char val) {
+	phens = init_new_enc_node(phens, val);
+}
+void insert_phensSkeys(char val) {
+	phensSkeys = init_new_enc_node(phensSkeys, val);
+}
+void insert_anc(char val) {
+	anc = init_new_enc_node(anc, val);
+}
+void insert_ancSkeys(char val) {
+	ancSkeys = init_new_enc_node(ancSkeys, val);
 }
 
 void print_enc_node(enc_node_t* list) {
@@ -224,10 +242,18 @@ void read_enc_data(char* file, int which) {
 		if (fread(&buff, 1, 1, fp) == -1) {
 			break;
 		}
-		if (which) {
+		if (which == 1) {
 			insert_enc(buff);
-		} else {
+		} else if (which == 0) {
 			insert_skeys(buff);
+		} else if (which == 2) {
+			insert_phens(buff);
+		} else if (which == 3) {
+			insert_phensSkeys(buff);
+		} else if (which == 4) {
+			insert_anc(buff);
+		} else if (which == 5){
+			insert_ancSkeys(buff);
 		}
 	}
 
@@ -241,6 +267,23 @@ void read_encs() {
 void read_skeys() {
 	read_enc_data("../skeys_table", 0);
 	skeys = inverse_enc_node(skeys, NULL);
+}
+
+void read_phens() {
+	read_enc_data("../phenotype_table", 2);
+	phens = inverse_enc_node(phens, NULL);
+}
+void read_phensSkeys() {
+	read_enc_data("../skeys_phenotype_table", 3);
+	phensSkeys = inverse_enc_node(phensSkeys, NULL);
+}
+void read_ancs() {
+	read_enc_data("../ancestry_table", 4);
+	anc = inverse_enc_node(anc, NULL);
+}
+void read_ancSkeys() {
+	read_enc_data("../skeys_ancestry_table", 5);
+	ancSkeys = inverse_enc_node(ancSkeys, NULL);
 }
 
 int size_of_enc_node(enc_node_t* list) {
@@ -259,6 +302,19 @@ int size_of_enc() {
 
 int size_of_skeys() {
 	return size_of_enc_node(skeys);
+}
+
+int size_of_phens() {
+	return size_of_enc_node(phens);
+}
+int size_of_phensSkeys() {
+	return size_of_enc_node(phensSkeys);
+}
+int size_of_anc() {
+	return size_of_enc_node(anc);
+}
+int size_of_ancSkeys() {
+	return size_of_enc_node(ancSkeys);
 }
 
 int size_of_node(node_t* list) {
@@ -355,4 +411,20 @@ char get_char_in_enc(int n) {
 
 char get_char_in_skeys(int n) {
 	return get_char_in_enc_node(n, skeys);
+}
+
+char get_char_in_phens(int n) {
+	return get_char_in_enc_node(n, phens);
+}
+
+char get_char_in_phensSkeys(int n) {
+	return get_char_in_enc_node(n, phensSkeys);
+}
+
+char get_char_in_anc(int n) {
+	return get_char_in_enc_node(n, anc);
+}
+
+char get_char_in_ancSkeys(int n) {
+	return get_char_in_enc_node(n, ancSkeys);
 }

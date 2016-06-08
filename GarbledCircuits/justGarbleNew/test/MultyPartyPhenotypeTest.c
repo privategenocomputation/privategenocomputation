@@ -29,28 +29,28 @@
 
 int main() {
 
-	char* refId = "rs1048659";
+	int phenotypeId = 1;
+	int phenotypeSize = 10;
 
 	// CI part
 
     int i,j;
     read_names();
-    read_ids();
     int size_names = size_of_names();
-    int size_ids = size_of_ids();
-
-    int refId_id = find_ids_id(refId);
 
 
-    read_encs();
-    char encC[size_names];
+    printf("Name's index is %d\n",phenotypeId);
+
+
+    read_phens();
+    char phenC[size_names];
     for (i= 0; i< size_names;i++) {
-    	encC[i] = get_char_in_enc((size_names*refId_id)+i);
+    	phenC[i] = get_char_in_phens((size_names*phenotypeId)+i);
     }
-    read_skeys();
+    read_phensSkeys();
     char skeyC[size_names];
     for (i= 0; i< size_names;i++) {
-    	skeyC[i] = get_char_in_skeys((size_names*refId_id)+i);
+    	skeyC[i] = get_char_in_phensSkeys((size_names*phenotypeId)+i);
     }
 
     // SPU -> GC building part
@@ -87,7 +87,7 @@ int main() {
 	//countToN(outputs, inputsNb);
 
 	int bits[inputsNb];
-	chars_to_ints(encC,size_names,bits);
+	chars_to_ints(phenC,size_names,bits);
 
 	for (i = 0; i < inputsNb; i++) {
 		if (bits[i]) {
@@ -99,27 +99,6 @@ int main() {
 	int tempOutPut[inputsNb];
 	XORCircuit(&garbledCircuit, &garblingContext, inputsNb*2, inp, tempOutPut);
 
-	/*int tempChar[outputsNb];
-	char a = '0';
-	char_to_ints(a,tempChar);
-	for (i = 0; i < outputsNb; i++) {
-		if (tempChar[i]) {
-			tempChar[i] = onewire;
-		} else {
-			tempChar[i] = zerowire;
-		}
-	}
-	int tempOutPutShifted[inputsNb];
-	for(i=0; i<size_names;i++) {
-		int tempSub[32*2];
-		for(j=0; j<32;j++) {
-			tempSub[j] = tempOutPut[(i*32) + j];
-		}
-		for(j=32;j<2*32;j++){
-			tempSub[j] = tempChar[j-32];
-		}
-		SUBCircuit(&garbledCircuit, &garblingContext,2*32,tempSub,tempOutPutShifted+(i*32));
-	}*/
 
 	sum(&garbledCircuit, &garblingContext, tempOutPut, size_names, 32, outputs);
 

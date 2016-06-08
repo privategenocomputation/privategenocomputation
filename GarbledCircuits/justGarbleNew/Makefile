@@ -17,12 +17,13 @@ CC=gcc
 CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I$(IDIR)
 
 
-GWAS = MultyPartyGWASTest_OneParticipant
+GWAS = MultyPartyPhenotypeTest
 GWAS2 = MultyPartyGWASTest
-GWAS3 = AddTest
+GWAS3 = MultyPartyAncestryTest
+GWAS4 = MultyPartySumLinTest
 rm = rm --f
 
-all: GWAS GWAS2 GWAS3
+all: GWAS GWAS2 GWAS3 GWAS4
 
 GWAS: $(OBJECTS) $(TESTDIR)/$(GWAS).c
 	$(CC) $(OBJECTFULL) $(TESTDIR)/$(GWAS).c -o $(BINDIR)/$(GWAS).out $(LIBS) $(CFLAGS) 
@@ -32,6 +33,9 @@ GWAS2: $(OBJECTS) $(TESTDIR)/$(GWAS2).c
 
 GWAS3: $(OBJECTS) $(TESTDIR)/$(GWAS3).c
 	$(CC) $(OBJECTFULL) $(TESTDIR)/$(GWAS3).c -o $(BINDIR)/$(GWAS3).out $(LIBS) $(CFLAGS) 
+	
+GWAS4: $(OBJECTS) $(TESTDIR)/$(GWAS4).c
+	$(CC) $(OBJECTFULL) $(TESTDIR)/$(GWAS4).c -o $(BINDIR)/$(GWAS4).out $(LIBS) $(CFLAGS) 
 	
 
 

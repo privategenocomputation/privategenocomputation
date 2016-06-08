@@ -92,19 +92,7 @@ int main() {
 		}
 	}
 	int tempOutput[2*outputsNb];
-	XORCircuit(&garbledCircuit, &garblingContext, inputsNb*2, inp, tempOutput);
-
-	int tempChar[outputsNb];
-	char a = '0';
-	char_to_ints(a,tempChar);
-	for (i = 0; i < outputsNb; i++) {
-		if (tempChar[i]) {
-			tempOutput[outputsNb+i] = onewire;
-		} else {
-			tempOutput[outputsNb+i] = zerowire;
-		}
-	}
-	SUBCircuit(&garbledCircuit, &garblingContext,2*outputsNb,tempOutput,outputs);
+	XORCircuit(&garbledCircuit, &garblingContext, inputsNb*2, inp, outputs);
 
 	block *outputbs = (block*) malloc(sizeof(block) * outputsNb);
 	OutputMap outputMap = outputbs;

@@ -31,8 +31,8 @@ int main() {
 	GarbledCircuit garbledCircuit;
 	GarblingContext garblingContext;
 	int inputsNb = 3 * 3 * 32;
-	int wiresNb = 240000;
-	int gatesNb = 240000;
+	int wiresNb = 480000;
+	int gatesNb = 480000;
 	int outputsNb = 32*4;
 
 	//Create a circuit.
