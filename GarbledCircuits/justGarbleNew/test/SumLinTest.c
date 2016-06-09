@@ -30,7 +30,7 @@
 int main() {
 	GarbledCircuit garbledCircuit;
 	GarblingContext garblingContext;
-	int inputsNb = 3 * 4 * 32;
+	int inputsNb = 10 * 32;
 	int wiresNb = 1000000;
 	int gatesNb = 1000000;
 	int outputsNb = 32*4;
@@ -54,7 +54,8 @@ int main() {
 	int internalWire2 = getNextWire(&garblingContext);
 	NOTGate(&garbledCircuit, &garblingContext, internalWire, internalWire2);
 
-	sumLin(&garbledCircuit, &garblingContext, inp, inp + (3 * 32), inp + (2 * 3 * 32), 3, 32, internalWire2, outputs);
+	//sum(&garbledCircuit, &garblingContext,inp,10,32,outputs);
+	sumLin(&garbledCircuit, &garblingContext, inp, inp, inp,10, 32, internalWire2, outputs);
 
 	block *outputbs = (block*) malloc(sizeof(block) * outputsNb);
 	OutputMap outputMap = outputbs;
@@ -64,22 +65,19 @@ int main() {
 	block extractedLabels[inputsNb];
 
 	int extractedInputs[inputsNb];
-	int a1 = 1;
-	int a2 = 3;
-	int a3 = 4;
+	char a[10];
+	a[0] = 1;
+	a[1] = 1;
+	a[2] = 1;
+	a[3] = 0;
+	a[4] = 1;
+	a[5] = 0;
+	a[6] = 1;
+	a[7] = 1;
+	a[8] = 0;
+	a[9] = '\0';
 
-	int b1 = 2;
-	int b2 = 1;
-	int b3 = 4;
-
-	int c1 = 4;
-	int c2 = 3;
-	int c3 = 2;
-
-	inputs_into_pointer3(a1, a2, a3, extractedInputs);
-	inputs_into_pointer3(b1, b2, b3, extractedInputs + (3 * 32));
-	inputs_into_pointer3(c1, c2, c3, extractedInputs + (2 * 3 * 32));
-
+	chars_to_ints(a, 10, extractedInputs);
 	extractLabels(extractedLabels, inputLabels, extractedInputs, inputsNb);
 	block computedOutputMap[outputsNb];
 	evaluate(&garbledCircuit, extractedLabels, computedOutputMap);
