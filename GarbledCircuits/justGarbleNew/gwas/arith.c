@@ -100,6 +100,31 @@ int sum(GarbledCircuit* garbledCircuit,
 	}
 	return 0;
 }
+int sumLinGWAS(GarbledCircuit* garbledCircuit,
+		GarblingContext* garblingContext, int* a, int* b, int* c, int inputNumber, int inputsizeA,int zerowire,int outputSize,int* outputs) {
+	int i,j;
+	int zeros[2];
+	zeros[0] = zerowire;
+	zeros[1] = zerowire;
+	int tempSum[outputSize*inputNumber];
+	for (i = 0; i < inputNumber; i++) {
+		int mulRes1[inputsizeA];
+		mux(zeros, a + (i*inputsizeA), b[i], garbledCircuit, garblingContext, inputsizeA,mulRes1);
+
+		int mulRes2[inputsizeA];
+		mux(zeros, mulRes1,c[i],garbledCircuit,garblingContext,inputsizeA,mulRes2);
+		for(j=0; j<inputsizeA;j++){
+			tempSum[(i*outputSize)+j]=mulRes2[j];
+		}
+		for(j=inputsizeA;j<outputSize;j++) {
+			tempSum[(i*outputSize)+j]=zerowire;
+		}
+	}
+
+	sum(garbledCircuit,garblingContext,tempSum,inputNumber,outputSize,outputs);
+	return 0;
+
+}
 int sumLin2(GarbledCircuit* garbledCircuit,
 		GarblingContext* garblingContext, int* a, int* b, int inputNumber, int inputsize, int* outputs) {
 	int i,j;
@@ -223,10 +248,39 @@ int char_to_ints(char c, int* out) {
 	return 0;
 }
 
+int char_to_ints1bits(char c, int* out) {
+	out[0] = c % 2;
+	return 0;
+}
+
+int char_to_ints2bits(char c, int* out) {
+	int i;
+	for (i = 0; i < 2; i++) {
+		out[i] = (c >> i) % 2;
+	}
+	return 0;
+}
+
 int chars_to_ints(char* c, int chars_length, int* out) {
 	int i;
 	for (i = 0; i < chars_length; i++){
 		char_to_ints(c[i], out + (32*i));
+	}
+	return 0;
+}
+
+int chars_to_ints1bits(char* c, int chars_length, int* out) {
+	int i;
+	for (i = 0; i < chars_length; i++){
+		char_to_ints1bits(c[i], out + i);
+	}
+	return 0;
+}
+
+int chars_to_ints2bits(char* c, int chars_length, int* out) {
+	int i;
+	for (i = 0; i < chars_length; i++){
+		char_to_ints2bits(c[i], out + (2*i));
 	}
 	return 0;
 }
