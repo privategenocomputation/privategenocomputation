@@ -428,3 +428,74 @@ char get_char_in_anc(int n) {
 char get_char_in_ancSkeys(int n) {
 	return get_char_in_enc_node(n, ancSkeys);
 }
+
+void free_enc_node_t(enc_node_t* list) {
+	enc_node_t* temp = list;
+	enc_node_t* temp2;
+	while(temp!=NULL) {
+		temp2 = temp;
+		temp = temp->next;
+		free(temp2);
+	}
+}
+
+void free_node_t(node_t* list) {
+	node_t* temp = list;
+	node_t* temp2;
+	while(temp!=NULL) {
+		temp2 = temp;
+		temp = temp->next;
+		free(temp2);
+	}
+}
+
+void free_node_s_t(node_s_t* list){
+	node_s_t* temp = list;
+	node_s_t* temp2;
+	while(temp!=NULL) {
+		temp2 = temp;
+		free_enc_node_t(temp->val);
+		temp = temp->next;
+		free(temp2);
+	}
+}
+
+void free_names() {
+	free_node_t(names);
+	names = NULL;
+}
+
+void free_ids() {
+	free_node_s_t(ids);
+	ids = NULL;
+}
+
+void free_enc() {
+	free_enc_node_t(enc);
+	enc = NULL;
+}
+void free_skeys() {
+	free_enc_node_t(skeys);
+	skeys = NULL;
+}
+
+void free_phen() {
+	free_enc_node_t(phens);
+	phens = NULL;
+}
+
+void free_phensSkeys() {
+	free_enc_node_t(phensSkeys);
+	phensSkeys = NULL;
+}
+
+void free_anc() {
+	free_enc_node_t(anc);
+	anc = NULL;
+}
+
+void free_ancSkeys() {
+	free_enc_node_t(ancSkeys);
+	ancSkeys = NULL;
+}
+

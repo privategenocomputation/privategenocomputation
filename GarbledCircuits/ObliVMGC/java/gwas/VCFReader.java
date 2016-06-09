@@ -12,25 +12,40 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
 
 public class VCFReader {
-	private static Map<Integer, List<String>> GTs = new HashMap<Integer, List<String>>();
+	private static Map<Integer, List<Integer>> GTs = new HashMap<Integer, List<Integer>>();
 	private static Map<Integer, List<String>> DSs = new HashMap<Integer, List<String>>();
 	private static Map<Integer, List<String>> GL1s = new HashMap<Integer, List<String>>();
 	private static Map<Integer, List<String>> GL2s = new HashMap<Integer, List<String>>();
 	private static Map<Integer, List<String>> GL3s = new HashMap<Integer, List<String>>();
 	private static String[] names;
 	private static Key[] keys;
+	private static Key[] phenKeys;
+	private static Key[] ancKeys;
 	private static byte[][] IVs;
+	private static byte[][] phenIVs;
+	private static byte[][] ancIVs;
 	private static byte[][] skeys;
+	private static byte[][] phenSkeys;
+	private static byte[][] ancSkeys;
 	private static byte[][] ciphers;
+	private static byte[][] phenCiphers;
+	private static byte[][] ancCiphers;
 	private static List<String> chrms = new ArrayList<String>();
 	private static List<String> poss = new ArrayList<String>();
 	private static List<String> ids = new ArrayList<String>();
 	private static List<String> refs = new ArrayList<String>();
 	private static List<String> alts = new ArrayList<String>();
+
+	private static int phenotypeSize = 10;
+	private static int[][] phenotypes;
+
+	private static int ancestryGroupsSize = 10;
+	private static int[][] ancestries;
 
 	public static void main(String[] args) {
 		try (BufferedReader br = new BufferedReader(new FileReader(
@@ -46,7 +61,7 @@ public class VCFReader {
 					names = new String[lines.length - 6];
 					for (int j = 6; j < lines.length; j++) {
 						names[j - 6] = lines[j];
-						GTs.put(j - 6, new ArrayList<String>());
+						GTs.put(j - 6, new ArrayList<Integer>());
 						DSs.put(j - 6, new ArrayList<String>());
 						GL1s.put(j - 6, new ArrayList<String>());
 						GL2s.put(j - 6, new ArrayList<String>());
@@ -65,11 +80,11 @@ public class VCFReader {
 							String[] participantVals = vals[j].split(":");
 
 							if (participantVals[0].equals("0|0")) {
-								GTs.get(j - 6).add("0");
+								GTs.get(j - 6).add(0);
 							} else if (participantVals[0].equals("1|1")) {
-								GTs.get(j - 6).add("2");
+								GTs.get(j - 6).add(2);
 							} else {
-								GTs.get(j - 6).add("1");
+								GTs.get(j - 6).add(1);
 							}
 							DSs.get(j - 6).add(participantVals[1]);
 							String[] participantValsNumber = participantVals[2]
@@ -109,11 +124,14 @@ public class VCFReader {
 
 			}
 			writer.close();
-			FileOutputStream output = new FileOutputStream(new File("genotype_table"));
+			FileOutputStream output = new FileOutputStream(new File(
+					"genotype_table"));
 			for (i = 0; i < chrms.size(); i++) {
 				for (int j = 0; j < names.length; j++) {
-					byte[] data = Crypto.SEnc(keys[(i * names.length) + j], GTs
-							.get(j).get(i).getBytes(), IVs[(i * names.length)
+					byte[] tempData = new byte[1];
+					tempData[0] = GTs
+							.get(j).get(i).byteValue();
+					byte[] data = Crypto.SEnc(keys[(i * names.length) + j], tempData, IVs[(i * names.length)
 							+ j]);
 					IOUtils.write(data, output);
 					ciphers[(i * names.length) + j] = data;
@@ -155,6 +173,129 @@ public class VCFReader {
 						+ ";");
 			}
 			writer.close();
+			phenotypes = new int[phenotypeSize][names.length];
+			Random rand = new Random();
+			for (i = 0; i < phenotypeSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					phenotypes[i][j] = rand.nextInt(2);
+					if (phenotypes[i][j] == 2) {
+						System.out.println("PROBLEM\n");
+					}
+				}
+			}
+			phenIVs = new byte[names.length * phenotypeSize][];
+			phenKeys = new Key[names.length * phenotypeSize];
+			phenSkeys = new byte[names.length * phenotypeSize][];
+			phenCiphers = new byte[names.length * phenotypeSize][];
+			for (i = 0; i < names.length * phenotypeSize; i++) {
+				phenKeys[i] = Crypto.generateKey();
+				phenIVs[i] = Crypto.getIV();
+				phenSkeys[i] = Crypto.SEnc(phenKeys[i], dump, phenIVs[i]);
+			}
+			output = new FileOutputStream(new File(
+					"phenotype_table"));
+			for (i = 0; i < phenotypeSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					byte[] tempData = new byte[1];
+					tempData[0] = new Integer(phenotypes[i][j]).byteValue();
+					byte[] data = Crypto.SEnc(phenKeys[(i * names.length) + j], tempData, phenIVs[(i * names.length)
+							+ j]);
+					IOUtils.write(data, output);
+					phenCiphers[(i * names.length) + j] = data;
+				}
+
+			}
+			output.close();
+			output = new FileOutputStream(new File(
+					"skeys_phenotype_table"));
+			for (i = 0; i < phenotypeSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					IOUtils.write(phenSkeys[(i * names.length) + j], output);
+				}
+
+			}
+			output.close();
+			byte[][] phenXored = new byte[names.length * phenotypeSize][phenSkeys[0].length];
+			for (i = 0; i < names.length * phenotypeSize; i++) {
+				for (int j = 0; j < phenSkeys[0].length; j++) {
+					phenXored[i][j] = (byte) (phenSkeys[i][j] ^ phenCiphers[i][j]);
+				}
+			}
+			writer = new PrintWriter("test_phenotype_table.txt", "UTF-8");
+			for (i = 0; i < phenotypeSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					byte[] data = phenXored[(i * names.length) + j];
+					writer.println(names[j] + ";" + new String(data));
+				}
+
+			}
+			writer.close();
+			ancestries = new int[ancestryGroupsSize][names.length];
+			for (i = 0; i < ancestryGroupsSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					ancestries[i][j] = rand.nextInt(2);
+					if (ancestries[i][j] == 2) {
+						System.out.println("PROBLEM\n");
+					}
+				}
+			}
+			ancIVs = new byte[names.length * ancestryGroupsSize][];
+			ancKeys = new Key[names.length * ancestryGroupsSize];
+			ancSkeys = new byte[names.length * ancestryGroupsSize][];
+			ancCiphers = new byte[names.length * ancestryGroupsSize][];
+			for (i = 0; i < names.length * ancestryGroupsSize; i++) {
+				ancKeys[i] = Crypto.generateKey();
+				ancIVs[i] = Crypto.getIV();
+				ancSkeys[i] = Crypto.SEnc(ancKeys[i], dump, ancIVs[i]);
+			}
+			output = new FileOutputStream(new File(
+					"ancestry_table"));
+			for (i = 0; i < ancestryGroupsSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					byte[] tempData = new byte[1];
+					tempData[0] = new Integer(ancestries[i][j]).byteValue();
+					byte[] data = Crypto.SEnc(ancKeys[(i * names.length) + j], tempData, ancIVs[(i * names.length)
+							+ j]);
+					IOUtils.write(data, output);
+					ancCiphers[(i * names.length) + j] = data;
+				}
+
+			}
+			output.close();
+			output = new FileOutputStream(new File(
+					"skeys_ancestry_table"));
+			for (i = 0; i < ancestryGroupsSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					IOUtils.write(ancSkeys[(i * names.length) + j], output);
+				}
+
+			}
+			output.close();
+			byte[][] ancXored = new byte[names.length * ancestryGroupsSize][ancSkeys[0].length];
+			for (i = 0; i < names.length * ancestryGroupsSize; i++) {
+				for (int j = 0; j < ancSkeys[0].length; j++) {
+					ancXored[i][j] = (byte) (ancSkeys[i][j] ^ ancCiphers[i][j]);
+				}
+			}
+			writer = new PrintWriter("test_ancestry_table.txt", "UTF-8");
+			for (i = 0; i < ancestryGroupsSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					byte[] data = ancXored[(i * names.length) + j];
+					writer.println(names[j] + ";" + new String(data));
+				}
+
+			}
+			writer.close();
+			
+			/*ancestries = new int[names.length][ancestryGroupsSize];
+			for (i = 0; i < names.length; i++) {
+				for (int j = 0; j < ancestryGroupsSize; j++) {
+					ancestries[i][j] = rand.nextInt(2);
+					if (ancestries[i][j] == 2) {
+						System.out.println("PROBLEM\n");
+					}
+				}
+			}*/
 		} catch (FileNotFoundException e) {
 			System.err.println("ERROR : File data200.vcf not found !");
 		} catch (IOException e) {
