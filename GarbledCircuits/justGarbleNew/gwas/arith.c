@@ -106,34 +106,31 @@ int sumLin(GarbledCircuit* garbledCircuit,
 	int i,j;
 	int tempMulRes[inputsize*4*inputNumber];
 	for (i = 0; i < inputNumber; i++) {
-		int tempMul1[inputsize*3];
-		int tempRes1[inputsize*3];
-		for (j=0;j<inputsize;j++) {
-			tempMul1[j] = a[(i*inputsize) + j];
+		int tempMul1[inputsize*2];
+		int tempRes1[inputsize*2];
+		for (j=0;j<inputsize;j++){
+			tempMul1[j] = a[(i*inputsize) +j];
 		}
-		for (j=inputsize;j<inputsize*2;j++) {
+		for (j=inputsize;j<inputsize*2;j++){
 			tempMul1[j] = b[(i*inputsize) + j - inputsize];
 		}
 		mul(inputsize*2,garbledCircuit,garblingContext,tempMul1,tempRes1);
 
 		int tempMul2[inputsize*4];
 		int tempRes2[inputsize*4];
-		for(j=0; j<inputsize*2; j++){
+		for(j=0;j<inputsize*2;j++){
 			tempMul2[j] = tempRes1[j];
 		}
 		for(j=inputsize*2;j<inputsize*3;j++){
-			tempMul2[j] = c[(i*inputsize) + j - inputsize*2];
+			tempMul2[j] = c[(i*inputsize)+j-(inputsize*2)];
 		}
 		for(j=inputsize*3;j<inputsize*4;j++){
 			tempMul2[j] = zerowire;
 		}
-
-		mul(inputsize*2,garbledCircuit,garblingContext,tempMul2,tempRes2);
-
+		mul(inputsize*4,garbledCircuit,garblingContext,tempMul2,tempRes2);
 		for(j=0;j<inputsize*4;j++) {
 			tempMulRes[(i*inputsize*4) + j] = tempRes2[j];
 		}
-
 	}
 	sum(garbledCircuit,garblingContext,tempMulRes,inputNumber,inputsize*4,outputs);
 	return 0;

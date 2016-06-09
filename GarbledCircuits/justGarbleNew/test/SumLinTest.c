@@ -30,9 +30,9 @@
 int main() {
 	GarbledCircuit garbledCircuit;
 	GarblingContext garblingContext;
-	int inputsNb = 3 * 3 * 32;
-	int wiresNb = 480000;
-	int gatesNb = 480000;
+	int inputsNb = 3 * 4 * 32;
+	int wiresNb = 1000000;
+	int gatesNb = 1000000;
 	int outputsNb = 32*4;
 
 	//Create a circuit.
@@ -72,7 +72,7 @@ int main() {
 	int b2 = 1;
 	int b3 = 4;
 
-	int c1 = 3;
+	int c1 = 4;
 	int c2 = 3;
 	int c3 = 2;
 

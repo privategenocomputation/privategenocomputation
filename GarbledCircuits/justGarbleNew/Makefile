@@ -17,9 +17,9 @@ CC=gcc
 CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I$(IDIR)
 
 
-GWAS = MultyPartyPhenotypeTest
-GWAS2 = MultyPartyGWASTest
-GWAS3 = MultyPartyAncestryTest
+GWAS = MultyPartyGWASTest
+GWAS2 = RealSumLinTest
+GWAS3 = SumLinTest
 GWAS4 = MultyPartySumLinTest
 rm = rm --f
 
