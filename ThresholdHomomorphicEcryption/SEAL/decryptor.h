@@ -67,6 +67,12 @@ namespace seal
             return secret_key_;
         }
 
+        void lastStep(const BigPoly &encrypted, BigPoly &destination);
+        BigPoly lastStep(const BigPoly encrypted){
+            BigPoly result;
+            lastStep(encrypted, result);
+            return result;
+}
         void multSkKey(const BigPoly &encrypted, BigPoly &destination);
         BigPoly multSkKey(const BigPoly encrypted){
             BigPoly result;

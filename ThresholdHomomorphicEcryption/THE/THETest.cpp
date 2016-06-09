@@ -46,6 +46,7 @@ int main(){
 	myCI.gen(parms);
 
 //cout << myCI.getSecretKey_MU().to_string() << endl;
+cout << "dec" << endl;
 Decryptor dec(parms, myCI.getSecretKey_MU());
 	// Creating The_U for SPU and MU
 	pState("Creating myMU");

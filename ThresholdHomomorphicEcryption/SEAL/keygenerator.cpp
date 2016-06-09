@@ -11,6 +11,8 @@
 #include "util/clipnormal.h"
 #include "util/polyextras.h"
 
+#include <chrono>
+
 using namespace std;
 using namespace seal::util;
 
@@ -54,9 +56,11 @@ namespace seal
         {
             // Create noise with random [-1, 1] coefficients.
             set_poly_coeffs_zero_one_negone(secret_key);
-
+//BigPoly sk(coeff_count, coeff_bit_count, secret_key.pointer());
+//std::cout << "secret freaking key:" << sk << std::endl;
             // Calculate secret_key * plaintext_modulus + 1.
             multiply_poly_scalar_coeffmod(secret_key, coeff_count, plain_modulus_.pointer(), mod_, secret_key, pool_);
+//std::cout << "secret key * mod + 1 :" << *secret_key << std::endl;
 
             uint64_t *constant_coeff = get_poly_coeff(secret_key, 0, coeff_uint64_count);
             increment_uint_mod(constant_coeff, coeff_modulus_.pointer(), coeff_uint64_count, constant_coeff);
@@ -195,9 +199,18 @@ namespace seal
         int coeff_uint64_count = divide_round_up(coeff_bit_count, bits_per_uint64);
         RandomToStandardAdapter engine(random_generator_.get());
         uniform_int_distribution<int> random(-1, 1);
+unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+std::default_random_engine generator (seed);
+//uint64_t *start = poly;
+//std::cout << "coeff_bit_count: " << coeff_bit_count << std::endl;
+//std::cout << "coeff_count: " << coeff_count << std::endl;
+//std::cout << "coeff_mod: " << coeff_modulus_.to_string() << std::endl;
+//std::cout << "rand_index[" << seed << "]: ";
         for (int i = 0; i < coeff_count - 1; ++i)
         {
-            int rand_index = random(engine);
+            //int rand_index = random(engine);
+            int rand_index = random(generator);
+//std::cout << "" << rand_index << " ";
             if (rand_index == 1)
             {
                 set_uint(1, coeff_uint64_count, poly);
@@ -212,7 +225,14 @@ namespace seal
             }
             poly += coeff_uint64_count;
         }
+//std::cout << endl;
         set_zero_uint(coeff_uint64_count, poly);
+//std::cout << "polynom: ";
+//for (int i=0; i < coeff_count ; ++i)
+//{
+//std::cout << *(start+i) << " ";
+//}
+//std::cout << endl;
     }
 
     void KeyGenerator::set_poly_coeffs_normal(uint64_t *poly) const
@@ -253,7 +273,7 @@ namespace seal
         poly_modulus_(parms.poly_modulus()), coeff_modulus_(parms.coeff_modulus()), plain_modulus_(parms.plain_modulus()),
         noise_standard_deviation_(parms.noise_standard_deviation()), noise_max_deviation_(parms.noise_max_deviation()),
         decomposition_bit_count_(parms.decomposition_bit_count()), mode_(parms.mode()),
-        random_generator_(parms.random_generator() != nullptr ? parms.random_generator()->create() : UniformRandomGeneratorFactory::default_factory()->create())
+        random_generator_(parms.random_generator() != nullptr ? parms.random_generator()->create() : UniformRandomGeneratorFactory::default_factory()->create(101))
     {
         // Verify required parameters are non-zero and non-nullptr.
         if (poly_modulus_.is_zero())

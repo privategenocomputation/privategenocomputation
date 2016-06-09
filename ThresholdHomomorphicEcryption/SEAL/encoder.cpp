@@ -175,7 +175,7 @@ namespace seal
             if (coeff_bit_count > plain_modulus_bits)
             {
                 // Coefficient has more bits than plain_modulus.
-                throw invalid_argument("poly is not a valid plaintext polynomial");
+                throw invalid_argument("poly is not a valid plaintext polynomial 1");
             }
             bool coeff_is_negative = coeff_bit_count > coeff_neg_threshold_bits ||
                 (coeff_bit_count == coeff_neg_threshold_bits && is_greater_than_or_equal_uint_uint(coeff.pointer(), coeff_neg_threshold_.pointer(), sig_uint64_count));
@@ -185,7 +185,7 @@ namespace seal
                 if (sub_uint_uint(plain_modulus_.pointer(), coeff.pointer(), sig_uint64_count, pos_value.get()))
                 {
                     // Check for borrow, which means value is greater than plain_modulus.
-                    throw invalid_argument("poly is not a valid plaintext polynomial");
+                    throw invalid_argument("poly is not a valid plaintext polynomial 2");
                 }
                 pos_pointer = pos_value.get();
                 coeff_bit_count = get_significant_bit_count_uint(pos_value.get(), sig_uint64_count);
@@ -221,7 +221,6 @@ namespace seal
     {
         // Determine plain_modulus width.
         int plain_modulus_bits = plain_modulus_.significant_bit_count();
-
         int sig_uint64_count = divide_round_up(plain_modulus_bits, bits_per_uint64);
         Pointer pos_value(allocate_uint(sig_uint64_count, pool_));
 
@@ -250,10 +249,13 @@ namespace seal
 
             // Get sign/magnitude of coefficient.
             int coeff_bit_count = coeff.significant_bit_count();
+//std::cout << "pm_cbc (" << plain_modulus_bits << ") pt_cbc (" << coeff_bit_count << ")" << endl;
             if (coeff_bit_count > plain_modulus_bits)
             {
+std::cout << "\ncoeff bit count " << coeff_bit_count;
+std::cout << " > " << plain_modulus_bits << " and should be smaller!!" << std::endl;
                 // Coefficient has more bits than plain_modulus.
-                throw invalid_argument("poly is not a valid plaintext polynomial");
+                throw invalid_argument("poly is not a valid plaintext polynomial 3");
             }
             bool coeff_is_negative = coeff_bit_count > coeff_neg_threshold_bits ||
                 (coeff_bit_count == coeff_neg_threshold_bits && is_greater_than_or_equal_uint_uint(coeff.pointer(), coeff_neg_threshold_.pointer(), sig_uint64_count));
@@ -263,7 +265,7 @@ namespace seal
                 if (sub_uint_uint(plain_modulus_.pointer(), coeff.pointer(), sig_uint64_count, pos_value.get()))
                 {
                     // Check for borrow, which means value is greater than plain_modulus.
-                    throw invalid_argument("poly is not a valid plaintext polynomial");
+                    throw invalid_argument("poly is not a valid plaintext polynomial 4");
                 }
                 pos_pointer = pos_value.get();
                 coeff_bit_count = get_significant_bit_count_uint(pos_pointer, sig_uint64_count);

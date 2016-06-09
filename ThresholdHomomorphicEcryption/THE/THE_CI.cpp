@@ -23,7 +23,7 @@ namespace the{
 		this->secretKey_MU = generator_MU.secret_key();
 		//Generate SPU key
 		BigPolyArith bpa;
-		this->secretKey_SPU = bpa.sub(generator_H.public_key(), this->secretKey_MU);
+		this->secretKey_SPU = bpa.sub(generator_H.secret_key(), this->secretKey_MU, params.coeff_modulus());
 //std::cout << "is equal? " << (this->secretKey_MU == generator_MU.secret_key()) << std::endl;
 //std::cout << "this->secretKey_MU: " << this->secretKey_MU.to_string() << std::endl;
 //std::cout/* << "generator_MU.secret_key(): " */<< generator_MU.secret_key().to_string() << std::endl;
