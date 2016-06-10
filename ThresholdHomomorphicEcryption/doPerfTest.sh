@@ -13,18 +13,18 @@ make all
 
 #create file
 touch ../data/eval.csv
-echo ${header} >> ../data/eval.csv
+echo ${header} > ../data/eval.csv
 
 for poly in 4096
 do
-	for anc in 0 .. 2
+	for anc in `seq 0 2`
 	do
-		for phe in 0 .. 2
+		for phe in `seq 0 2`
 		do
-			for nb in 1 .. 191
+			for nb in `seq 1 191`
 			do
-				echo "THELC.exe $gen $phe $anc $nb $poly 0 0 0"
-				./../bin/THELC.exe $gen $phe $anc $nb $poly 0 0 0
+				echo "THELC.exe $gen $phe $anc $nb $poly 1 0 0"
+				./../bin/THELC.exe $gen $phe $anc $nb $poly 1 0 0
 			done
 		done
 	done

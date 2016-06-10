@@ -183,7 +183,6 @@ int expect(vector<char> g, vector<char> p, vector<char> a, int par = 0, int v = 
 
 // gen, phe, anc, part, poly, rec_mod, v_mod, sv_mod
 int main(int argc, char *argv[]){
-	cout << "argc: " << argc << endl;
 	if (argc == 9) {
 	stringstream convertGen(argv[1]);
 	stringstream convertPhe(argv[2]);
@@ -226,6 +225,7 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 }
+
 	Timer t;
 	double aet, aea;
 	pRec(GENSTART);
