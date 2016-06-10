@@ -28,6 +28,10 @@ enc_node_t * phensSkeys;
 enc_node_t * anc;
 enc_node_t * ancSkeys;
 
+enc_node_t * data_gen;
+enc_node_t * data_phe;
+enc_node_t * data_anc;
+
 node_t* init_new_node(node_t* list, char* val) {
 	node_t* newnode = malloc(sizeof(node_t));
 	newnode->next = list;
@@ -78,6 +82,18 @@ void insert_anc(char val) {
 }
 void insert_ancSkeys(char val) {
 	ancSkeys = init_new_enc_node(ancSkeys, val);
+}
+
+void insert_data_gen(char val) {
+	data = init_new_enc_node(data_gen, val);
+}
+
+void insert_data_phe(char val) {
+	data = init_new_enc_node(data_phe, val);
+}
+
+void insert_data_anc(char val) {
+	data = init_new_enc_node(data_anc, val);
 }
 
 void print_enc_node(enc_node_t* list) {
@@ -254,6 +270,12 @@ void read_enc_data(char* file, int which) {
 			insert_anc(buff);
 		} else if (which == 5){
 			insert_ancSkeys(buff);
+		} else if (which == 6){
+			insert_data_gen(buff);
+		} else if (which == 7){
+			insert_data_phe(buff);
+		} else if (which == 8){
+			insert_data_anc(buff);
 		}
 	}
 
@@ -286,6 +308,21 @@ void read_ancSkeys() {
 	ancSkeys = inverse_enc_node(ancSkeys, NULL);
 }
 
+void read_data_gen() {
+	read_enc_data("data/data_gen", 6);
+	data = inverse_enc_node(data, NULL);
+}
+
+void read_data_phe() {
+	read_enc_data("data/data_phe", 6);
+	data = inverse_enc_node(data, NULL);
+}
+
+void read_data_anc() {
+	read_enc_data("data/data_anc", 6);
+	data = inverse_enc_node(data, NULL);
+}
+
 int size_of_enc_node(enc_node_t* list) {
 	int count = 0;
 	enc_node_t* temp = list;
@@ -313,8 +350,21 @@ int size_of_phensSkeys() {
 int size_of_anc() {
 	return size_of_enc_node(anc);
 }
+
 int size_of_ancSkeys() {
 	return size_of_enc_node(ancSkeys);
+}
+
+int size_of_data_gen() {
+	return size_of_enc_node(data_gen);
+}
+
+int size_of_data_phe() {
+	return size_of_enc_node(data_phe);
+}
+
+int size_of_data_anc() {
+	return size_of_enc_node(data_anc);
 }
 
 int size_of_node(node_t* list) {
@@ -427,6 +477,18 @@ char get_char_in_anc(int n) {
 
 char get_char_in_ancSkeys(int n) {
 	return get_char_in_enc_node(n, ancSkeys);
+}
+
+char get_char_in_data_gen(int n) {
+	return get_char_in_enc_node(n, data_gen);
+}
+
+char get_char_in_data_phe(int n) {
+	return get_char_in_enc_node(n, data_phe);
+}
+
+char get_char_in_data_anc(int n) {
+	return get_char_in_enc_node(n, data_anc);
 }
 
 void free_enc_node_t(enc_node_t* list) {
