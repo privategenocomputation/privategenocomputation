@@ -14,28 +14,29 @@ OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 IDIR =../include
 CC=gcc 
-CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -march=native -I$(IDIR)
+CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I$(IDIR)
 
 
-AES = AESFullTest
-LARGE = LargeCircuitTest
-FILE = CircuitFileTest
-GWAS = AddTest
+GWAS = MultyPartyGWASTest
+GWAS2 = SmallerRealSumLinTest
+GWAS3 = PartSmallerRealSumLinTest
+GWAS4 = MultyPartySumLinTest
 rm = rm --f
 
-all: AES LARGE FILE GWAS
+all: GWAS GWAS2 GWAS3 GWAS4
 
-AES: $(OBJECTS) $(TESTDIR)/$(AES).c
-	$(CC) $(OBJECTFULL) $(TESTDIR)/$(AES).c -o $(BINDIR)/$(AES).out $(LIBS) $(CFLAGS) 
-
-LARGE: $(OBJECTS) $(TESTDIR)/$(LARGE).c
-	$(CC) $(OBJECTFULL) $(TESTDIR)/$(LARGE).c -o $(BINDIR)/$(LARGE).out $(LIBS) $(CFLAGS) 
-
-FILE: $(OBJECTS) $(TESTDIR)/$(FILE).c
-	$(CC) $(OBJECTFULL) $(TESTDIR)/$(FILE).c -o $(BINDIR)/$(FILE).out $(LIBS) $(CFLAGS) 
-	
 GWAS: $(OBJECTS) $(TESTDIR)/$(GWAS).c
 	$(CC) $(OBJECTFULL) $(TESTDIR)/$(GWAS).c -o $(BINDIR)/$(GWAS).out $(LIBS) $(CFLAGS) 
+
+GWAS2: $(OBJECTS) $(TESTDIR)/$(GWAS2).c
+	$(CC) $(OBJECTFULL) $(TESTDIR)/$(GWAS2).c -o $(BINDIR)/$(GWAS2).out $(LIBS) $(CFLAGS) 
+
+GWAS3: $(OBJECTS) $(TESTDIR)/$(GWAS3).c
+	$(CC) $(OBJECTFULL) $(TESTDIR)/$(GWAS3).c -o $(BINDIR)/$(GWAS3).out $(LIBS) $(CFLAGS) 
+	
+GWAS4: $(OBJECTS) $(TESTDIR)/$(GWAS4).c
+	$(CC) $(OBJECTFULL) $(TESTDIR)/$(GWAS4).c -o $(BINDIR)/$(GWAS4).out $(LIBS) $(CFLAGS) 
+	
 
 
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c

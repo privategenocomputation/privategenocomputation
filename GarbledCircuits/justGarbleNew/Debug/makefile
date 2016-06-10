@@ -15,6 +15,7 @@ RM := rm -rf
 -include msgpack-1.4.1/src/.libs/subdir.mk
 -include msgpack-1.4.1/src/subdir.mk
 -include msgpack-1.4.1/example/c/subdir.mk
+-include gwas/subdir.mk
 -include subdir.mk
 -include objects.mk
 

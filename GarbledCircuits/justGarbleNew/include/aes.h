@@ -55,7 +55,7 @@
 #include <xmmintrin.h>              /* SSE instructions and _mm_malloc */
 #include <emmintrin.h>              /* SSE2 instructions               */
 
-
+#define AES_BLOCK_SIZE 16
 typedef __m128i block;
     
 typedef struct { __m128i rd_key[15]; int rounds; } AES_KEY;

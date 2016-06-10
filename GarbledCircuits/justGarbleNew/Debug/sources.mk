@@ -20,4 +20,5 @@ obj \
 msgpack-1.4.1/src \
 msgpack-1.4.1/src/.libs \
 msgpack-1.4.1/example/c \
+gwas \
 
