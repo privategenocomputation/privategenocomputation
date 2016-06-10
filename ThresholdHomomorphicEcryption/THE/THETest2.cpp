@@ -63,8 +63,8 @@ int main(){
 	// XXX Define parameters
 	pState("Init params");
 	EncryptionParameters parms;
-	parms.poly_modulus() = "1x^2048 + 1";
-	parms.coeff_modulus() = ChooserEvaluator::default_parameter_options().at(16384);
+	parms.poly_modulus() = "1x^4096 + 1";
+	parms.coeff_modulus() = ChooserEvaluator::default_parameter_options().at(4096);
 	parms.plain_modulus() = 1 << 8;
 	parms.decomposition_bit_count() = 32;
 	parms.noise_standard_deviation() = ChooserEvaluator::default_noise_standard_deviation();
@@ -190,11 +190,12 @@ printResult(result, t1);
 // looping for max value
 pState("looking for max value");
 int res = 0;
+int i = 0;
 	BigPoly one = encryptor.encrypt(encoder.encode(1));
 	printResult(testDec(one, evaluator, decryptorMU, decryptorSPU, e, encoder, 0), 1);
 	BigPoly acc = evaluator.add(one,one);
 	printResult(testDec(acc, evaluator, decryptorMU, decryptorSPU, e, encoder, 0), 2);
-for (int i = 3; i < 130; i++){
+for (i = 3; i < 10; i++){
 	acc = evaluator.add(acc,one);
 	res = testDec(acc, evaluator, decryptorMU, decryptorSPU, e, encoder, 0);
 //	printResult(res, i);
@@ -203,13 +204,15 @@ for (int i = 3; i < 130; i++){
 		break;
 	}
 }
+cout << "looped " << i << " times\n"; 
+printResult(res, --i);
 
 // looping for chaine mult
 pState("looking for max chained mult");
 	acc = evaluator.add(one,one);
 	//BigPoly temp = encryptor.encrypt(encoder.encode(1));
-int i = 0;
-for (i = 1; i < 500; i++){
+
+for (i = 1; i < 10; i++){
 	//temp = encryptor.encrypt(encoder.encode(i));
 	acc = evaluator.multiply(one,acc);
 	res = testDec(acc, evaluator, decryptorMU, decryptorSPU, e, encoder, 0);
@@ -229,6 +232,7 @@ pState("testing linear combinason minimal");
 	BigPoly mul1 = evaluator.multiply(one,one);
 	mul1 = evaluator.multiply(mul1,one);
 	acc = evaluator.add(mul1,mul1);
+printResult(testDec(evaluator.add(mul1, evaluator.multiply(evaluator.multiply(one,one), one)), evaluator, decryptorMU, decryptorSPU, e, encoder), 2);
 for (i = 1; i < 500; i++){
 	acc = evaluator.add(acc,mul1);
 	res = testDec(acc, evaluator, decryptorMU, decryptorSPU, e, encoder, 0);
