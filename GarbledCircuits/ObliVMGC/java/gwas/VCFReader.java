@@ -286,6 +286,40 @@ public class VCFReader {
 
 			}
 			writer.close();
+			output = new FileOutputStream(new File(
+					"alex_genotype_table"));
+			for (i = 0; i < chrms.size(); i++) {
+				for (int j = 0; j < names.length; j++) {
+					byte[] tempData = new byte[1];
+					tempData[0] = GTs
+							.get(j).get(i).byteValue();
+					IOUtils.write(tempData, output);
+				}
+
+			}
+			output.close();
+			output = new FileOutputStream(new File(
+					"alex_phenotype_table"));
+			for (i = 0; i < phenotypeSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					byte[] tempData = new byte[1];
+					tempData[0] = new Integer(phenotypes[i][j]).byteValue();
+					IOUtils.write(tempData, output);
+				}
+
+			}
+			output.close();
+			output = new FileOutputStream(new File(
+					"alex_ancestry_table"));
+			for (i = 0; i < ancestryGroupsSize; i++) {
+				for (int j = 0; j < names.length; j++) {
+					byte[] tempData = new byte[1];
+					tempData[0] = new Integer(ancestries[i][j]).byteValue();
+					IOUtils.write(tempData, output);
+				}
+
+			}
+			output.close();
 			
 			/*ancestries = new int[names.length][ancestryGroupsSize];
 			for (i = 0; i < names.length; i++) {
