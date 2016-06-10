@@ -28,7 +28,7 @@ namespace seal
 
     void Decryptor::lastStep(const BigPoly &encrypted, BigPoly &destination)
     {
-std::cout << "lastStep\n";
+//std::cout << "lastStep\n";
 //std::cout << "myPoly" << encrypted.to_string() << std::endl;
         // Extract encryption parameters.
         // Remark: poly_modulus_ has enlarged coefficient size set in constructor
@@ -73,7 +73,7 @@ std::cout << "lastStep\n";
 //        multiply_poly_poly_polymod_coeffmod(encrypted.pointer(), one.pointer(), polymod_, mod_, destination.pointer(), pool_);
 //std::cout << "befor loop\n";
 destination.duplicate_from(encrypted);
-std::cout << "test eq " << (encrypted == destination);
+//std::cout << "test eq " << (encrypted == destination);
         // For each coefficient, reposition and divide by coeff_div_plain_modulus.
         uint64_t *dest_coeff = destination.pointer();
         Pointer quotient(allocate_uint(coeff_uint64_count, pool_));
@@ -97,7 +97,7 @@ std::cout << "test eq " << (encrypted == destination);
 //std::cout << "dest: " << destination.to_string() << std::endl;
         // Resize the coefficient to the original plain_modulus size
         destination.resize(coeff_count, orig_plain_modulus_bit_count_);
-std::cout << "coeff_count " << coeff_count << " orig_plain_modulus_bit_count_ " << orig_plain_modulus_bit_count_ << endl;
+//std::cout << "coeff_count " << coeff_count << " orig_plain_modulus_bit_count_ " << orig_plain_modulus_bit_count_ << endl;
     }
 
 
@@ -202,7 +202,7 @@ void Decryptor::multSkKey(const BigPoly &encrypted, BigPoly &destination)
 
         // Resize the coefficient to the original plain_modulus size
         destination.resize(coeff_count, orig_plain_modulus_bit_count_);
-std::cout << "ori_plain_mod_bc" << orig_plain_modulus_bit_count_ << std::endl;
+//std::cout << "ori_plain_mod_bc" << orig_plain_modulus_bit_count_ << std::endl;
     }
 
     Decryptor::Decryptor(const EncryptionParameters &parms, const BigPoly &secret_key, uint64_t power) :
