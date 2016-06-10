@@ -12,7 +12,7 @@ cd ../THE/
 make all
 
 #create file
-touche ../data/eval.csv
+touch ../data/eval.csv
 echo ${header} >> ../data/eval.csv
 
 for poly in 4096
