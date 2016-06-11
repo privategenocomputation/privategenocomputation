@@ -14,7 +14,7 @@
 #define NPATH "../data/names_table.txt"
 #define IPATH "../data/ids_table.txt"
 //File path to recored
-#define RPATH "../data/eval.csv"
+std::string RPATH("../data/eval.csv");
 //Set to 1 if in record mod, o/w set to 0
 unsigned int RECORD_MOD(0);
 
@@ -22,7 +22,7 @@ using namespace std;
 
 // to recored
 //headder: gen;phe;anc;part;poly;Load;Parm;KeyGen;GenObj;EncGen;EncPhe;EncAnc;EncTot;LC;C_MU;C_SPU;Combine;Decode;DecTot;DecTotApprox
-ofstream rec(RPATH, ios::app);
+ofstream rec;
 
 // return genotype
 vector<char> readGen(){

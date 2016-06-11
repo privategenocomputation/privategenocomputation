@@ -11,9 +11,6 @@ make all
 cd ../THE/
 make all
 
-#create file
-touch ../data/eval.csv
-echo ${header} > ../data/eval.csv
 
 for poly in 4096
 do
@@ -21,10 +18,14 @@ do
 	do
 		for phe in `seq 0 2`
 		do
+		#create file
+		recFile="../data/eval_${gen}_${phe}_${anc}_${poly}.csv"
+		touch ${recFile}
+		echo ${header} > ${recFile}
 			for nb in `seq 1 191`
 			do
-				echo "THELC.exe $gen $phe $anc $nb $poly 1 0 0"
-				./../bin/THELC.exe $gen $phe $anc $nb $poly 1 0 0
+				echo "THELC.exe $gen $phe $anc $nb $poly 1 0 0 ${recFile}"
+				./../bin/THELC.exe $gen $phe $anc $nb $poly 1 0 0 ${recFile}
 			done
 		done
 	done
