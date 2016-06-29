@@ -1,0 +1,1617 @@
+ubuntu@ubuntu:~$ cd ..
+ubuntu@ubuntu:/home$ ls
+ubuntu
+ubuntu@ubuntu:/home$ cd ubuntu
+ubuntu@ubuntu:~$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+ubuntu@ubuntu:~$ cd Downloads
+ubuntu@ubuntu:~/Downloads$ git clone https://github.com/privategenocomputation/privategenocomputation.git
+The program 'git' is currently not installed. You can install it by typing:
+sudo apt install git
+ubuntu@ubuntu:~/Downloads$ sudo apt install git
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  git-man liberror-perl
+Suggested packages:
+  git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk
+  gitweb git-arch git-cvs git-mediawiki git-svn
+The following NEW packages will be installed:
+  git git-man liberror-perl
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3,760 kB of archives.
+After this operation, 25.6 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 liberror-perl all 0.17-1.2 [19.6 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial/main amd64 git-man all 1:2.7.4-0ubuntu1 [735 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial/main amd64 git amd64 1:2.7.4-0ubuntu1 [3,006 kB]
+Fetched 3,760 kB in 0s (7,613 kB/s)
+Selecting previously unselected package liberror-perl.
+(Reading database ... 191101 files and directories currently installed.)
+Preparing to unpack .../liberror-perl_0.17-1.2_all.deb ...
+Unpacking liberror-perl (0.17-1.2) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../git-man_1%3a2.7.4-0ubuntu1_all.deb ...
+Unpacking git-man (1:2.7.4-0ubuntu1) ...
+Selecting previously unselected package git.
+Preparing to unpack .../git_1%3a2.7.4-0ubuntu1_amd64.deb ...
+Unpacking git (1:2.7.4-0ubuntu1) ...
+Processing triggers for man-db (2.7.5-1) ...
+Setting up liberror-perl (0.17-1.2) ...
+Setting up git-man (1:2.7.4-0ubuntu1) ...
+Setting up git (1:2.7.4-0ubuntu1) ...
+ubuntu@ubuntu:~/Downloads$ git clone https://github.com/privategenocomputation/privategenocomputation.git
+Cloning into 'privategenocomputation'...
+remote: Counting objects: 1572, done.
+remote: Total 1572 (delta 0), reused 0 (delta 0), pack-reused 1572
+Receiving objects: 100% (1572/1572), 8.57 MiB | 4.49 MiB/s, done.
+Resolving deltas: 100% (746/746), done.
+Checking connectivity... done.
+ubuntu@ubuntu:~/Downloads$ ls
+privategenocomputation
+ubuntu@ubuntu:~/Downloads$ cd privategenocomputation
+ubuntu@ubuntu:~/Downloads/privategenocomputation$ cd GarbledCircuits
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits$ cd justGarbleNew
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/MultyPartyGWASTest.c -o bin/MultyPartyGWASTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/MultyPartyGWASTest.c:26:0:
+test/../gwas/genoreader.c: In function ‘insert_data_gen’:
+test/../gwas/genoreader.c:88:2: error: ‘data’ undeclared (first use in this function)
+  data = init_new_enc_node(data_gen, val);
+  ^
+test/../gwas/genoreader.c:88:2: note: each undeclared identifier is reported only once for each function it appears in
+test/../gwas/genoreader.c: In function ‘insert_data_phe’:
+test/../gwas/genoreader.c:92:2: error: ‘data’ undeclared (first use in this function)
+  data = init_new_enc_node(data_phe, val);
+  ^
+test/../gwas/genoreader.c: In function ‘insert_data_anc’:
+test/../gwas/genoreader.c:96:2: error: ‘data’ undeclared (first use in this function)
+  data = init_new_enc_node(data_anc, val);
+  ^
+test/../gwas/genoreader.c: In function ‘read_data_gen’:
+test/../gwas/genoreader.c:313:2: error: ‘data’ undeclared (first use in this function)
+  data = inverse_enc_node(data, NULL);
+  ^
+test/../gwas/genoreader.c: In function ‘read_data_phe’:
+test/../gwas/genoreader.c:318:2: error: ‘data’ undeclared (first use in this function)
+  data = inverse_enc_node(data, NULL);
+  ^
+test/../gwas/genoreader.c: In function ‘read_data_anc’:
+test/../gwas/genoreader.c:323:2: error: ‘data’ undeclared (first use in this function)
+  data = inverse_enc_node(data, NULL);
+  ^
+In file included from test/MultyPartyGWASTest.c:27:0:
+test/../gwas/arith.c: In function ‘muxInt’:
+test/../gwas/arith.c:11:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/../gwas/arith.c:13:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/../gwas/arith.c: In function ‘mul’:
+test/../gwas/arith.c:35:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/../gwas/arith.c:38:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+test/MultyPartyGWASTest.c: In function ‘main’:
+test/MultyPartyGWASTest.c:76:12: warning: implicit declaration of function ‘fixedOneWire’ [-Wimplicit-function-declaration]
+  int one = fixedOneWire(&garbledCircuit,&garblingContext);
+            ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MultyPartyGWASTest.c:25:
+test/MultyPartyGWASTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MultyPartyGWASTest.c:25:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+Makefile:29: recipe for target 'GWAS' failed
+make: *** [GWAS] Error 1
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ ^C
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/MultyPartyGWASTest.c -o bin/MultyPartyGWASTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/MultyPartyGWASTest.c:26:0:
+test/../gwas/genoreader.c: In function ‘read_enc_data’:
+test/../gwas/genoreader.c:274:4: warning: implicit declaration of function ‘insert_data_gen’ [-Wimplicit-function-declaration]
+    insert_data_gen(buff);
+    ^
+test/../gwas/genoreader.c:276:4: warning: implicit declaration of function ‘insert_data_phe’ [-Wimplicit-function-declaration]
+    insert_data_phe(buff);
+    ^
+test/../gwas/genoreader.c:278:4: warning: implicit declaration of function ‘insert_data_anc’ [-Wimplicit-function-declaration]
+    insert_data_anc(buff);
+    ^
+In file included from test/MultyPartyGWASTest.c:27:0:
+test/../gwas/arith.c: In function ‘muxInt’:
+test/../gwas/arith.c:11:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/../gwas/arith.c:13:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/../gwas/arith.c: In function ‘mul’:
+test/../gwas/arith.c:35:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/../gwas/arith.c:38:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+test/MultyPartyGWASTest.c: In function ‘main’:
+test/MultyPartyGWASTest.c:76:12: warning: implicit declaration of function ‘fixedOneWire’ [-Wimplicit-function-declaration]
+  int one = fixedOneWire(&garbledCircuit,&garblingContext);
+            ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MultyPartyGWASTest.c:25:
+test/MultyPartyGWASTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MultyPartyGWASTest.c:25:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+/usr/bin/ld: cannot find -lmsgpackc
+/usr/bin/ld: cannot find -lssl
+/usr/bin/ld: cannot find -lcrypto
+collect2: error: ld returned 1 exit status
+Makefile:29: recipe for target 'GWAS' failed
+make: *** [GWAS] Error 1
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ git clone https://github.com/msgpack/msgpack-c
+Cloning into 'msgpack-c'...
+remote: Counting objects: 18929, done.
+remote: Total 18929 (delta 8), reused 8 (delta 8), pack-reused 18920
+Receiving objects: 100% (18929/18929), 9.99 MiB | 2.91 MiB/s, done.
+Resolving deltas: 100% (11690/11690), done.
+Checking connectivity... done.
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ cd msgpack-c
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ ./bootstrap
+bash: ./bootstrap: No such file or directory
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ make
+make: *** No targets specified and no makefile found.  Stop.
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ cmake
+The program 'cmake' is currently not installed. You can install it by typing:
+sudo apt install cmake
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ sudo apt install cmake
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  cmake-data libjsoncpp1
+Suggested packages:
+  codeblocks eclipse ninja-build
+The following NEW packages will be installed:
+  cmake cmake-data libjsoncpp1
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3,817 kB of archives.
+After this operation, 20.5 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 cmake-data all 3.5.1-1ubuntu1 [1,121 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial/main amd64 libjsoncpp1 amd64 1.7.2-1 [73.0 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial/main amd64 cmake amd64 3.5.1-1ubuntu1 [2,623 kB]
+Fetched 3,817 kB in 10s (374 kB/s)                                             
+Selecting previously unselected package cmake-data.
+(Reading database ... 191915 files and directories currently installed.)
+Preparing to unpack .../cmake-data_3.5.1-1ubuntu1_all.deb ...
+Unpacking cmake-data (3.5.1-1ubuntu1) ...
+Selecting previously unselected package libjsoncpp1:amd64.
+Preparing to unpack .../libjsoncpp1_1.7.2-1_amd64.deb ...
+Unpacking libjsoncpp1:amd64 (1.7.2-1) ...
+Selecting previously unselected package cmake.
+Preparing to unpack .../cmake_3.5.1-1ubuntu1_amd64.deb ...
+Unpacking cmake (3.5.1-1ubuntu1) ...
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for libc-bin (2.23-0ubuntu3) ...
+Setting up cmake-data (3.5.1-1ubuntu1) ...
+Setting up libjsoncpp1:amd64 (1.7.2-1) ...
+Setting up cmake (3.5.1-1ubuntu1) ...
+Processing triggers for libc-bin (2.23-0ubuntu3) ...
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ cmake
+Usage
+
+  cmake [options] <path-to-source>
+  cmake [options] <path-to-existing-build>
+
+Specify a source directory to (re-)generate a build system for it in the
+current working directory.  Specify an existing build directory to
+re-generate its build system.
+
+Run 'cmake --help' for more information.
+
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ make
+make: *** No targets specified and no makefile found.  Stop.
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ cmake -DMSGPACK_CXX11=ON
+-- The C compiler identification is GNU 5.3.1
+-- The CXX compiler identification is GNU 5.3.1
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Could NOT find GTest (missing:  GTEST_LIBRARY GTEST_INCLUDE_DIR GTEST_MAIN_LIBRARY) 
+-- Could NOT find ZLIB (missing:  ZLIB_LIBRARY ZLIB_INCLUDE_DIR) 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - not found
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Performing Test MSGPACK_ENABLE_GCC_CXX_ATOMIC
+-- Performing Test MSGPACK_ENABLE_GCC_CXX_ATOMIC - Failed
+-- Could NOT find Doxygen (missing:  DOXYGEN_EXECUTABLE) 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ sudo make install
+Scanning dependencies of target msgpackc
+[  2%] Building C object CMakeFiles/msgpackc.dir/src/objectc.c.o
+[  4%] Building C object CMakeFiles/msgpackc.dir/src/unpack.c.o
+[  6%] Building C object CMakeFiles/msgpackc.dir/src/version.c.o
+[  8%] Building C object CMakeFiles/msgpackc.dir/src/vrefbuffer.c.o
+[ 10%] Building C object CMakeFiles/msgpackc.dir/src/zone.c.o
+[ 13%] Linking C shared library libmsgpackc.so
+[ 13%] Built target msgpackc
+Scanning dependencies of target msgpackc-static
+[ 15%] Building C object CMakeFiles/msgpackc-static.dir/src/objectc.c.o
+[ 17%] Building C object CMakeFiles/msgpackc-static.dir/src/unpack.c.o
+[ 19%] Building C object CMakeFiles/msgpackc-static.dir/src/version.c.o
+[ 21%] Building C object CMakeFiles/msgpackc-static.dir/src/vrefbuffer.c.o
+[ 23%] Building C object CMakeFiles/msgpackc-static.dir/src/zone.c.o
+[ 26%] Linking C static library libmsgpackc.a
+[ 26%] Built target msgpackc-static
+Scanning dependencies of target speed_test_uint64_array
+[ 28%] Building C object example/c/CMakeFiles/speed_test_uint64_array.dir/speed_test_uint64_array.c.o
+[ 30%] Linking C executable speed_test_uint64_array
+[ 30%] Built target speed_test_uint64_array
+Scanning dependencies of target speed_test_uint32_array
+[ 32%] Building C object example/c/CMakeFiles/speed_test_uint32_array.dir/speed_test_uint32_array.c.o
+[ 34%] Linking C executable speed_test_uint32_array
+[ 34%] Built target speed_test_uint32_array
+Scanning dependencies of target simple_c
+[ 36%] Building C object example/c/CMakeFiles/simple_c.dir/simple_c.c.o
+[ 39%] Linking C executable simple_c
+[ 39%] Built target simple_c
+Scanning dependencies of target lib_buffer_unpack
+[ 41%] Building C object example/c/CMakeFiles/lib_buffer_unpack.dir/lib_buffer_unpack.c.o
+[ 43%] Linking C executable lib_buffer_unpack
+[ 43%] Built target lib_buffer_unpack
+Scanning dependencies of target user_buffer_unpack
+[ 45%] Building C object example/c/CMakeFiles/user_buffer_unpack.dir/user_buffer_unpack.c.o
+[ 47%] Linking C executable user_buffer_unpack
+[ 47%] Built target user_buffer_unpack
+Scanning dependencies of target custom
+[ 50%] Building CXX object example/cpp03/CMakeFiles/custom.dir/custom.cpp.o
+[ 52%] Linking CXX executable custom
+[ 52%] Built target custom
+Scanning dependencies of target simple
+[ 54%] Building CXX object example/cpp03/CMakeFiles/simple.dir/simple.cpp.o
+[ 56%] Linking CXX executable simple
+[ 56%] Built target simple
+Scanning dependencies of target class_intrusive_map
+[ 58%] Building CXX object example/cpp03/CMakeFiles/class_intrusive_map.dir/class_intrusive_map.cpp.o
+[ 60%] Linking CXX executable class_intrusive_map
+[ 60%] Built target class_intrusive_map
+Scanning dependencies of target map_based_versionup
+[ 63%] Building CXX object example/cpp03/CMakeFiles/map_based_versionup.dir/map_based_versionup.cpp.o
+[ 65%] Linking CXX executable map_based_versionup
+[ 65%] Built target map_based_versionup
+Scanning dependencies of target class_non_intrusive
+[ 67%] Building CXX object example/cpp03/CMakeFiles/class_non_intrusive.dir/class_non_intrusive.cpp.o
+[ 69%] Linking CXX executable class_non_intrusive
+[ 69%] Built target class_non_intrusive
+Scanning dependencies of target class_intrusive
+[ 71%] Building CXX object example/cpp03/CMakeFiles/class_intrusive.dir/class_intrusive.cpp.o
+[ 73%] Linking CXX executable class_intrusive
+[ 73%] Built target class_intrusive
+Scanning dependencies of target enum
+[ 76%] Building CXX object example/cpp03/CMakeFiles/enum.dir/enum.cpp.o
+[ 78%] Linking CXX executable enum
+[ 78%] Built target enum
+Scanning dependencies of target protocol_new
+[ 80%] Building CXX object example/cpp03/CMakeFiles/protocol_new.dir/protocol_new.cpp.o
+[ 82%] Linking CXX executable protocol_new
+[ 82%] Built target protocol_new
+Scanning dependencies of target reuse_zone
+[ 84%] Building CXX object example/cpp03/CMakeFiles/reuse_zone.dir/reuse_zone.cpp.o
+[ 86%] Linking CXX executable reuse_zone
+[ 86%] Built target reuse_zone
+Scanning dependencies of target stream
+[ 89%] Building CXX object example/cpp03/CMakeFiles/stream.dir/stream.cpp.o
+[ 91%] Linking CXX executable stream
+[ 91%] Built target stream
+Scanning dependencies of target container
+[ 93%] Building CXX object example/cpp11/CMakeFiles/container.dir/container.cpp.o
+[ 95%] Linking CXX executable container
+[ 95%] Built target container
+Scanning dependencies of target non_def_con_class
+[ 97%] Building CXX object example/cpp11/CMakeFiles/non_def_con_class.dir/non_def_con_class.cpp.o
+[100%] Linking CXX executable non_def_con_class
+[100%] Built target non_def_con_class
+Install the project...
+-- Install configuration: ""
+-- Installing: /usr/local/lib/libmsgpackc.so.2.0.0
+-- Installing: /usr/local/lib/libmsgpackc.so.2
+-- Installing: /usr/local/lib/libmsgpackc.so
+-- Installing: /usr/local/lib/libmsgpackc.a
+-- Up-to-date: /usr/local/include
+-- Installing: /usr/local/include/msgpack
+-- Installing: /usr/local/include/msgpack/zone_decl.hpp
+-- Installing: /usr/local/include/msgpack/zone.hpp
+-- Installing: /usr/local/include/msgpack/zone.h
+-- Installing: /usr/local/include/msgpack/zbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/zbuffer.hpp
+-- Installing: /usr/local/include/msgpack/zbuffer.h
+-- Installing: /usr/local/include/msgpack/vrefbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/vrefbuffer.hpp
+-- Installing: /usr/local/include/msgpack/vrefbuffer.h
+-- Installing: /usr/local/include/msgpack/versioning.hpp
+-- Installing: /usr/local/include/msgpack/version_master.h
+-- Installing: /usr/local/include/msgpack/version.hpp
+-- Installing: /usr/local/include/msgpack/version.h
+-- Installing: /usr/local/include/msgpack/v2
+-- Installing: /usr/local/include/msgpack/v2/zone_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/zbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/vrefbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/unpack_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/unpack.hpp
+-- Installing: /usr/local/include/msgpack/v2/sbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/pack_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/object_fwd_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/object_fwd.hpp
+-- Installing: /usr/local/include/msgpack/v2/object_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/object.hpp
+-- Installing: /usr/local/include/msgpack/v2/meta_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/iterator_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/fbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/detail
+-- Installing: /usr/local/include/msgpack/v2/detail/cpp11_zone_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/detail/cpp03_zone_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/cpp_config_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor
+-- Installing: /usr/local/include/msgpack/v2/adaptor/v4raw_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/size_equal_only_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/raw_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/nil_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/msgpack_tuple_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/map_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/int_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/fixint_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/ext_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/detail
+-- Installing: /usr/local/include/msgpack/v2/adaptor/detail/cpp11_msgpack_tuple_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/detail/cpp11_define_map_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/detail/cpp11_define_array_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/detail/cpp03_msgpack_tuple_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/detail/cpp03_define_map_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/detail/cpp03_define_array_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/define_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/check_container_size_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/boost
+-- Installing: /usr/local/include/msgpack/v2/adaptor/boost/msgpack_variant_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/array_ref_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/adaptor_base_decl.hpp
+-- Installing: /usr/local/include/msgpack/v2/adaptor/adaptor_base.hpp
+-- Installing: /usr/local/include/msgpack/v1
+-- Installing: /usr/local/include/msgpack/v1/zone_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/zone.hpp
+-- Installing: /usr/local/include/msgpack/v1/zbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/zbuffer.hpp
+-- Installing: /usr/local/include/msgpack/v1/vrefbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/vrefbuffer.hpp
+-- Installing: /usr/local/include/msgpack/v1/versioning.hpp
+-- Installing: /usr/local/include/msgpack/v1/version.hpp
+-- Installing: /usr/local/include/msgpack/v1/unpack_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/unpack.hpp
+-- Installing: /usr/local/include/msgpack/v1/sbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/sbuffer.hpp
+-- Installing: /usr/local/include/msgpack/v1/preprocessor.hpp
+-- Installing: /usr/local/include/msgpack/v1/pack_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/pack.hpp
+-- Installing: /usr/local/include/msgpack/v1/object_fwd_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/object_fwd.hpp
+-- Installing: /usr/local/include/msgpack/v1/object_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/object.hpp
+-- Installing: /usr/local/include/msgpack/v1/meta_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/meta.hpp
+-- Installing: /usr/local/include/msgpack/v1/iterator_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/iterator.hpp
+-- Installing: /usr/local/include/msgpack/v1/fbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/fbuffer.hpp
+-- Installing: /usr/local/include/msgpack/v1/detail
+-- Installing: /usr/local/include/msgpack/v1/detail/cpp11_zone_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/detail/cpp11_zone.hpp
+-- Installing: /usr/local/include/msgpack/v1/detail/cpp03_zone_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/detail/cpp03_zone.hpp
+-- Installing: /usr/local/include/msgpack/v1/cpp_config_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/cpp_config.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor
+-- Installing: /usr/local/include/msgpack/v1/adaptor/vector_unsigned_char.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/vector_char.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/vector_bool.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/vector.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/v4raw_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/v4raw.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/tr1
+-- Installing: /usr/local/include/msgpack/v1/adaptor/tr1/unordered_set.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/tr1/unordered_map.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/string.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/size_equal_only_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/size_equal_only.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/set.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/raw_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/raw.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/pair.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/nil_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/nil.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/msgpack_tuple_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/msgpack_tuple.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/map_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/map.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/list.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/int_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/int.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/float.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/fixint_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/fixint.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/ext_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/ext.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp11_msgpack_tuple_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp11_msgpack_tuple.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp11_define_map_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp11_define_map.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp11_define_array_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp11_define_array.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp03_msgpack_tuple_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp03_msgpack_tuple.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp03_define_map_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp03_define_map.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp03_define_array_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/detail/cpp03_define_array.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/deque.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/define_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/define.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/unordered_set.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/unordered_map.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/unique_ptr.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/tuple.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/shared_ptr.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/reference_wrapper.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/forward_list.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/array_unsigned_char.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/array_char.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/cpp11/array.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/check_container_size_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/check_container_size.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/char_ptr.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/carray.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/boost
+-- Installing: /usr/local/include/msgpack/v1/adaptor/boost/string_ref.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/boost/optional.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/boost/msgpack_variant_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/boost/msgpack_variant.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/boost/fusion.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/bool.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/array_ref_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/array_ref.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/adaptor_base_decl.hpp
+-- Installing: /usr/local/include/msgpack/v1/adaptor/adaptor_base.hpp
+-- Installing: /usr/local/include/msgpack/util.h
+-- Installing: /usr/local/include/msgpack/unpack_template.h
+-- Installing: /usr/local/include/msgpack/unpack_define.h
+-- Installing: /usr/local/include/msgpack/unpack_decl.hpp
+-- Installing: /usr/local/include/msgpack/unpack.hpp
+-- Installing: /usr/local/include/msgpack/unpack.h
+-- Installing: /usr/local/include/msgpack/type.hpp
+-- Installing: /usr/local/include/msgpack/sysdep.h
+-- Installing: /usr/local/include/msgpack/sbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/sbuffer.hpp
+-- Installing: /usr/local/include/msgpack/sbuffer.h
+-- Installing: /usr/local/include/msgpack/preprocessor
+-- Installing: /usr/local/include/msgpack/preprocessor/wstringize.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/while.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/to_tuple.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/to_seq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/to_list.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/to_array.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/size.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/elem.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic/detail/is_single_return.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/variadic.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/to_seq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/to_list.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/to_array.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/size.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/reverse.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/replace.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/remove.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/rem.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/push_front.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/push_back.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/pop_front.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/pop_back.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/insert.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/enum.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/elem.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/eat.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple/detail/is_single_return.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/tuple.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/stringize.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/slot.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/slot5.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/slot4.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/slot3.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/slot2.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/slot1.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/shared.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/def.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/detail/counter.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot/counter.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/slot.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/variadic_seq_to_seq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/transform.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/to_tuple.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/to_list.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/to_array.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/subseq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/size.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/seq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/reverse.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/rest_n.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/replace.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/remove.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/push_front.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/push_back.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/pop_front.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/pop_back.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/insert.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/for_each_product.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/for_each_i.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/for_each.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/fold_right.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/fold_left.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/first_n.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/filter.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/enum.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/elem.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/detail/split.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/detail/is_empty.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/detail/binary_transform.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq/cat.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/seq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/selection
+-- Installing: /usr/local/include/msgpack/preprocessor/selection/min.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/selection/max.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/selection.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/repeat_from_to.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/repeat.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/for.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_trailing_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_trailing_binary_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_trailing.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_shifted_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_shifted_binary_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_shifted.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_params_with_defaults.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_params_with_a_default.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum_binary_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/enum.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail/msvc
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail/msvc/for.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail/for.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail/edg
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail/edg/for.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail/dmc
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/detail/dmc/for.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/deduce_z.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition/deduce_r.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repetition.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repeat_from_to_3rd.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repeat_from_to_2nd.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repeat_from_to.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repeat_3rd.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repeat_2nd.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/repeat.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/remove_parens.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/paren_if.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/paren.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/is_begin_parens.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/detail/is_begin_parens.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/comma_if.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation/comma.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/punctuation.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/min.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/max.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/xor.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/or.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/not.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/nor.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/compl.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/bool.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/bitxor.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/bitor.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/bitnor.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/bitand.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical/and.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/logical.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list
+-- Installing: /usr/local/include/msgpack/preprocessor/list/transform.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/to_tuple.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/to_seq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/to_array.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/size.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/reverse.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/rest_n.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/for_each_product.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/for_each_i.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/for_each.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/fold_right.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/fold_left.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/first_n.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/filter.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/enum.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail/fold_right.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail/fold_left.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail/edg
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail/edg/fold_right.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail/edg/fold_left.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail/dmc
+-- Installing: /usr/local/include/msgpack/preprocessor/list/detail/dmc/fold_left.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/cat.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/at.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/append.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list/adt.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/list.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/limits.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/library.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/self.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/local.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/iterate.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/start.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/self.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/rlocal.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/local.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/reverse5.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/reverse4.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/reverse3.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/reverse2.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/reverse1.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/forward5.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/forward4.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/forward3.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/forward2.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/iter/forward1.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/finish.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/upper5.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/upper4.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/upper3.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/upper2.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/upper1.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/lower5.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/lower4.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/lower3.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/lower2.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration/detail/bounds/lower1.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iteration.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/iterate.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/inc.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/if.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/identity.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/for.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/overload.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/is_empty_variadic.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/is_empty_or_1.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/is_empty.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/is_1.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/intercept.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/identity.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/expand.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/empty.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/detail/is_empty.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities/apply.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/facilities.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/expr_if.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/expand.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/enum_shifted_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/enum_shifted.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/enum_params_with_defaults.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/enum_params_with_a_default.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/enum_params.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/enum.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/empty.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/split.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/null.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/is_unary.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/is_nullary.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/is_binary.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/dmc
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/dmc/auto_rec.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/check.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/detail/auto_rec.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/dec.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/debug
+-- Installing: /usr/local/include/msgpack/preprocessor/debug/line.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/debug/error.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/debug/assert.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/debug.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control
+-- Installing: /usr/local/include/msgpack/preprocessor/control/while.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/iif.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/if.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/expr_iif.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/expr_if.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail/while.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail/msvc
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail/msvc/while.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail/edg
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail/edg/while.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail/dmc
+-- Installing: /usr/local/include/msgpack/preprocessor/control/detail/dmc/while.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control/deduce_d.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/control.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/config
+-- Installing: /usr/local/include/msgpack/preprocessor/config/limits.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/config/config.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison/not_equal.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison/less_equal.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison/less.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison/greater_equal.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison/greater.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison/equal.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comparison.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comma_if.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/comma.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/cat.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/assert_msg.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array
+-- Installing: /usr/local/include/msgpack/preprocessor/array/to_tuple.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/to_seq.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/to_list.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/size.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/reverse.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/replace.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/remove.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/push_front.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/push_back.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/pop_front.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/pop_back.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/insert.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/enum.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/elem.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/array/detail/get_data.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array/data.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/array.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/sub.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/mul.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/mod.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/inc.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/div.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/detail
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/detail/div_base.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/dec.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic/add.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor/arithmetic.hpp
+-- Installing: /usr/local/include/msgpack/preprocessor.hpp
+-- Installing: /usr/local/include/msgpack/predef
+-- Installing: /usr/local/include/msgpack/predef/version_number.h
+-- Installing: /usr/local/include/msgpack/predef/version.h
+-- Installing: /usr/local/include/msgpack/predef/platform
+-- Installing: /usr/local/include/msgpack/predef/platform/windows_store.h
+-- Installing: /usr/local/include/msgpack/predef/platform/windows_runtime.h
+-- Installing: /usr/local/include/msgpack/predef/platform/windows_phone.h
+-- Installing: /usr/local/include/msgpack/predef/platform/windows_desktop.h
+-- Installing: /usr/local/include/msgpack/predef/platform/mingw.h
+-- Installing: /usr/local/include/msgpack/predef/platform.h
+-- Installing: /usr/local/include/msgpack/predef/other
+-- Installing: /usr/local/include/msgpack/predef/other/endian.h
+-- Installing: /usr/local/include/msgpack/predef/other.h
+-- Installing: /usr/local/include/msgpack/predef/os
+-- Installing: /usr/local/include/msgpack/predef/os/windows.h
+-- Installing: /usr/local/include/msgpack/predef/os/vms.h
+-- Installing: /usr/local/include/msgpack/predef/os/unix.h
+-- Installing: /usr/local/include/msgpack/predef/os/solaris.h
+-- Installing: /usr/local/include/msgpack/predef/os/qnxnto.h
+-- Installing: /usr/local/include/msgpack/predef/os/os400.h
+-- Installing: /usr/local/include/msgpack/predef/os/macos.h
+-- Installing: /usr/local/include/msgpack/predef/os/linux.h
+-- Installing: /usr/local/include/msgpack/predef/os/irix.h
+-- Installing: /usr/local/include/msgpack/predef/os/ios.h
+-- Installing: /usr/local/include/msgpack/predef/os/hpux.h
+-- Installing: /usr/local/include/msgpack/predef/os/haiku.h
+-- Installing: /usr/local/include/msgpack/predef/os/cygwin.h
+-- Installing: /usr/local/include/msgpack/predef/os/bsd
+-- Installing: /usr/local/include/msgpack/predef/os/bsd/open.h
+-- Installing: /usr/local/include/msgpack/predef/os/bsd/net.h
+-- Installing: /usr/local/include/msgpack/predef/os/bsd/free.h
+-- Installing: /usr/local/include/msgpack/predef/os/bsd/dragonfly.h
+-- Installing: /usr/local/include/msgpack/predef/os/bsd/bsdi.h
+-- Installing: /usr/local/include/msgpack/predef/os/bsd.h
+-- Installing: /usr/local/include/msgpack/predef/os/beos.h
+-- Installing: /usr/local/include/msgpack/predef/os/android.h
+-- Installing: /usr/local/include/msgpack/predef/os/amigaos.h
+-- Installing: /usr/local/include/msgpack/predef/os/aix.h
+-- Installing: /usr/local/include/msgpack/predef/os.h
+-- Installing: /usr/local/include/msgpack/predef/make.h
+-- Installing: /usr/local/include/msgpack/predef/library
+-- Installing: /usr/local/include/msgpack/predef/library/std
+-- Installing: /usr/local/include/msgpack/predef/library/std/vacpp.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/stlport.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/stdcpp3.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/sgi.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/roguewave.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/msl.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/modena.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/libcomo.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/dinkumware.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/cxx.h
+-- Installing: /usr/local/include/msgpack/predef/library/std/_prefix.h
+-- Installing: /usr/local/include/msgpack/predef/library/std.h
+-- Installing: /usr/local/include/msgpack/predef/library/c
+-- Installing: /usr/local/include/msgpack/predef/library/c/zos.h
+-- Installing: /usr/local/include/msgpack/predef/library/c/vms.h
+-- Installing: /usr/local/include/msgpack/predef/library/c/uc.h
+-- Installing: /usr/local/include/msgpack/predef/library/c/gnu.h
+-- Installing: /usr/local/include/msgpack/predef/library/c/_prefix.h
+-- Installing: /usr/local/include/msgpack/predef/library/c.h
+-- Installing: /usr/local/include/msgpack/predef/library.h
+-- Installing: /usr/local/include/msgpack/predef/language
+-- Installing: /usr/local/include/msgpack/predef/language/stdcpp.h
+-- Installing: /usr/local/include/msgpack/predef/language/stdc.h
+-- Installing: /usr/local/include/msgpack/predef/language/objc.h
+-- Installing: /usr/local/include/msgpack/predef/language.h
+-- Installing: /usr/local/include/msgpack/predef/hardware
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/x86_amd
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/x86_amd/versions.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/x86_amd.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/x86
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/x86/versions.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/x86.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/ppc
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/ppc/versions.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/ppc.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/arm
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/arm/versions.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd/arm.h
+-- Installing: /usr/local/include/msgpack/predef/hardware/simd.h
+-- Installing: /usr/local/include/msgpack/predef/hardware.h
+-- Installing: /usr/local/include/msgpack/predef/detail
+-- Installing: /usr/local/include/msgpack/predef/detail/test_def.h
+-- Installing: /usr/local/include/msgpack/predef/detail/test.h
+-- Installing: /usr/local/include/msgpack/predef/detail/platform_detected.h
+-- Installing: /usr/local/include/msgpack/predef/detail/os_detected.h
+-- Installing: /usr/local/include/msgpack/predef/detail/endian_compat.h
+-- Installing: /usr/local/include/msgpack/predef/detail/comp_detected.h
+-- Installing: /usr/local/include/msgpack/predef/detail/_exception.h
+-- Installing: /usr/local/include/msgpack/predef/detail/_cassert.h
+-- Installing: /usr/local/include/msgpack/predef/compiler
+-- Installing: /usr/local/include/msgpack/predef/compiler/watcom.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/visualc.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/tendra.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/sunpro.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/sgi_mipspro.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/pgi.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/palm.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/mpw.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/microtec.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/metrowerks.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/metaware.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/llvm.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/kai.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/intel.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/ibm.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/iar.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/hp_acc.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/greenhills.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/gcc_xml.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/gcc.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/ekopath.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/edg.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/dignus.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/digitalmars.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/diab.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/compaq.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/comeau.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/clang.h
+-- Installing: /usr/local/include/msgpack/predef/compiler/borland.h
+-- Installing: /usr/local/include/msgpack/predef/compiler.h
+-- Installing: /usr/local/include/msgpack/predef/architecture
+-- Installing: /usr/local/include/msgpack/predef/architecture/z.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/x86
+-- Installing: /usr/local/include/msgpack/predef/architecture/x86/64.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/x86/32.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/x86.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/sys390.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/sys370.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/superh.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/sparc.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/rs6k.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/pyramid.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/ppc.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/parisc.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/mips.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/m68k.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/ia64.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/convex.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/blackfin.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/arm.h
+-- Installing: /usr/local/include/msgpack/predef/architecture/alpha.h
+-- Installing: /usr/local/include/msgpack/predef/architecture.h
+-- Installing: /usr/local/include/msgpack/predef.h
+-- Installing: /usr/local/include/msgpack/pack_template.h
+-- Installing: /usr/local/include/msgpack/pack_define.h
+-- Installing: /usr/local/include/msgpack/pack_decl.hpp
+-- Installing: /usr/local/include/msgpack/pack.hpp
+-- Installing: /usr/local/include/msgpack/pack.h
+-- Installing: /usr/local/include/msgpack/object_fwd_decl.hpp
+-- Installing: /usr/local/include/msgpack/object_fwd.hpp
+-- Installing: /usr/local/include/msgpack/object_decl.hpp
+-- Installing: /usr/local/include/msgpack/object.hpp
+-- Installing: /usr/local/include/msgpack/object.h
+-- Installing: /usr/local/include/msgpack/meta_decl.hpp
+-- Installing: /usr/local/include/msgpack/meta.hpp
+-- Installing: /usr/local/include/msgpack/iterator_decl.hpp
+-- Installing: /usr/local/include/msgpack/iterator.hpp
+-- Installing: /usr/local/include/msgpack/gcc_atomic.hpp
+-- Installing: /usr/local/include/msgpack/gcc_atomic.h
+-- Installing: /usr/local/include/msgpack/fbuffer_decl.hpp
+-- Installing: /usr/local/include/msgpack/fbuffer.hpp
+-- Installing: /usr/local/include/msgpack/fbuffer.h
+-- Installing: /usr/local/include/msgpack/cpp_config_decl.hpp
+-- Installing: /usr/local/include/msgpack/cpp_config.hpp
+-- Installing: /usr/local/include/msgpack/adaptor
+-- Installing: /usr/local/include/msgpack/adaptor/vector_unsigned_char.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/vector_char.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/vector_bool.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/vector.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/v4raw_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/v4raw.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/tr1
+-- Installing: /usr/local/include/msgpack/adaptor/tr1/unordered_set.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/tr1/unordered_map.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/string.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/size_equal_only_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/size_equal_only.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/set.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/raw_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/raw.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/pair.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/nil_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/nil.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/msgpack_tuple_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/msgpack_tuple.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/map_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/map.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/list.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/int_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/int.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/float.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/fixint_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/fixint.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/ext_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/ext.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/deque.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/define_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/define.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/unordered_set.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/unordered_map.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/unique_ptr.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/tuple.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/shared_ptr.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/reference_wrapper.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/forward_list.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/array_unsigned_char.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/array_char.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/cpp11/array.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/check_container_size_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/check_container_size.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/char_ptr.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/carray.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/boost
+-- Installing: /usr/local/include/msgpack/adaptor/boost/string_ref.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/boost/optional.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/boost/msgpack_variant_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/boost/msgpack_variant.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/boost/fusion.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/bool.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/array_ref_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/array_ref.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/adaptor_base_decl.hpp
+-- Installing: /usr/local/include/msgpack/adaptor/adaptor_base.hpp
+-- Installing: /usr/local/include/msgpack.hpp
+-- Installing: /usr/local/include/msgpack.h
+-- Installing: /usr/local/lib/pkgconfig/msgpack.pc
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew/msgpack-c$ cd ..
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/MultyPartyGWASTest.c -o bin/MultyPartyGWASTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/MultyPartyGWASTest.c:26:0:
+test/../gwas/genoreader.c: In function ‘read_enc_data’:
+test/../gwas/genoreader.c:274:4: warning: implicit declaration of function ‘insert_data_gen’ [-Wimplicit-function-declaration]
+    insert_data_gen(buff);
+    ^
+test/../gwas/genoreader.c:276:4: warning: implicit declaration of function ‘insert_data_phe’ [-Wimplicit-function-declaration]
+    insert_data_phe(buff);
+    ^
+test/../gwas/genoreader.c:278:4: warning: implicit declaration of function ‘insert_data_anc’ [-Wimplicit-function-declaration]
+    insert_data_anc(buff);
+    ^
+In file included from test/MultyPartyGWASTest.c:27:0:
+test/../gwas/arith.c: In function ‘muxInt’:
+test/../gwas/arith.c:11:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/../gwas/arith.c:13:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/../gwas/arith.c: In function ‘mul’:
+test/../gwas/arith.c:35:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/../gwas/arith.c:38:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+test/MultyPartyGWASTest.c: In function ‘main’:
+test/MultyPartyGWASTest.c:76:12: warning: implicit declaration of function ‘fixedOneWire’ [-Wimplicit-function-declaration]
+  int one = fixedOneWire(&garbledCircuit,&garblingContext);
+            ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MultyPartyGWASTest.c:25:
+test/MultyPartyGWASTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MultyPartyGWASTest.c:25:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+/usr/bin/ld: cannot find -lssl
+/usr/bin/ld: cannot find -lcrypto
+collect2: error: ld returned 1 exit status
+Makefile:29: recipe for target 'GWAS' failed
+make: *** [GWAS] Error 1
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ sudo apt-get install libssl-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  libssl-doc zlib1g-dev
+The following NEW packages will be installed:
+  libssl-dev libssl-doc zlib1g-dev
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2,634 kB of archives.
+After this operation, 10.7 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 zlib1g-dev amd64 1:1.2.8.dfsg-2ubuntu4 [168 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial/main amd64 libssl-dev amd64 1.0.2g-1ubuntu4 [1,393 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial/main amd64 libssl-doc all 1.0.2g-1ubuntu4 [1,073 kB]
+Fetched 2,634 kB in 0s (5,639 kB/s)
+Selecting previously unselected package zlib1g-dev:amd64.
+(Reading database ... 193972 files and directories currently installed.)
+Preparing to unpack .../zlib1g-dev_1%3a1.2.8.dfsg-2ubuntu4_amd64.deb ...
+Unpacking zlib1g-dev:amd64 (1:1.2.8.dfsg-2ubuntu4) ...
+Selecting previously unselected package libssl-dev:amd64.
+Preparing to unpack .../libssl-dev_1.0.2g-1ubuntu4_amd64.deb ...
+Unpacking libssl-dev:amd64 (1.0.2g-1ubuntu4) ...
+Selecting previously unselected package libssl-doc.
+Preparing to unpack .../libssl-doc_1.0.2g-1ubuntu4_all.deb ...
+Unpacking libssl-doc (1.0.2g-1ubuntu4) ...
+Processing triggers for man-db (2.7.5-1) ...
+Setting up zlib1g-dev:amd64 (1:1.2.8.dfsg-2ubuntu4) ...
+Setting up libssl-dev:amd64 (1.0.2g-1ubuntu4) ...
+Setting up libssl-doc (1.0.2g-1ubuntu4) ...
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/MultyPartyGWASTest.c -o bin/MultyPartyGWASTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/MultyPartyGWASTest.c:26:0:
+test/../gwas/genoreader.c: In function ‘read_enc_data’:
+test/../gwas/genoreader.c:274:4: warning: implicit declaration of function ‘insert_data_gen’ [-Wimplicit-function-declaration]
+    insert_data_gen(buff);
+    ^
+test/../gwas/genoreader.c:276:4: warning: implicit declaration of function ‘insert_data_phe’ [-Wimplicit-function-declaration]
+    insert_data_phe(buff);
+    ^
+test/../gwas/genoreader.c:278:4: warning: implicit declaration of function ‘insert_data_anc’ [-Wimplicit-function-declaration]
+    insert_data_anc(buff);
+    ^
+In file included from test/MultyPartyGWASTest.c:27:0:
+test/../gwas/arith.c: In function ‘muxInt’:
+test/../gwas/arith.c:11:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/../gwas/arith.c:13:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/../gwas/arith.c: In function ‘mul’:
+test/../gwas/arith.c:35:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/../gwas/arith.c:38:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+test/MultyPartyGWASTest.c: In function ‘main’:
+test/MultyPartyGWASTest.c:76:12: warning: implicit declaration of function ‘fixedOneWire’ [-Wimplicit-function-declaration]
+  int one = fixedOneWire(&garbledCircuit,&garblingContext);
+            ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MultyPartyGWASTest.c:25:
+test/MultyPartyGWASTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MultyPartyGWASTest.c:25:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+/tmp/ccjyx3Uq.o: In function `read_enc_data':
+MultyPartyGWASTest.c:(.text+0x9f0): undefined reference to `insert_data_anc'
+MultyPartyGWASTest.c:(.text+0xb57): undefined reference to `insert_data_gen'
+MultyPartyGWASTest.c:(.text+0xb67): undefined reference to `insert_data_phe'
+/tmp/ccjyx3Uq.o: In function `read_data_gen':
+MultyPartyGWASTest.c:(.text+0x1244): undefined reference to `insert_data_gen'
+/tmp/ccjyx3Uq.o: In function `read_data_phe':
+MultyPartyGWASTest.c:(.text+0x12f4): undefined reference to `insert_data_gen'
+/tmp/ccjyx3Uq.o: In function `read_data_anc':
+MultyPartyGWASTest.c:(.text+0x13a4): undefined reference to `insert_data_gen'
+collect2: error: ld returned 1 exit status
+Makefile:29: recipe for target 'GWAS' failed
+make: *** [GWAS] Error 1
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ LD_LIBRARY_PATH=/usr/local/lib
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ export LD_LIBRARY_PATH
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/MultyPartyGWASTest.c -o bin/MultyPartyGWASTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/MultyPartyGWASTest.c:26:0:
+test/../gwas/genoreader.c: In function ‘read_enc_data’:
+test/../gwas/genoreader.c:274:4: warning: implicit declaration of function ‘insert_data_gen’ [-Wimplicit-function-declaration]
+    insert_data_gen(buff);
+    ^
+test/../gwas/genoreader.c:276:4: warning: implicit declaration of function ‘insert_data_phe’ [-Wimplicit-function-declaration]
+    insert_data_phe(buff);
+    ^
+test/../gwas/genoreader.c:278:4: warning: implicit declaration of function ‘insert_data_anc’ [-Wimplicit-function-declaration]
+    insert_data_anc(buff);
+    ^
+In file included from test/MultyPartyGWASTest.c:27:0:
+test/../gwas/arith.c: In function ‘muxInt’:
+test/../gwas/arith.c:11:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/../gwas/arith.c:13:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/../gwas/arith.c: In function ‘mul’:
+test/../gwas/arith.c:35:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/../gwas/arith.c:38:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+test/MultyPartyGWASTest.c: In function ‘main’:
+test/MultyPartyGWASTest.c:76:12: warning: implicit declaration of function ‘fixedOneWire’ [-Wimplicit-function-declaration]
+  int one = fixedOneWire(&garbledCircuit,&garblingContext);
+            ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MultyPartyGWASTest.c:25:
+test/MultyPartyGWASTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MultyPartyGWASTest.c:25:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+/tmp/ccMM3gr6.o: In function `read_enc_data':
+MultyPartyGWASTest.c:(.text+0x9f0): undefined reference to `insert_data_anc'
+MultyPartyGWASTest.c:(.text+0xb57): undefined reference to `insert_data_gen'
+MultyPartyGWASTest.c:(.text+0xb67): undefined reference to `insert_data_phe'
+/tmp/ccMM3gr6.o: In function `read_data_gen':
+MultyPartyGWASTest.c:(.text+0x1244): undefined reference to `insert_data_gen'
+/tmp/ccMM3gr6.o: In function `read_data_phe':
+MultyPartyGWASTest.c:(.text+0x12f4): undefined reference to `insert_data_gen'
+/tmp/ccMM3gr6.o: In function `read_data_anc':
+MultyPartyGWASTest.c:(.text+0x13a4): undefined reference to `insert_data_gen'
+collect2: error: ld returned 1 exit status
+Makefile:29: recipe for target 'GWAS' failed
+make: *** [GWAS] Error 1
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/MultyPartyGWASTest.c -o bin/MultyPartyGWASTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/MultyPartyGWASTest.c:26:0:
+test/../gwas/genoreader.c: In function ‘read_enc_data’:
+test/../gwas/genoreader.c:274:4: warning: implicit declaration of function ‘insert_data_gen’ [-Wimplicit-function-declaration]
+    insert_data_gen(buff);
+    ^
+test/../gwas/genoreader.c:276:4: warning: implicit declaration of function ‘insert_data_phe’ [-Wimplicit-function-declaration]
+    insert_data_phe(buff);
+    ^
+test/../gwas/genoreader.c:278:4: warning: implicit declaration of function ‘insert_data_anc’ [-Wimplicit-function-declaration]
+    insert_data_anc(buff);
+    ^
+In file included from test/MultyPartyGWASTest.c:27:0:
+test/../gwas/arith.c: In function ‘muxInt’:
+test/../gwas/arith.c:11:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/../gwas/arith.c:13:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/../gwas/arith.c: In function ‘mul’:
+test/../gwas/arith.c:35:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/../gwas/arith.c:38:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+test/MultyPartyGWASTest.c: In function ‘main’:
+test/MultyPartyGWASTest.c:76:12: warning: implicit declaration of function ‘fixedOneWire’ [-Wimplicit-function-declaration]
+  int one = fixedOneWire(&garbledCircuit,&garblingContext);
+            ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MultyPartyGWASTest.c:25:
+test/MultyPartyGWASTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MultyPartyGWASTest.c:25:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+/tmp/ccuYCa3E.o: In function `read_enc_data':
+MultyPartyGWASTest.c:(.text+0x9f0): undefined reference to `insert_data_anc'
+MultyPartyGWASTest.c:(.text+0xb57): undefined reference to `insert_data_gen'
+MultyPartyGWASTest.c:(.text+0xb67): undefined reference to `insert_data_phe'
+/tmp/ccuYCa3E.o: In function `read_data_gen':
+MultyPartyGWASTest.c:(.text+0x1244): undefined reference to `insert_data_gen'
+/tmp/ccuYCa3E.o: In function `read_data_phe':
+MultyPartyGWASTest.c:(.text+0x12f4): undefined reference to `insert_data_gen'
+/tmp/ccuYCa3E.o: In function `read_data_anc':
+MultyPartyGWASTest.c:(.text+0x13a4): undefined reference to `insert_data_gen'
+collect2: error: ld returned 1 exit status
+Makefile:29: recipe for target 'GWAS' failed
+make: *** [GWAS] Error 1
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/MultyPartyGWASTest.c -o bin/MultyPartyGWASTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/MultyPartyGWASTest.c:26:0:
+test/../gwas/genoreader.c: In function ‘read_enc_data’:
+test/../gwas/genoreader.c:274:4: warning: implicit declaration of function ‘insert_data_gen’ [-Wimplicit-function-declaration]
+    insert_data_gen(buff);
+    ^
+test/../gwas/genoreader.c:276:4: warning: implicit declaration of function ‘insert_data_phe’ [-Wimplicit-function-declaration]
+    insert_data_phe(buff);
+    ^
+test/../gwas/genoreader.c:278:4: warning: implicit declaration of function ‘insert_data_anc’ [-Wimplicit-function-declaration]
+    insert_data_anc(buff);
+    ^
+In file included from test/MultyPartyGWASTest.c:27:0:
+test/../gwas/arith.c: In function ‘muxInt’:
+test/../gwas/arith.c:11:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/../gwas/arith.c:13:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/../gwas/arith.c: In function ‘mul’:
+test/../gwas/arith.c:35:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/../gwas/arith.c:38:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+test/MultyPartyGWASTest.c: In function ‘main’:
+test/MultyPartyGWASTest.c:76:12: warning: implicit declaration of function ‘fixedOneWire’ [-Wimplicit-function-declaration]
+  int one = fixedOneWire(&garbledCircuit,&garblingContext);
+            ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MultyPartyGWASTest.c:25:
+test/MultyPartyGWASTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MultyPartyGWASTest.c:25:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+/tmp/ccOMq528.o: In function `read_enc_data':
+MultyPartyGWASTest.c:(.text+0x9f0): undefined reference to `insert_data_anc'
+MultyPartyGWASTest.c:(.text+0xb57): undefined reference to `insert_data_gen'
+MultyPartyGWASTest.c:(.text+0xb67): undefined reference to `insert_data_phe'
+/tmp/ccOMq528.o: In function `read_data_gen':
+MultyPartyGWASTest.c:(.text+0x1244): undefined reference to `insert_data_gen'
+/tmp/ccOMq528.o: In function `read_data_phe':
+MultyPartyGWASTest.c:(.text+0x12f4): undefined reference to `insert_data_gen'
+/tmp/ccOMq528.o: In function `read_data_anc':
+MultyPartyGWASTest.c:(.text+0x13a4): undefined reference to `insert_data_gen'
+collect2: error: ld returned 1 exit status
+Makefile:29: recipe for target 'GWAS' failed
+make: *** [GWAS] Error 1
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ make
+gcc  obj/*.o test/AddTest.c -o bin/AddTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+In file included from test/../include/justGarble.h:23:0,
+                 from test/AddTest.c:27:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/AddTest.c:27:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+gcc  obj/*.o test/MulTest.c -o bin/MulTest.out  -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=native -I../include 
+test/MulTest.c: In function ‘muxInt’:
+test/MulTest.c:30:2: warning: implicit declaration of function ‘XORGate’ [-Wimplicit-function-declaration]
+  XORGate(gc1, gc2, x, y, internalWire);
+  ^
+test/MulTest.c:32:2: warning: implicit declaration of function ‘ANDGate’ [-Wimplicit-function-declaration]
+  ANDGate(gc1, gc2, internalWire, c, internalWire2);
+  ^
+test/MulTest.c: In function ‘mul’:
+test/MulTest.c:54:13: warning: implicit declaration of function ‘fixedZeroWire’ [-Wimplicit-function-declaration]
+  int zero = fixedZeroWire(garbledCircuit, garblingContext);
+             ^
+test/MulTest.c:57:3: warning: implicit declaration of function ‘NOTGate’ [-Wimplicit-function-declaration]
+   NOTGate(garbledCircuit,garblingContext,zero,internalWire);
+   ^
+In file included from test/../include/justGarble.h:23:0,
+                 from test/MulTest.c:26:
+test/MulTest.c: At top level:
+test/../include/common.h:116:13: warning: inline function ‘TRUNC_COPY’ declared but never defined
+ void inline TRUNC_COPY(char *X, char *Y);
+             ^
+test/../include/common.h:114:13: warning: inline function ‘TRUNCATE’ declared but never defined
+ void inline TRUNCATE(char *X);
+             ^
+In file included from test/../include/dkcipher.h:21:0,
+                 from test/../include/justGarble.h:22,
+                 from test/MulTest.c:26:
+test/../include/aes.h:96:13: warning: inline function ‘AES_ecb_decrypt_blks’ declared but never defined
+ inline void AES_ecb_decrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:95:13: warning: inline function ‘AES_ecb_encrypt_blks’ declared but never defined
+ inline void AES_ecb_encrypt_blks(block *blks, unsigned nblks, AES_KEY *key);
+             ^
+test/../include/aes.h:94:13: warning: inline function ‘AES_decrypt’ declared but never defined
+ inline void AES_decrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:93:13: warning: inline function ‘AES_encrypt’ declared but never defined
+ inline void AES_encrypt(const unsigned char *in, unsigned char *out, const AES_
+             ^
+test/../include/aes.h:91:12: warning: inline function ‘AES_set_decrypt_key’ declared but never defined
+ inline int AES_set_decrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+test/../include/aes.h:90:13: warning: inline function ‘AES_set_decrypt_key_fast’ declared but never defined
+ inline void AES_set_decrypt_key_fast(AES_KEY *dkey, const AES_KEY *ekey);
+             ^
+test/../include/aes.h:89:12: warning: inline function ‘AES_set_encrypt_key’ declared but never defined
+ inline int AES_set_encrypt_key(const unsigned char *userKey, const int bits, AE
+            ^
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ ls
+aesCircuit  gwas     Makefile       obj     src         tst.scd
+bin         include  msgpack-1.4.1  README  SumLinTest
+Debug       LICENSE  msgpack-c      scd     test
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ ./bin/AddTest.out
+RESULT IS : 68
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ ./bin/MulTest.out
+ubuntu@ubuntu:~/Downloads/privategenocomputation/GarbledCircuits/justGarbleNew$ 
+
