@@ -29,7 +29,7 @@
 
 int main() {
 
-	char* refId = "rs55902548";
+	char* refId = "rs189842693";
 
 	// CI part
 
@@ -40,6 +40,7 @@ int main() {
     int size_ids = size_of_ids();
 
     int refId_id = find_ids_id(refId);
+    printf("HEY ! %d\n", refId_id);
 
 
     read_encs();

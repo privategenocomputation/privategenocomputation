@@ -32,24 +32,17 @@ typedef struct {
 
 CI_Params* CI() {
 	CI_Params* param = malloc(sizeof(CI_Params));
-	read_names();
 	read_ids();
-	param->size_names = size_of_names();
 	return param;
 }
 
-int main() {
-
-	char* refId = "rs189842693";
-	int phenotypeId = 2;
-	int ancestryId = 2;
+int garbleTest(char* refId, int phenotypeId, int ancestryId, int size_names) {
 
 	// CI part
 
 	int i, j;
 
 	CI_Params* params = CI();
-	int size_names = params->size_names;
 
 	int refId_id = find_ids_id(refId);
 
@@ -92,7 +85,7 @@ int main() {
 	int inputsNb = size_names * 4;
 	int wiresNb = 9000;
 	int gatesNb = 9000;
-	int outputsNb = log(size_names) +1;
+	int outputsNb = log(size_names) + 1;
 
 	//Create a circuit.
 	block labels[2 * inputsNb];
@@ -136,13 +129,15 @@ int main() {
 		outputs[i] = zerowire;
 	}
 	//sum(&garbledCircuit, &garblingContext, tempOutPut, size_names, 2, outputs);
-	sumLinGWAS(&garbledCircuit,&garblingContext,tempOutPut,tempOutPut+2*size_names,tempOutPut+3*size_names,size_names,2,zerowire,outputsNb,outputs);
+	sumLinGWAS(&garbledCircuit, &garblingContext, tempOutPut,
+			tempOutPut + 2 * size_names, tempOutPut + 3 * size_names,
+			size_names, 2, zerowire, outputsNb, outputs);
 
 	block outputbs[outputsNb];
 	OutputMap outputMap = outputbs;
 	finishBuilding(&garbledCircuit, &garblingContext, outputMap, outputs);
 	garbleCircuit(&garbledCircuit, inputLabels, outputMap);
-	writeCircuitToFile(&garbledCircuit, "./SumLinTest");
+	int res = writeCircuitToFile(&garbledCircuit, "./SumLinTest");
 
 	// MU -> Evaluation part
 	GarbledCircuit aesCircuit;
@@ -167,12 +162,64 @@ int main() {
 	free_anc();
 	free_ancSkeys();
 	free_ids();
-	int res = 0;
-	for(i = 0; i < outputsNb; i++) {
-		res += (outputVals[i] << i);
-	}
-	printf("RES IS : %d\n", res);
+	return res;
+}
 
+int main() {
+	int i, j, z;
+	read_names();
+
+	int size_names = size_of_names();
+
+	double speeds[size_names];
+	int sizes[size_names];
+	for (z = 1; z <= size_names; z++) {
+		double count = 0;
+		int count2 = 0;
+		for (i = 0; i < 3; i++) {
+			for (j = 0; j < 3; j++) {
+				printf("%d %d %d\n",i,j,z);
+				clock_t begin, end;
+				double time_spent;
+
+				begin = clock();
+				count2+= garbleTest("rs9605049", i, j, z);
+				end = clock();
+				count+= (double)(end - begin) / CLOCKS_PER_SEC;
+
+			}
+		}
+		speeds[z] = count/9;
+		sizes[z]= count2/9;
+	}
+	double diffs[size_names-1];
+	for(i=0;i<size_names-1;i++){
+		diffs[i] = speeds[i+1] - speeds[i];
+	}
+	int diffssize[size_names-1];
+	for(i=0;i<size_names-1;i++){
+		diffssize[i] = sizes[i+1] - sizes[i];
+	}
+	FILE *f0 = fopen("speeds.txt", "wb");
+	for(i=0;i<size_names;i++) {
+		fprintf(f0,"%f\n",speeds[i]);
+	}
+	fclose(f0);
+	FILE *f = fopen("sizes.txt", "wb");
+	for(i=0;i<size_names;i++) {
+		fprintf(f,"%d\n",sizes[i]);
+	}
+	fclose(f);
+	FILE *f2 = fopen("diffs.txt", "wb");
+	for(i=0;i<size_names-1;i++) {
+		fprintf(f2,"%f\n",diffs[i]);
+	}
+	fclose(f2);
+	FILE *f3 = fopen("sizesdiffs.txt", "wb");
+	for(i=0;i<size_names-1;i++) {
+		fprintf(f3,"%d\n",diffssize[i]);
+	}
+	fclose(f3);
 	return 0;
 }
 

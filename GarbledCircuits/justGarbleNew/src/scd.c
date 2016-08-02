@@ -37,7 +37,7 @@ long fsize(const char *filename) {
 	return -1;
 }
 
-int writeCircuitToFile(GarbledCircuit *garbledCircuit, char *fileName) {
+size_t writeCircuitToFile(GarbledCircuit *garbledCircuit, char *fileName) {
 	FILE *f = fopen(fileName, "wb");
 	if (f == NULL) {
 		printf("Write: Error in opening file.\n");
@@ -73,7 +73,7 @@ int writeCircuitToFile(GarbledCircuit *garbledCircuit, char *fileName) {
 	}
 	fwrite(buffer->data, (buffer->size), 1, f);
 	fclose(f);
-	return SUCCESS;
+	return buffer->size;
 }
 
 int readCircuitFromFile(GarbledCircuit *garbledCircuit, char *fileName) {

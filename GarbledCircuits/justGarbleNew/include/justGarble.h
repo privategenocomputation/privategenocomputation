@@ -162,7 +162,7 @@ int mapOutputs(OutputMap outputMap, OutputMap extractedMap, int *outputVals,
 		int m);
 
 
-int writeCircuitToFile(GarbledCircuit *garbledCircuit, char *fileName);
+size_t writeCircuitToFile(GarbledCircuit *garbledCircuit, char *fileName);
 int readCircuitFromFile(GarbledCircuit *garbledCircuit, char *fileName);
 
 

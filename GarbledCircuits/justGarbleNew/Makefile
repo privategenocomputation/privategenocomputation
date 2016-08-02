@@ -18,7 +18,7 @@ CFLAGS= -O3 -lm -lrt -lpthread -maes -msse4 -lmsgpackc -lssl -lcrypto -march=nat
 
 
 GWAS = MultyPartyGWASTest
-GWAS2 = SmallerRealSumLinTest
+GWAS2 = SpeedTestSmallerRealSumLinTest
 GWAS3 = PartSmallerRealSumLinTest
 GWAS4 = MultyPartySumLinTest
 rm = rm --f

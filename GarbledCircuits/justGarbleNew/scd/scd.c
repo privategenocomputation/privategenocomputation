@@ -41,7 +41,7 @@ typedef struct {
  long *A, *B, *G, *O;
 } Circuit;
 
-int writeSCDFile(Circuit *circuit, char *fileName) {
+size_t writeSCDFile(Circuit *circuit, char *fileName) {
 	FILE *f = fopen(fileName, "wb");
 	if (f == NULL) {
 		printf("Write: Error in opening file.\n");
@@ -73,7 +73,7 @@ int writeSCDFile(Circuit *circuit, char *fileName) {
 	}
 	fwrite(buffer->data, (buffer->size), 1, f);
 	fclose(f);
-	return SUCCESS;
+	return buffer->size;
 }
 
 int readSCDFile(Circuit *circuit, char *fileName) {
