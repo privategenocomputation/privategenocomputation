@@ -86,12 +86,12 @@ void pAET(double time = -1, int v = VERB, int rcnl = 1){
 };
 
 // Decryption
-int testDec(BigPoly r, Evaluator &evaluator, Decryptor &decryptorSPU, Decryptor &decryptorMU, BigPoly e, BinaryEncoder &encoder, int v = SVERB){
+int testDec(BigPoly r, Evaluator &evaluator, Decryptor &decryptorSPU, Decryptor &decryptorMU, BigPoly e_SPU, BigPoly e_MU, BinaryEncoder &encoder, int v = SVERB){
 	int aea, aet;
 	aea = 0;
 	if(v) cout << "\n\t\ttestDecryp: c_MU";
 	Timer t;
-	BigPoly c_MU = evaluator.add(decryptorSPU.multSkKey(r), e);
+	BigPoly c_MU = evaluator.add(decryptorSPU.multSkKey(r), e_MU);
 	aet = t.elapsed();
 	aea += aet;
 	pRec(aet);
@@ -99,7 +99,7 @@ int testDec(BigPoly r, Evaluator &evaluator, Decryptor &decryptorSPU, Decryptor 
 	pAET(aet,v);
 	if(v) cout << "\t\ttestDecryp: c_SPU";
 	t.reset();
-	BigPoly c_SPU = evaluator.add(decryptorMU.multSkKey(r), e);
+	BigPoly c_SPU = evaluator.add(decryptorMU.multSkKey(r), e_SPU);
 	aet = t.elapsed();
 	aea += aet;
 	pRec(aet);
@@ -362,21 +362,6 @@ int main(int argc, char *argv[]){
 	// Generate decs, enco, encr, eval
 	aea = 0;
 	pState("Generate encryption objects", 0);
-	// Set Decryptor SPU/MU
-	verb("\n\tBuilding decryptor MU");
-	t.reset();
-	Decryptor decryptorMU(parms, secretKey_MU);
-	aet = t.elapsed();
-	aea += aet;
-	verb(yOk);
-	pAET(aet);
-	verb("\tBuilding decryptor SPU");
-	t.reset();
-	Decryptor decryptorSPU(parms, secretKey_SPU);
-	aet = t.elapsed();
-	aea += aet;
-	verb(yOk);
-	pAET(aet);
 	// Set Encoder
 	verb("\tBuilding encoder");
 	t.reset();
@@ -404,7 +389,8 @@ int main(int argc, char *argv[]){
 	// Retrive normal noise
 	verb("\tRetriving noise");
 	t.reset();
-	BigPoly e = encryptor.getE();
+	BigPoly e_SPU = encryptor.getE();
+        BigPoly e_MU = encryptor.getE();
 	aet = t.elapsed();
 	aea += aet;
 	verb(yOk);
@@ -462,12 +448,29 @@ int main(int argc, char *argv[]){
 	pAET(aea,1);
 	pRec(aea);
 
+
+	// Set Decryptor SPU/MU
+	verb("\n\tBuilding decryptor MU");
+	t.reset();
+	Decryptor decryptorMU(parms, secretKey_MU);
+	aet = t.elapsed();
+	aea += aet;
+	verb(yOk);
+	pAET(aet);
+	verb("\tBuilding decryptor SPU");
+	t.reset();
+	Decryptor decryptorSPU(parms, secretKey_SPU);
+	aet = t.elapsed();
+	aea += aet;
+	verb(yOk);
+	pAET(aet);
+
 	// Decryption
 	aea = 0;
 	pState("Decryption");
 	verb("\n\tDecrypting result");
 	t.reset();
-	int result = testDec(r, evaluator, decryptorMU, decryptorSPU, e, encoder);
+	int result = testDec(r, evaluator, decryptorMU, decryptorSPU, e_SPU, e_MU, encoder);
 	aet = t.elapsed();
 	aea += aet;
 	verb(yOk);
