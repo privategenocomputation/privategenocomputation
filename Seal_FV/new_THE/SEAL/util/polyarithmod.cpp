@@ -4,7 +4,7 @@
 #include "util/polyarith.h"
 #include "util/polyarithmod.h"
 #include "util/polyfftmultmod.h"
-
+#include <iostream>
 using namespace std;
 
 namespace seal
@@ -176,15 +176,18 @@ namespace seal
             int coeff_count = poly_modulus.coeff_count();
             int coeff_uint64_count = poly_modulus.coeff_uint64_count();
             int coeff_power = poly_modulus.coeff_count_power_of_two();
+            
             if (coeff_power >= 0 && poly_modulus.is_one_zero_one() &&
                 get_significant_coeff_count_poly(operand1, coeff_count, coeff_uint64_count) >= coeff_count / fft_coeff_count_ratio &&
                 get_significant_coeff_count_poly(operand2, coeff_count, coeff_uint64_count) >= coeff_count / fft_coeff_count_ratio)
             {
                 set_zero_uint(coeff_uint64_count, get_poly_coeff(result, coeff_count - 1, coeff_uint64_count));
                 fftmultiply_poly_poly_polymod_coeffmod(operand1, operand2, coeff_power, modulus, result, pool);
+                //cout<<"using fftmultiply"<<endl;
                 return;
             }
             nonfftmultiply_poly_poly_polymod_coeffmod(operand1, operand2, poly_modulus, modulus, result, pool);
+            //cout<<"using nonfftmultiply"<<endl;
         }
 
         void multiply_poly_poly_polymod_coeffmod_inplace(const uint64_t *operand1, const uint64_t *operand2, const PolyModulus &poly_modulus, const Modulus &modulus, uint64_t *result, MemoryPool &pool)
@@ -490,6 +493,10 @@ namespace seal
             int coeff_uint64_count = divide_round_up(coeff_bit_count, bits_per_uint64);
             int poly_ptr_increment = coeff_count * coeff_uint64_count;
    
+            /*
+            cout<<"coeff_count is: "<<coeff_count<<endl;
+            cout<<"coeff_bit_count is: "<<coeff_bit_count<<endl;
+            cout<<"coeff_uint64_count is: "<<coeff_uint64_count<<endl;*/
             set_zero_poly(coeff_count, coeff_uint64_count, result);
 
             // initialize pointers for multiplication

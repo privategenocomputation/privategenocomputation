@@ -1,3 +1,5 @@
+#ifndef SEAL_DECRYPTOR_TK_H
+#define SEAL_DECRYPTOR_TK_H
 
 #include "encryptionparams.h"
 #include "util/modulus.h"
@@ -11,7 +13,7 @@ namespace seal
     parameters (set through an EncryptionParameters object) and the secret key. The public and evaluation keys are not needed
     for decryption.
     */
-    class DecryptorT
+    class Decryptor_TK
     {
     public:
         /**
@@ -22,9 +24,7 @@ namespace seal
         @throws std::invalid_argument if encryption parameters or secret key are not valid
         @see EncryptionParameters for more details on valid encryption parameters.
         */
-        /*
-        DecryptorT(const EncryptionParameters &parms, const BigPolyArray &nw_secret_key_array);*/
-        DecryptorT(const EncryptionParameters &parms);
+        Decryptor_TK(const EncryptionParameters &parms, const BigPoly &secret_key, const BigPoly &secret_key_SPU, const BigPoly &secret_key_H);
 
         /**
         Decrypts an FV ciphertext and stores the result in the destination parameter. 
@@ -34,14 +34,15 @@ namespace seal
         @throws std::invalid_argument if the ciphertext is not a valid ciphertext for the encryption parameters
         @throws std::logic_error If destination is an alias but needs to be resized
         */
-        void decryptSPU(BigPolyArray &encrypted, BigPoly &destination, BigPolyArray& secret_key_SPU_array);
-        void decryptMU(const BigPolyArray &encrypted, BigPoly &destination, BigPoly &decryptedSPU, BigPolyArray& secret_key_MU_array);
+        void decrypt(const BigPolyArray &encrypted, BigPoly &destination);
+
         /**
         Decrypts an BigPolyArray and returns the result.
 
         @param[in] encrypted The ciphertext to decrypt
         @throws std::invalid_argument if the ciphertext is not a valid ciphertext for the encryption parameters
         */
+        
 
         /**
         Returns the secret key used by the Decryptor.
@@ -52,13 +53,17 @@ namespace seal
         }
 
     private:
-        DecryptorT(const DecryptorT &copy) = delete;
+        Decryptor_TK(const Decryptor_TK &copy) = delete;
 
-        DecryptorT &operator =(const DecryptorT &assign) = delete;
+        Decryptor_TK &operator =(const Decryptor_TK &assign) = delete;
 
         void compute_secret_key_array(int max_power);
         
-        void set_poly_coeffs_normal(std::uint64_t *poly, UniformRandomGenerator *random) const;
+        void compute_secret_key_SPU_array(int max_power);
+        
+        void compute_secret_key_H_array(int max_power);
+        
+        BigPolyArray compute_secret_key_array(int max_power, BigPoly &secretkeySPU);
 
         BigPoly poly_modulus_;
 
@@ -75,6 +80,10 @@ namespace seal
         BigUInt coeff_div_plain_modulus_div_two_;
 
         BigPoly secret_key_;
+        
+        BigPoly secret_key_H_;
+        
+        BigPoly secret_key_SPU_;
 
         int orig_plain_modulus_bit_count_;
 
@@ -82,11 +91,12 @@ namespace seal
 
         util::Modulus mod_;
 
-        BigPolyArray nw_secret_key_array;
-                
-        double noise_standard_deviation_;
+        BigPolyArray secret_key_array_;
         
-        double noise_max_deviation_;
+        BigPolyArray secret_keySPU_array_;
+        
+        BigPolyArray secret_key_H_array_;
     };
 }
 
+#endif // SEAL_DECRYPTOR_TK_H

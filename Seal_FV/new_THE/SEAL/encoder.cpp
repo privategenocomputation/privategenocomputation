@@ -626,6 +626,9 @@ namespace seal
 
             // Multiply result by base.
             int64_t next_result = result * base_;
+            /*
+            cout<<"next result is: "<<next_result<<endl;
+            cout<<"result is: "<<result<<endl;*/
 
             if ((next_result < 0) != (result < 0))
             {
