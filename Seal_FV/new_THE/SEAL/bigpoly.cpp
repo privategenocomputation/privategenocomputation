@@ -459,6 +459,8 @@ namespace seal
         }
         return *this;
     }
+    
+    
 
     BigPoly &BigPoly::operator =(const string &hex_poly)
     {

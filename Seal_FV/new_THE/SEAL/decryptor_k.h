@@ -31,7 +31,7 @@ namespace seal
          @throws std::logic_error If destination is an alias but needs to be resized
          */
         void decryptSPU(BigPolyArray &encrypted, BigPoly &destination);
-        void decryptMU(const BigPolyArray &encrypted, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array);
+        void decryptMU(BigPolyArray &encrypted, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array);
         /**
          Decrypts an BigPolyArray and returns the result.
          @param[in] encrypted The ciphertext to decrypt
@@ -46,7 +46,10 @@ namespace seal
             return secret_key_;
         }
         
+        void polyPermutate(BigPoly& inp, int exponent, int poly_mod);
+        
     private:
+        
         Decryptor_k(const Decryptor_k &copy) = delete;
         
         Decryptor_k &operator =(const Decryptor_k &assign) = delete;
@@ -54,6 +57,7 @@ namespace seal
         void compute_secret_key_array(int max_power);
         
         void set_poly_coeffs_normal(std::uint64_t *poly, UniformRandomGenerator *random) const;
+        
         
         BigPoly poly_modulus_;
         

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <stdexcept>
+#include <cmath>
 #include "Decryptor_k.h"
 #include "util/common.h"
 #include "util/uintcore.h"
@@ -11,8 +12,10 @@
 #include "util/randomtostd.h"
 #include "bigpolyarith.h"
 #include "bigpoly.h"
+#include "biguint.h"
 #include "util/uintarithmod.h"
 #include "util/polyextras.h"
+#include "polycrt.h"
 
 using namespace std;
 using namespace seal::util;
@@ -177,7 +180,7 @@ namespace seal
         }
     }
     
-    void Decryptor_k::decryptMU(const BigPolyArray &encrypted, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array)
+    void Decryptor_k::decryptMU(BigPolyArray &encrypted, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array)
     {
         
         // Extract encryption parameters.
@@ -258,12 +261,13 @@ namespace seal
         */
         
         cout<<"encrypted.size is: "<<encrypted.size()<<endl;
-        //dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_array_.pointer(0), encrypted.size() - 1, polymod_, mod_, destination.pointer(), pool);
+        dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_array_.pointer(0), 1, polymod_, mod_, destination.pointer(), pool);
         
         //add_poly_poly_coeffmod(destination.pointer(), encrypted[0].pointer(), coeff_count, coeff_modulus_.pointer(), coeff_uint64_count, destination.pointer());
+        /*
         Pointer temp2(allocate_poly(coeff_count, coeff_uint64_count, pool));
         multiply_poly_poly_polymod_coeffmod(encrypted[1].pointer(), secret_key_array_[0].pointer(), polymod_, mod_, temp2.get(), pool);
-        add_poly_poly_coeffmod(destination.pointer(), temp2.get(), coeff_count, mod_.get(), coeff_uint64_count, destination.pointer());
+        add_poly_poly_coeffmod(destination.pointer(), temp2.get(), coeff_count, mod_.get(), coeff_uint64_count, destination.pointer());*/
         
         ////////////////////////////////////
         //For the testing of correct splitting of the secret keys
@@ -292,14 +296,39 @@ namespace seal
         {
             destination2.resize(coeff_count, coeff_bit_count);
         }
+        BigPoly temp3;
         
+        if (temp3.coeff_count() != coeff_count || temp3.coeff_bit_count() != coeff_bit_count)
+        {
+            temp3.resize(coeff_count, coeff_bit_count);
+        }
+        /*
         Pointer temp3(allocate_poly(coeff_count, coeff_uint64_count, pool));
-        cout<<"multiplication for first multiplication then addition"<<endl;
-        multiply_poly_poly_polymod_coeffmod(encrypted[1].pointer(), secret_key_MU_array[0].pointer(), polymod_, mod_, temp3.get(), pool);
-        add_poly_poly_coeffmod(destination2.pointer(), temp3.get(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
-        Pointer temp4(allocate_poly(coeff_count, coeff_uint64_count, pool));
-        multiply_poly_poly_polymod_coeffmod(encrypted[1].pointer(), secret_key_SPU_array[0].pointer(), polymod_, mod_, temp4.get(), pool);
-        add_poly_poly_coeffmod(destination2.pointer(), temp4.get(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
+        cout<<"multiplication for first multiplication then addition"<<endl;*/
+        dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_MU_array.pointer(0), 1, polymod_, mod_, temp3.pointer(), pool);
+        BigPoly tp3=temp3;
+        for (int i=0; i<3; i++) {
+            temp3=tp3;
+            polyPermutate(temp3, 2*i+1, poly_modulus_.coeff_count()-1);
+            add_poly_poly_coeffmod(destination2.pointer(), temp3.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
+        }
+        
+        //add_poly_poly_coeffmod(destination2.pointer(), temp3.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
+        /*Pointer temp4(allocate_poly(coeff_count, coeff_uint64_count, pool));*/
+        BigPoly temp4;
+        
+        if (temp4.coeff_count() != coeff_count || temp4.coeff_bit_count() != coeff_bit_count)
+        {
+            temp4.resize(coeff_count, coeff_bit_count);
+        }
+        dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_SPU_array.pointer(0), 1, polymod_, mod_, temp4.pointer(), pool);
+        BigPoly tp4=temp4;
+        for (int i=0; i<3; i++) {
+            temp4=tp4;
+            polyPermutate(temp4, 2*i+1, poly_modulus_.coeff_count()-1);
+            add_poly_poly_coeffmod(destination2.pointer(), temp4.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
+        }
+        
         
         ////////////////////////////////////
         //For testing of dot product correctness for addition and substraction
@@ -327,10 +356,64 @@ namespace seal
         if (destination==destination2) {
             cout<<"dot product correct"<<endl;
         }
-        add_poly_poly_coeffmod(destination2.pointer(), encrypted[0].pointer(), coeff_count, coeff_modulus_.pointer(), coeff_uint64_count, destination2.pointer());
-        destination=destination2;
-        cout<<"3333"<<endl;
+        BigPoly temp0;
         
+        if (temp0.coeff_count() != coeff_count || temp0.coeff_bit_count() != coeff_bit_count)
+        {
+            temp0.resize(coeff_count, coeff_bit_count);
+        }
+        BigPoly e0=encrypted[0];
+        for (int i=0; i<3; i++) {
+            temp0=e0;
+            polyPermutate(temp0, 2*i+1, poly_modulus_.coeff_count()-1);
+            add_poly_poly_coeffmod(destination2.pointer(), temp0.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
+        }
+        
+        ////////////////////////////////////
+        //Generate random noise to mask all the plaintext slots other than the first one.
+        ////////////////////////////////////
+        /*
+        BigPoly destination3;
+        
+        if (destination3.coeff_count() != coeff_count || destination3.coeff_bit_count() != coeff_bit_count)
+        {
+            destination3.resize(coeff_count, coeff_bit_count);
+        }
+        PolyCRTBuilder crtbuilder(plain_modulus_, poly_modulus_);
+        size_t slot_count = crtbuilder.get_slot_count();
+        
+        // Create a vector of values that are to be stored in the slots. We initialize all values to 0 at this point.
+        vector<BigUInt> values1(slot_count, BigUInt(14, static_cast<uint64_t>(0)));
+        cout<<"parms.plain_modulus is: "<<plain_modulus_.to_string()<<"parms.poly_modulus is: "<<poly_modulus_.to_string()<<endl;
+        cout<<"slot_count is: "<<slot_count<<endl;
+        cout<<"parms.plain_modulus().bit_count() is: "<<plain_modulus_.bit_count()<<endl;
+        int vector_size=3;
+        // Set the first few entries of the values vector to be non-zero
+        values1[0]=0;
+        for (int i=1; i<vector_size; i++) {
+            values1[i]=4;
+            //values1[i]=rand()%(plain_modulus_);
+        }
+        // Now compose these into one polynomial using PolyCRTBuilder
+        
+        BigPoly plain_composed_noise;
+        if (plain_composed_noise.coeff_count() != coeff_count || plain_composed_noise.coeff_bit_count() != coeff_bit_count)
+        {
+            plain_composed_noise.resize(coeff_count, coeff_bit_count);
+        }
+        cout<<"2222"<<endl;
+        plain_composed_noise = crtbuilder.compose(values1);
+        cout<<"3333"<<endl;
+        //polyPermutate(encrypted[0], 1, poly_modulus_.coeff_count()-1);
+        add_poly_poly_coeffmod(destination3.pointer(), plain_composed_noise.pointer(), coeff_count, coeff_modulus_.pointer(), coeff_uint64_count, destination3.pointer());*/
+        
+        destination=destination2;
+        
+        cout<<"the degree of the poly_modulus is: "<<poly_modulus_.coeff_count()-1<<endl;
+        
+        ////////////////////////////////////
+        //Add noise to mask the result.
+        ////////////////////////////////////
         /*
         MemoryPool &poolforrMU = *MemoryPool::default_pool();
         BigPoly errorMU(coeff_count, coeff_bit_count);
@@ -340,6 +423,18 @@ namespace seal
         set_poly_coeffs_normal(tempMU.get(), randomMU.get());
         add_poly_poly_coeffmod(tempMU.get(), errorMU.pointer(), coeff_count, mod_.get(), coeff_uint64_count, errorMU.pointer());
         add_poly_poly_coeffmod(destination.pointer(), errorMU.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination.pointer());*/
+        
+        ////////////////////////////////////
+        //Permutate the resultant polynomial for the permutation of the plaintext slots.
+        ////////////////////////////////////
+        
+        //cout<<"original polynomial is: "<<destination2.to_string()<<endl;
+        //polyPermutate(destination, 5, poly_modulus_.coeff_count()-1);
+        //cout<<"new polynomial after permutation is: "<<destination.to_string()<<endl;
+        if (destination==destination2) {
+            cout<<"polynomial computed correctly"<<endl;
+        }
+        
         
         // For each coefficient, reposition and divide by coeff_div_plain_modulus.
         uint64_t *dest_coeff = destination.pointer();
@@ -368,6 +463,44 @@ namespace seal
         cout<<"decryption combine donedecryption combine donedecryption combine done"<<endl;
     }
     
+    void Decryptor_k::polyPermutate(BigPoly& inp, int exponent, int poly_mod)
+    {
+        BigPoly res=inp;
+        
+        int coeff_count = poly_modulus_.coeff_count();
+        cout<<"coeff_count is: "<<coeff_count<<endl;
+        int coeff_bit_count = poly_modulus_.coeff_bit_count();
+        /*if (res.coeff_count() != coeff_count || res.coeff_bit_count() != coeff_bit_count)
+        {
+            res.resize(coeff_count, coeff_bit_count);
+        }*/
+        
+        int *power = new int[coeff_count-1];
+        int *tmp = new int[coeff_count-1];
+        for (int i=0; i<coeff_count-1; i++) {
+            int tmp2=(i*exponent)%poly_mod;
+            tmp[i]=(i*exponent/poly_mod)%2;
+            power[tmp2]=i;
+        }
+        /*
+        for (int i=0; i<coeff_count-1; i++) {
+            res.operator[](i)=inp.operator[](power[i]).operator*(sign[power[i]]);
+        }*/
+        for (int i=0; i<coeff_count-1; i++) {
+            BigUInt t;
+            t.set_zero();
+            //cout<<"inp["<<i<<"]"<<inp[i].to_string()<<endl;
+            if (tmp[power[i]]) {
+                res[i]=t.operator-(inp[power[i]]);
+            }
+            else {
+                res[i]=t.operator+(inp[power[i]]);
+            }
+            //cout<<"res["<<i<<"]"<<res[i].to_string()<<endl;
+        }
+        inp=res;
+        return;
+    }
     
     void Decryptor_k::compute_secret_key_array(int max_power)
     {

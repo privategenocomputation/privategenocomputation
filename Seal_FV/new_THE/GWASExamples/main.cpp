@@ -206,19 +206,22 @@ void example_basics() {
     // Create the PolyCRTBuilder
     PolyCRTBuilder crtbuilder(parms.plain_modulus(), parms.poly_modulus());
     size_t slot_count = crtbuilder.get_slot_count();
-    
+    cout<<"parms.plain_modulus is: "<<parms.plain_modulus().to_string()<<"parms.poly_modulus is: "<<parms.poly_modulus().to_string()<<endl;
+    cout<<"slot_count is: "<<slot_count<<endl;
     // Create a vector of values that are to be stored in the slots. We initialize all values to 0 at this point.
     vector<BigUInt> values1(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
-    
+    cout<<"parms.plain_modulus().bit_count() is: "<<parms.plain_modulus().bit_count()<<endl;
+    int vector_size=3;
     // Set the first few entries of the values vector to be non-zero
-    values1[0] = 70;
-    values1[1] = 99;
+    for (int i=0; i<vector_size; i++) {
+        values1[i]=rand()%2+1;
+    }
     
     // Now compose these into one polynomial using PolyCRTBuilder
     cout << "Plaintext slot contents (slot, value): ";
-    for (size_t i = 0; i < 2; ++i)
+    for (size_t i = 0; i < vector_size; ++i)
     {
-        cout << "(" << i << ", " << values1[i].to_dec_string() << ")" << ((i != 1) ? ", " : "\n");
+        cout << "(" << i << ", " << values1[i].to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
     }
     BigPoly plain_composed_poly1 = crtbuilder.compose(values1);
     
@@ -230,15 +233,16 @@ void example_basics() {
     // Now let's try to multiply the squares with the plaintext coefficients (3, 1, 4, 1, 5, 9, 0, 0, ..., 0).
     // First create the coefficient vector
     vector<BigUInt> values2(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
-    values2[0] = 8;
-    values2[1] = 9;
+    for (int i=0; i<vector_size; i++) {
+        values2[i]=rand()%2+1;
+    }
     
     
     // Now compose these into one polynomial using PolyCRTBuilder
     cout << "Plaintext slot contents (slot, value): ";
-    for (size_t i = 0; i < 2; ++i)
+    for (size_t i = 0; i < vector_size; ++i)
     {
-        cout << "(" << i << ", " << values2[i].to_dec_string() << ")" << ((i != 1) ? ", " : "\n");
+        cout << "(" << i << ", " << values2[i].to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
     }
     
     // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
@@ -253,15 +257,16 @@ void example_basics() {
     // Now let's try to multiply the squares with the plaintext coefficients (3, 1, 4, 1, 5, 9, 0, 0, ..., 0).
     // First create the coefficient vector
     vector<BigUInt> values3(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
-    values3[0] = 2;
-    values3[1] = 3;
+    for (int i=0; i<vector_size; i++) {
+        values3[i]=rand()%3+1;
+    }
     
     
     // Now compose these into one polynomial using PolyCRTBuilder
     cout << "Plaintext slot contents (slot, value): ";
-    for (size_t i = 0; i < 2; ++i)
+    for (size_t i = 0; i < vector_size; ++i)
     {
-        cout << "(" << i << ", " << values3[i].to_dec_string() << ")" << ((i != 1) ? ", " : "\n");
+        cout << "(" << i << ", " << values3[i].to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
     }
     
     // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
@@ -325,7 +330,6 @@ void example_basics() {
     // Perform threshold decryption with or without CRT
     /////////////////////////////
     
-    
     Decryptor_k decMU(parms,secret_key_H);
     BigPoly cpSPU;
     cpSPU.set_zero();
@@ -341,10 +345,13 @@ void example_basics() {
     
     // Print the scaled squared slots
     cout << "Scaled squared slot contents (slot, value): ";
-    for (size_t i = 0; i < 2; ++i)
+    
+    for (size_t i = 0; i < vector_size; ++i)
     {
-        cout << "(" << i << ", " << crtbuilder.get_slot(result1, i).to_dec_string() << ")" << ((i != 1) ? ", " : "\n");
+        cout << "(" << i << ", " << crtbuilder.get_slot(result1, i).to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
     }
+    
+    
     
     /////////////////////////////
     // Decryption result decoding (without CRT)

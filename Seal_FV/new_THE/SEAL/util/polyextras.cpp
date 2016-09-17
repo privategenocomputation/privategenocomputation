@@ -3,6 +3,8 @@
 #include "util/polyarith.h"
 #include "util/uintarithmod.h"
 #include "util/polyarithmod.h"
+#include <iostream>
+#include <math.h>  
 
 using namespace std;
 
@@ -161,7 +163,7 @@ namespace seal
             set_poly_poly(intermediateptr, poly_modulus_coeff_count, coeff_modulus_uint64_count, result);
         }
 
-        void poly_eval_uint_mod(const uint64_t *poly_to_eval, int poly_to_eval_coeff_count, const uint64_t *value, const Modulus &modulus, uint64_t *result, MemoryPool &pool)
+        void poly_eval_uint_mod(const uint64_t *poly_to_eval, int poly_to_eval_coeff_count,  const uint64_t *value, const Modulus &modulus, uint64_t *result, MemoryPool &pool)
         {
             int modulus_uint64_count = modulus.uint64_count();
 
@@ -191,6 +193,30 @@ namespace seal
             uint64_t *intermediateptr = temp2.get();
 
             const uint64_t *curr_coeff;
+            /////////////////
+            //Calculate the x^k for the Galois group actions.
+            /////////////////
+            //cout<<"original value is: "<<*value<<endl;
+            /*int k=5;
+            Pointer temp4(allocate_uint(modulus_uint64_count, pool));
+            uint64_t *res=temp4.get();
+            for (int i=0; i<k-1; i++) {
+                if (i==0) {
+                    multiply_uint_uint_mod(value, value, modulus, res, pool);
+                    //cout<<"new value after modular exponentiation is: "<<*res<<endl;
+                }
+                if (i>0) {
+                    multiply_uint_uint_mod(res, value, modulus, res, pool);
+                    //cout<<"new value after modular exponentiation is: "<<*res<<endl;
+                }
+            }
+            if (k>1) {
+                value=res;
+            }
+            
+            //cout<<endl;
+            //cout<<"new value after modular exponentiation is: "<<*value<<endl;*/
+            
             for (int coeff_index = poly_to_eval_coeff_count - 1; coeff_index >= 0; --coeff_index)
             {
                 multiply_uint_uint_mod(intermediateptr, value, modulus, productptr, pool);
