@@ -180,7 +180,7 @@ namespace seal
         }
     }
     
-    void Decryptor_k::decryptMU(BigPolyArray &encrypted, BigPolyArray & plaintext_slot_noise, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array)
+    void Decryptor_k::decryptMU(BigPolyArray &encrypted, BigPolyArray & plaintext_slot_noise, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array, int vector_size)
     {
         
         // Extract encryption parameters.
@@ -323,7 +323,7 @@ namespace seal
         cout<<"multiplication for first multiplication then addition"<<endl;*/
         dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_MU_array.pointer(0), 1, polymod_, mod_, temp3.pointer(), pool);
         BigPoly tp3=temp3;
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<vector_size; i++) {
             temp3=tp3;
             polyPermutate(temp3, 2*i+1, poly_modulus_.coeff_count()-1);
             add_poly_poly_coeffmod(destination2.pointer(), temp3.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
@@ -339,7 +339,7 @@ namespace seal
         }
         dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_SPU_array.pointer(0), 1, polymod_, mod_, temp4.pointer(), pool);
         BigPoly tp4=temp4;
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<vector_size; i++) {
             temp4=tp4;
             polyPermutate(temp4, 2*i+1, poly_modulus_.coeff_count()-1);
             add_poly_poly_coeffmod(destination2.pointer(), temp4.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
@@ -368,7 +368,7 @@ namespace seal
             temp0.resize(coeff_count, coeff_bit_count);
         }
         BigPoly e0=encrypted[0];
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<vector_size; i++) {
             temp0=e0;
             polyPermutate(temp0, 2*i+1, poly_modulus_.coeff_count()-1);
             add_poly_poly_coeffmod(destination2.pointer(), temp0.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
