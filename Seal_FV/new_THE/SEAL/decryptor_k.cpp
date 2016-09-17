@@ -511,7 +511,7 @@ namespace seal
         BigPoly res=inp;
         
         int coeff_count = poly_modulus_.coeff_count();
-        cout<<"coeff_count is: "<<coeff_count<<endl;
+        //cout<<"coeff_count is: "<<coeff_count<<endl;
         int coeff_bit_count = poly_modulus_.coeff_bit_count();
         /*if (res.coeff_count() != coeff_count || res.coeff_bit_count() != coeff_bit_count)
         {

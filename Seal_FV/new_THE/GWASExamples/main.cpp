@@ -211,7 +211,7 @@ void example_basics() {
     // Create a vector of values that are to be stored in the slots. We initialize all values to 0 at this point.
     vector<BigUInt> values1(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     cout<<"parms.plain_modulus().bit_count() is: "<<parms.plain_modulus().bit_count()<<endl;
-    int vector_size=5;
+    int vector_size=200;
     // Set the first few entries of the values vector to be non-zero
     for (int i=0; i<vector_size; i++) {
         values1[i]=rand()%2+1;
@@ -375,8 +375,14 @@ void example_basics() {
         cout << "(" << i << ", " << crtbuilder.get_slot(result1, i).to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
     }
     
+    BigUInt real_tripleproduct_sum;
+    for (int i=0; i < vector_size; ++i) {
+        real_tripleproduct_sum=real_tripleproduct_sum.operator+(values1[i].operator*(values2[i].operator*(values3[i])));
+    }
     
-    
+    if (crtbuilder.get_slot(result1, 0)==real_tripleproduct_sum) {
+        cout<<"homomorphic triple product sum computation correct"<<endl;
+    }
     /////////////////////////////
     // Decryption result decoding (without CRT)
     /////////////////////////////
