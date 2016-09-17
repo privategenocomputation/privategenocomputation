@@ -180,7 +180,7 @@ namespace seal
         }
     }
     
-    void Decryptor_k::decryptMU(BigPolyArray &encrypted, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array)
+    void Decryptor_k::decryptMU(BigPolyArray &encrypted, BigPolyArray & plaintext_slot_noise, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array)
     {
         
         // Extract encryption parameters.
@@ -201,6 +201,22 @@ namespace seal
             if (encrypted[i].significant_coeff_count() == coeff_count || !are_poly_coefficients_less_than(encrypted[i], coeff_modulus_))
             {
                 throw invalid_argument("encrypted is not valid for encryption parameters");
+            }
+        }
+#endif
+        
+        // Verify parameters.
+        if (plaintext_slot_noise.size() < 2 || plaintext_slot_noise.coeff_count() != coeff_count || plaintext_slot_noise.coeff_bit_count() != coeff_bit_count)
+        {
+            throw invalid_argument("plaintext_slot_noise is not valid for encryption parameters");
+        }
+        
+#ifdef _DEBUG
+        for (int i = 0; i < plaintext_slot_noise.size(); ++i)
+        {
+            if (plaintext_slot_noise[i].significant_coeff_count() == coeff_count || !are_poly_coefficients_less_than(plaintext_slot_noise[i], coeff_modulus_))
+            {
+                throw invalid_argument("plaintext_slot_noise is not valid for encryption parameters");
             }
         }
 #endif
@@ -338,17 +354,6 @@ namespace seal
         }
         
         ////////////////////////////////////
-        //For the multiplication
-        ////////////////////////////////////
-        /*
-        Pointer temp5(allocate_poly(coeff_count, coeff_uint64_count, pool));
-        cout<<"multiplication for first multiplication then addition"<<endl;
-        multiply_poly_poly_polymod_coeffmod(encrypted[2].pointer(), secret_key_MU_array[1].pointer(), polymod_, mod_, temp5.get(), pool);
-        add_poly_poly_coeffmod(destination2.pointer(), temp5.get(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
-        Pointer temp6(allocate_poly(coeff_count, coeff_uint64_count, pool));
-        multiply_poly_poly_polymod_coeffmod(encrypted[2].pointer(), secret_key_SPU_array[1].pointer(), polymod_, mod_, temp6.get(), pool);
-        add_poly_poly_coeffmod(destination2.pointer(), temp6.get(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());*/
-        ////////////////////////////////////
         //The final step for threshold version.
         ////////////////////////////////////
         
@@ -368,6 +373,44 @@ namespace seal
             polyPermutate(temp0, 2*i+1, poly_modulus_.coeff_count()-1);
             add_poly_poly_coeffmod(destination2.pointer(), temp0.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
         }
+        
+        ////////////////////////////////////
+        //Generating and Adding plaintext slot noise to the decrypted polynomial
+        ////////////////////////////////////
+        
+            ////////////////////////////////////
+            //Generating plaintext slot noise to the decrypted polynomial
+            ////////////////////////////////////
+        
+        BigPoly destination3;
+        
+        if (destination3.coeff_count() != coeff_count || destination3.coeff_bit_count() != coeff_bit_count)
+        {
+            destination3.resize(coeff_count, coeff_bit_count);
+        }
+        BigPoly temp5;
+        
+        if (temp5.coeff_count() != coeff_count || temp5.coeff_bit_count() != coeff_bit_count)
+        {
+            temp5.resize(coeff_count, coeff_bit_count);
+        }
+        
+        dot_product_bigpolyarray_polymod_coeffmod(plaintext_slot_noise.pointer(1), secret_key_MU_array.pointer(0), 1, polymod_, mod_, temp5.pointer(), pool);
+        
+        BigPoly temp6;
+        
+        if (temp6.coeff_count() != coeff_count || temp6.coeff_bit_count() != coeff_bit_count)
+        {
+            temp6.resize(coeff_count, coeff_bit_count);
+        }
+        dot_product_bigpolyarray_polymod_coeffmod(plaintext_slot_noise.pointer(1), secret_key_SPU_array.pointer(0), 1, polymod_, mod_, temp6.pointer(), pool);
+        add_poly_poly_coeffmod(destination3.pointer(), temp5.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination3.pointer());
+        add_poly_poly_coeffmod(destination3.pointer(), temp6.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination3.pointer());
+        add_poly_poly_coeffmod(destination3.pointer(), plaintext_slot_noise.pointer(0), coeff_count, mod_.get(), coeff_uint64_count, destination3.pointer());
+            ////////////////////////////////////
+            //adding plaintext slot noise to the decrypted polynomial
+            ////////////////////////////////////
+        add_poly_poly_coeffmod(destination2.pointer(), destination3.pointer(), coeff_count, mod_.get(), coeff_uint64_count, destination2.pointer());
         
         ////////////////////////////////////
         //Generate random noise to mask all the plaintext slots other than the first one.

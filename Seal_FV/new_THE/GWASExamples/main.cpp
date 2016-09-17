@@ -280,6 +280,30 @@ void example_basics() {
     // Now use multiply_plain to multiply each encrypted slot with the corresponding coefficient
     cout << "Multiplying squared slots with the coefficients ... "<<endl;
     
+    
+    // Now let's generate the noise sequence for the masking of the plaintext slots other than the first one.
+    // First create the coefficient vector
+    vector<BigUInt> plaintext_slot_noise(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
+    plaintext_slot_noise[0]=0;
+    for (int i=1; i<vector_size; i++) {
+        plaintext_slot_noise[i]=rand()%12289;
+    }
+    // Now compose these into one polynomial using PolyCRTBuilder
+    cout << "Plaintext slot contents (slot, value): ";
+    for (size_t i = 0; i < vector_size; ++i)
+    {
+        cout << "(" << i << ", " << values3[i].to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
+    }
+    
+    // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
+    BigPoly plaintext_slot_noise_poly = crtbuilder.compose(plaintext_slot_noise);
+    
+    // Encrypt plain_composed_poly
+    cout << "Encrypting ... ";
+    BigPolyArray encrypted_plaintext_slot_noise_poly = encryptor.encrypt(plaintext_slot_noise_poly);
+    cout << "done." << endl;
+    
+    
     /////////////////////////////
     // Perform triple multiplications
     /////////////////////////////
@@ -334,7 +358,7 @@ void example_basics() {
     BigPoly cpSPU;
     cpSPU.set_zero();
     BigPoly result1;
-    decMU.decryptMU(encryptedproduct_relin, result1, cpSPU, secret_key_MU_array);
+    decMU.decryptMU(encryptedproduct_relin, encrypted_plaintext_slot_noise_poly, result1, cpSPU, secret_key_MU_array);
     
     
     cout << "Decrypting results..." <<endl;
