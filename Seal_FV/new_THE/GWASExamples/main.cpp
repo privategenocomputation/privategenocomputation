@@ -211,7 +211,7 @@ void example_basics() {
     // Create a vector of values that are to be stored in the slots. We initialize all values to 0 at this point.
     vector<BigUInt> values1(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     cout<<"parms.plain_modulus().bit_count() is: "<<parms.plain_modulus().bit_count()<<endl;
-    int vector_size=6;
+    int vector_size=5;
     // Set the first few entries of the values vector to be non-zero
     for (int i=0; i<vector_size; i++) {
         values1[i]=rand()%2+1;
@@ -292,7 +292,7 @@ void example_basics() {
     cout << "Plaintext slot contents (slot, value): ";
     for (size_t i = 0; i < vector_size; ++i)
     {
-        cout << "(" << i << ", " << values3[i].to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
+        cout << "(" << i << ", " << values3[i].to_dec_string() << ")" << ((i != vector_size) ? ", " : "\n");
     }
     
     // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
@@ -358,7 +358,7 @@ void example_basics() {
     BigPoly cpSPU;
     cpSPU.set_zero();
     BigPoly result1;
-    decMU.decryptMU(encryptedproduct_relin, encrypted_plaintext_slot_noise_poly, result1, cpSPU, secret_key_MU_array, vector_size-1);
+    decMU.decryptMU(encryptedproduct_relin, encrypted_plaintext_slot_noise_poly, result1, cpSPU, secret_key_MU_array, vector_size);
     
     
     cout << "Decrypting results..." <<endl;
