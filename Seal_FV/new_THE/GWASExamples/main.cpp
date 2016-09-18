@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <cmath>
+#include <msgpack.hpp>
 #include "seal.h"
 #include "bigpoly.h"
 #include "bigpolyarith.h"
@@ -188,7 +190,7 @@ void example_basics() {
     // Create a vector of values that are to be stored in the slots. We initialize all values to 0 at this point.
     vector<BigUInt> values1(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     cout<<"parms.plain_modulus().bit_count() is: "<<parms.plain_modulus().bit_count()<<endl;
-    int vector_size=2000;
+    int vector_size=200;
     // Set the first few entries of the values vector to be non-zero
     for (int i=0; i<vector_size; i++) {
         values1[i]=rand()%2+1;
@@ -286,10 +288,16 @@ void example_basics() {
     /////////////////////////////
     // Perform homomorphic triple multiplications. This step will be run by SPU in practice.
     /////////////////////////////
+    //Starting to calculate time cost of homomorphic operation.
+    auto t_start_homocal = std::chrono::high_resolution_clock::now();
     
     vector<BigPolyArray> encryptedproductv = { encrypted_composed_poly1, encrypted_composed_poly2, encrypted_composed_poly3};
     BigPolyArray encrypted_triple_product = evaluator.multiply_many(encryptedproductv);
     
+    auto t_end_homocal = std::chrono::high_resolution_clock::now();
+    std::cout << "Wall clock time passed for homomorphic operation is: "
+    << std::chrono::duration<double, std::milli>(t_end_homocal-t_start_homocal).count()
+    << " ms\n";
     /////////////////////////////
     // Perform one additiona and one multiplication
     /////////////////////////////
@@ -302,6 +310,7 @@ void example_basics() {
     /////////////////////////////
     // generating relinearized ciphertext for cipertext with size larger than 2.
     /////////////////////////////
+    auto t_start_relin = std::chrono::high_resolution_clock::now();
     
     int evaluation_key_size=encrypted_triple_product.size()-2;
     generator.generate_evaluation_keys(evaluation_key_size);
@@ -309,12 +318,11 @@ void example_basics() {
     EvaluationKeys evaluation_keys = generator.evaluation_keys();
     Evaluator evaluator2(parms, evaluation_keys);
     BigPolyArray encryptedproduct_relin=evaluator2.relinearize(encrypted_triple_product);
-    cout<<"current ciphertext size is: "<<encryptedproduct_relin.size()<<endl;
     
-    
-    cout << "original ciphertext size is: " << encrypted_triple_product.size() << endl;
-    
-    
+    auto t_end_relin = std::chrono::high_resolution_clock::now();
+    std::cout << "Wall clock time passed for relinearization is: "
+    << std::chrono::duration<double, std::milli>(t_end_relin-t_start_relin).count()
+    << " ms\n";
     
     /////////////////////////////
     // Perform encryption, homomorphic operation without CRT
@@ -332,6 +340,7 @@ void example_basics() {
     /////////////////////////////
     // Perform threshold decryption with or without CRT
     /////////////////////////////
+    auto t_start_dec = std::chrono::high_resolution_clock::now();
     
     //partial decryption by SPU
     BigPoly cpSPU;
@@ -341,17 +350,24 @@ void example_basics() {
     decMU.decryptMU(encryptedproduct_relin, encrypted_plaintext_slot_noise_poly, result1, cpSPU, vector_size);
     cout << "Decrypting results..." <<endl;
     
+    
+    auto t_end_dec = std::chrono::high_resolution_clock::now();
+    std::cout << "Wall clock time passed for final decryption is: "
+    << std::chrono::duration<double, std::milli>(t_end_dec-t_start_dec).count()
+    << " ms\n";
+    
     /////////////////////////////
     // Decryption result with CRT decoding
     /////////////////////////////
     
     // Print the scaled squared slots
+    /*
     cout << "Scaled squared slot contents (slot, value): ";
     
     for (size_t i = 0; i < vector_size; ++i)
     {
         cout << "(" << i << ", " << crtbuilder.get_slot(result1, i).to_dec_string() << ")" << ((i != vector_size-1) ? ", " : "\n");
-    }
+    }*/
     
     BigUInt real_tripleproduct_sum;
     for (int i=0; i < vector_size; ++i) {
