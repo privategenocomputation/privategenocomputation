@@ -30,8 +30,9 @@ namespace seal
          @throws std::invalid_argument if the ciphertext is not a valid ciphertext for the encryption parameters
          @throws std::logic_error If destination is an alias but needs to be resized
          */
-        void decryptSPU(BigPolyArray &encrypted, BigPoly &destination);
-        void decryptMU(BigPolyArray &encrypted, BigPolyArray & plaintext_slot_noise, BigPoly &destination, BigPoly &cpSPU, BigPolyArray &secret_key_MU_array, int vector_size);
+        void decryptSPU(BigPolyArray &encrypted, BigPolyArray & plaintext_slot_noise, BigPoly &destination, int vector_size);
+        void decryptMU(BigPolyArray &encrypted, BigPolyArray & plaintext_slot_noise, BigPoly &destination, BigPoly &cpSPU, int vector_size);
+        //void KeySplit();
         /**
          Decrypts an BigPolyArray and returns the result.
          @param[in] encrypted The ciphertext to decrypt
@@ -82,6 +83,10 @@ namespace seal
         util::Modulus mod_;
         
         BigPolyArray secret_key_array_;
+        
+        BigPolyArray secret_key_MU_array;
+        
+        BigPolyArray secret_key_SPU_array;
         
         double noise_standard_deviation_;
         

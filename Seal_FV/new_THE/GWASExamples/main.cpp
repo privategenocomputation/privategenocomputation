@@ -140,41 +140,18 @@ void example_basics() {
     << " bits per coefficient" << endl;
     
     
-    // Generate keys.
+    // Generate keys for the homomorphic operation, and key splitting for both MU and SPU.
     cout << "Generating keys..." << endl;
     KeyGenerator generator(parms);
     generator.generate();
     cout << "... key generation complete" << endl;
     BigPolyArray public_key_H = generator.public_key();
     BigPoly secret_key_H = generator.secret_key();
+    //secret key for both MU and SPU has been generated in this step.
+    Decryptor_k decMU(parms,secret_key_H);
     
     
-    
-    
-    
-    KeyGenerator generatorMU(parms);
-    generatorMU.generate();
-    cout << "... MU generation complete" << endl;
-    
-    int coeff_count = parms.poly_modulus().coeff_count();
-    int coeff_bit_count = parms.poly_modulus().coeff_bit_count();
-    int coeff_uint64_count = divide_round_up(coeff_bit_count, bits_per_uint64);
-    coeff_uint64_count=2;
-    cout<<"coeff_count is:"<<coeff_count<<endl;
-    cout<<"coeff_uint64_count is:"<<coeff_uint64_count<<endl;
-    BigPolyArray secret_key_MU_array;
-    int cp_size_minus_1=1;
-    secret_key_MU_array.resize(cp_size_minus_1, coeff_count, coeff_bit_count);
-    for (int i=0; i<cp_size_minus_1; i++) {
-        generatorMU.generate();
-        BigPoly tmp= generatorMU.secret_key();
-        set_poly_poly(tmp.pointer(), coeff_count, coeff_uint64_count, secret_key_MU_array.pointer(i));
-    }
-    
-    //BigUInt coeff_modulus = parms.coeff_modulus();
-    
-    
-    // Encrypt values.
+    // Initializing encryption and evaluation algorithms.
     cout << "Encrypting values..." << endl;
     Encryptor encryptor(parms, public_key_H);
     Evaluator evaluator(parms);
@@ -211,7 +188,7 @@ void example_basics() {
     // Create a vector of values that are to be stored in the slots. We initialize all values to 0 at this point.
     vector<BigUInt> values1(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     cout<<"parms.plain_modulus().bit_count() is: "<<parms.plain_modulus().bit_count()<<endl;
-    int vector_size=200;
+    int vector_size=2000;
     // Set the first few entries of the values vector to be non-zero
     for (int i=0; i<vector_size; i++) {
         values1[i]=rand()%2+1;
@@ -282,6 +259,8 @@ void example_basics() {
     
     
     // Now let's generate the noise sequence for the masking of the plaintext slots other than the first one.
+    // In practice this should be generated collaboratively by SPU and MU in the sense that both pick a random plaintext vector
+    // with the first slot being zero and encrypt them and homomorphicly add the ciphertext together by SPU.
     // First create the coefficient vector
     vector<BigUInt> plaintext_slot_noise(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     plaintext_slot_noise[0]=0;
@@ -289,10 +268,10 @@ void example_basics() {
         plaintext_slot_noise[i]=rand()%12289;
     }
     // Now compose these into one polynomial using PolyCRTBuilder
-    cout << "Plaintext slot contents (slot, value): ";
+    cout << "Plaintext slot noise content (slot, value): ";
     for (size_t i = 0; i < vector_size; ++i)
     {
-        cout << "(" << i << ", " << values3[i].to_dec_string() << ")" << ((i != vector_size) ? ", " : "\n");
+        cout << "(" << i << ", " << plaintext_slot_noise[i].to_dec_string() << ")" << ((i != vector_size) ? ", " : "\n");
     }
     
     // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
@@ -305,7 +284,7 @@ void example_basics() {
     
     
     /////////////////////////////
-    // Perform triple multiplications
+    // Perform homomorphic triple multiplications. This step will be run by SPU in practice.
     /////////////////////////////
     
     vector<BigPolyArray> encryptedproductv = { encrypted_composed_poly1, encrypted_composed_poly2, encrypted_composed_poly3};
@@ -354,13 +333,12 @@ void example_basics() {
     // Perform threshold decryption with or without CRT
     /////////////////////////////
     
-    Decryptor_k decMU(parms,secret_key_H);
+    //partial decryption by SPU
     BigPoly cpSPU;
-    cpSPU.set_zero();
+    decMU.decryptSPU(encryptedproduct_relin, encrypted_plaintext_slot_noise_poly, cpSPU, vector_size);
+    //partial decryption by MU
     BigPoly result1;
-    decMU.decryptMU(encryptedproduct_relin, encrypted_plaintext_slot_noise_poly, result1, cpSPU, secret_key_MU_array, vector_size);
-    
-    
+    decMU.decryptMU(encryptedproduct_relin, encrypted_plaintext_slot_noise_poly, result1, cpSPU, vector_size);
     cout << "Decrypting results..." <<endl;
     
     /////////////////////////////
