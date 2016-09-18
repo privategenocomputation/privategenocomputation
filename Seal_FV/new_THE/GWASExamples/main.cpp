@@ -375,6 +375,7 @@ void example_basics() {
     }
     
     if (crtbuilder.get_slot(result1, 0)==real_tripleproduct_sum) {
+        cout<<"the decrypted triple product sum is: "<<crtbuilder.get_slot(result1, 0).to_dec_string()<<endl;
         cout<<"homomorphic triple product sum computation correct"<<endl;
     }
     /////////////////////////////
