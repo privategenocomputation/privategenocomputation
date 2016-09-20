@@ -207,6 +207,7 @@ namespace seal
         //decrypting the second part of the ciphextext using secret key of MU.
         dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_MU_array.pointer(0), 1, polymod_, mod_, temp3.pointer(), pool);
         BigPoly tp3=temp3;
+        //Enabling the aggregation of all the slot plaintext values in the first slot.
         for (int i=0; i<vector_size; i++) {
             temp3=tp3;
             polyPermutate(temp3, 2*i+1, poly_modulus_.coeff_count()-1);
@@ -311,6 +312,7 @@ namespace seal
         //Decrypting the first part of ciphertext with SPU's secret key.
         dot_product_bigpolyarray_polymod_coeffmod(encrypted.pointer(1), secret_key_SPU_array.pointer(0), 1, polymod_, mod_, temp4.pointer(), pool);
         BigPoly tp4=temp4;
+        //Enabling the aggregation of all the slot plaintext values in the first slot.
         for (int i=0; i<vector_size; i++) {
             temp4=tp4;
             polyPermutate(temp4, 2*i+1, poly_modulus_.coeff_count()-1);
@@ -325,6 +327,7 @@ namespace seal
         }
         //Transforming the first part of the cipertext for the aggregation of the plaintext slots in the first plaintext slot. Then add the transformed first part of the ciphertext to the final result.
         BigPoly e0=encrypted[0];
+        //Enabling the aggregation of all the slot plaintext values in the first slot.
         for (int i=0; i<vector_size; i++) {
             temp0=e0;
             polyPermutate(temp0, 2*i+1, poly_modulus_.coeff_count()-1);
@@ -389,17 +392,14 @@ namespace seal
         cout<<"decryption combine donedecryption combine donedecryption combine done"<<endl;
     }
     
+    //This function aims to perform the following operation: given an input polynomial F(x) in R_q[x]/(x^m+1), and an odd integer number exponent
+    //(it has to be odd to guarantee that it is co-prime with m), it will modify F(x) to be F(x^exponent) in the underlying ring.
     void Decryptor_k::polyPermutate(BigPoly& inp, int exponent, int poly_mod)
     {
         BigPoly res=inp;
         
         int coeff_count = poly_modulus_.coeff_count();
-        //cout<<"coeff_count is: "<<coeff_count<<endl;
         int coeff_bit_count = poly_modulus_.coeff_bit_count();
-        /*if (res.coeff_count() != coeff_count || res.coeff_bit_count() != coeff_bit_count)
-        {
-            res.resize(coeff_count, coeff_bit_count);
-        }*/
         
         int *power = new int[coeff_count-1];
         int *tmp = new int[coeff_count-1];
@@ -408,21 +408,16 @@ namespace seal
             tmp[i]=(i*exponent/poly_mod)%2;
             power[tmp2]=i;
         }
-        /*
-        for (int i=0; i<coeff_count-1; i++) {
-            res.operator[](i)=inp.operator[](power[i]).operator*(sign[power[i]]);
-        }*/
+        
         for (int i=0; i<coeff_count-1; i++) {
             BigUInt t;
             t.set_zero();
-            //cout<<"inp["<<i<<"]"<<inp[i].to_string()<<endl;
             if (tmp[power[i]]) {
                 res[i]=t.operator-(inp[power[i]]);
             }
             else {
                 res[i]=t.operator+(inp[power[i]]);
             }
-            //cout<<"res["<<i<<"]"<<res[i].to_string()<<endl;
         }
         inp=res;
         return;

@@ -59,7 +59,6 @@ namespace seal
         
         void set_poly_coeffs_normal(std::uint64_t *poly, UniformRandomGenerator *random) const;
         
-        
         BigPoly poly_modulus_;
         
         BigUInt coeff_modulus_;

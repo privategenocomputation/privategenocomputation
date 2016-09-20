@@ -179,7 +179,7 @@ void example_basics() {
     BigPolyArray encrypted2 = encryptor.encrypt(encoded2);*/
     
     /////////////////////////////
-    // Perform arithmetic on encrypted values. Encryption and homomorphic operation with CRT
+    // Perform arithmetic on encrypted values. Encryption and homomorphic operation with CRT (i.e., single instruction multiple operations)
     /////////////////////////////
     
     // Create the PolyCRTBuilder
@@ -190,7 +190,7 @@ void example_basics() {
     // Create a vector of values that are to be stored in the slots. We initialize all values to 0 at this point.
     vector<BigUInt> values1(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     cout<<"parms.plain_modulus().bit_count() is: "<<parms.plain_modulus().bit_count()<<endl;
-    int vector_size=200;
+    int vector_size=2048;
     // Set the first few entries of the values vector to be non-zero
     for (int i=0; i<vector_size; i++) {
         values1[i]=rand()%2+1;
