@@ -191,7 +191,7 @@ void example_basics() {
     vector<BigUInt> values1(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     cout<<"parms.plain_modulus().bit_count() is: "<<parms.plain_modulus().bit_count()<<endl;
     int vector_size=2048;
-    // Set the first few entries of the values vector to be non-zero
+    // Generate the first random vector to represent p_i
     for (int i=0; i<vector_size; i++) {
         values1[i]=rand()%2+1;
     }
@@ -204,13 +204,12 @@ void example_basics() {
     }
     BigPoly plain_composed_poly1 = crtbuilder.compose(values1);
     
-    // Encrypt plain_composed_poly
+    // Encrypt the first vector
     cout << "Encrypting ... ";
     BigPolyArray encrypted_composed_poly1 = encryptor.encrypt(plain_composed_poly1);
     cout << "done." << endl;
     
-    // Now let's try to multiply the squares with the plaintext coefficients (3, 1, 4, 1, 5, 9, 0, 0, ..., 0).
-    // First create the coefficient vector
+    //Generate the second random vector to represent a_i
     vector<BigUInt> values2(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     for (int i=0; i<vector_size; i++) {
         values2[i]=rand()%2+1;
@@ -227,14 +226,13 @@ void example_basics() {
     // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
     BigPoly plain_composed_poly2 = crtbuilder.compose(values2);
     
-    // Encrypt plain_composed_poly
+    // Encrypt the second vector
     cout << "Encrypting ... ";
     BigPolyArray encrypted_composed_poly2 = encryptor.encrypt(plain_composed_poly2);
     cout << "done." << endl;
     
     
-    // Now let's try to multiply the squares with the plaintext coefficients (3, 1, 4, 1, 5, 9, 0, 0, ..., 0).
-    // First create the coefficient vector
+    // Generate the second random vector to represent g_i
     vector<BigUInt> values3(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     for (int i=0; i<vector_size; i++) {
         values3[i]=rand()%3+1;
@@ -251,7 +249,7 @@ void example_basics() {
     // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
     BigPoly plain_composed_poly3 = crtbuilder.compose(values3);
     
-    // Encrypt plain_composed_poly
+    // Encrypt the third vector
     cout << "Encrypting ... ";
     BigPolyArray encrypted_composed_poly3 = encryptor.encrypt(plain_composed_poly3);
     cout << "done." << endl;
@@ -263,7 +261,6 @@ void example_basics() {
     // Now let's generate the noise sequence for the masking of the plaintext slots other than the first one.
     // In practice this should be generated collaboratively by SPU and MU in the sense that both pick a random plaintext vector
     // with the first slot being zero and encrypt them and homomorphicly add the ciphertext together by SPU.
-    // First create the coefficient vector
     vector<BigUInt> plaintext_slot_noise(slot_count, BigUInt(parms.plain_modulus().bit_count(), static_cast<uint64_t>(0)));
     plaintext_slot_noise[0]=0;
     for (int i=1; i<vector_size; i++) {
@@ -279,7 +276,7 @@ void example_basics() {
     // Use PolyCRTBuilder to compose plain_coeff_vector into a polynomial
     BigPoly plaintext_slot_noise_poly = crtbuilder.compose(plaintext_slot_noise);
     
-    // Encrypt plain_composed_poly
+    // Encrypt the noise vector
     cout << "Encrypting ... ";
     BigPolyArray encrypted_plaintext_slot_noise_poly = encryptor.encrypt(plaintext_slot_noise_poly);
     cout << "done." << endl;
@@ -308,7 +305,7 @@ void example_basics() {
     cout << " done." << endl;*/
     
     /////////////////////////////
-    // generating relinearized ciphertext for cipertext with size larger than 2.
+    // generating relinearized ciphertext for cipertext with size larger than 2 to prepare for the threshold decryption.
     /////////////////////////////
     auto t_start_relin = std::chrono::high_resolution_clock::now();
     

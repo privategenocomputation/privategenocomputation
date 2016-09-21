@@ -457,7 +457,7 @@ namespace seal
             next_poly_ptr += poly_ptr_increment;
         }
     }
-    
+    //This function aims to generate normal noise. 
     void Decryptor_k::set_poly_coeffs_normal(std::uint64_t *poly, UniformRandomGenerator *random) const
     {
         int coeff_count = poly_modulus_.coeff_count();
