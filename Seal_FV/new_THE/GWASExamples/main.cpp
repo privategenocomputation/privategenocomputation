@@ -26,6 +26,7 @@
 #include "util/polyarithmod.h"
 #include "util/polycore.h"
 #include "decryptor_k.h"
+#include <chrono>
 using namespace std;
 using namespace seal;
 using namespace seal::util;
