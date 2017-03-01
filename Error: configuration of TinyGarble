@@ -32,3 +32,9 @@ ubuntu@ubuntu:~/Downloads/TinyGarble-master$ cd bin
 ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ make
 make: *** No targets specified and no makefile found.  Stop.
 ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ 
+
+ubuntu@ubuntu:~$ sudo apt-get install libboost-all-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package libboost-all-dev
