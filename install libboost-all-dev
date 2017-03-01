@@ -1,0 +1,45 @@
+ubuntu@ubuntu:~$ sudo apt-get install libboost-all-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package libboost-all-dev
+ubuntu@ubuntu:~$ sudo add-apt-repository universe
+'universe' distribution component enabled for all sources.
+ubuntu@ubuntu:~$ sudo add-apt update
+sudo: add-apt: command not found
+ubuntu@ubuntu:~$ sudo add-get update
+sudo: add-get: command not found
+ubuntu@ubuntu:~$ sudo apt-get update
+Ign:1 cdrom://Ubuntu 16.04 LTS _Xenial Xerus_ - Release amd64 (20160420.1) xenial InRelease
+Hit:2 cdrom://Ubuntu 16.04 LTS _Xenial Xerus_ - Release amd64 (20160420.1) xenial Release
+Get:4 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]                              
+Hit:5 http://archive.ubuntu.com/ubuntu xenial InRelease                                                 
+Get:6 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [102 kB]                                
+Get:7 http://ppa.launchpad.net/george-edison55/cmake-3.x/ubuntu xenial InRelease [17.5 kB]
+Ign:7 http://ppa.launchpad.net/george-edison55/cmake-3.x/ubuntu xenial InRelease                      
+Get:8 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [79.1 kB]
+Get:9 http://archive.ubuntu.com/ubuntu xenial/universe amd64 Packages [7,532 kB]               
+Get:10 http://security.ubuntu.com/ubuntu xenial-security/universe Translation-en [43.9 kB]
+Get:11 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 DEP-11 Metadata [32.1 kB]
+Get:12 http://security.ubuntu.com/ubuntu xenial-security/universe DEP-11 64x64 Icons [37.0 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial/universe Translation-en [4,354 kB]                       
+Get:14 http://archive.ubuntu.com/ubuntu xenial/universe amd64 DEP-11 Metadata [3,410 kB]                
+Get:15 http://archive.ubuntu.com/ubuntu xenial/universe DEP-11 64x64 Icons [7,448 kB]                   
+Get:16 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [485 kB]                     
+Get:17 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [411 kB]                 
+Get:18 http://archive.ubuntu.com/ubuntu xenial-updates/universe Translation-en [155 kB]                 
+Get:19 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 DEP-11 Metadata [135 kB]          
+Get:20 http://archive.ubuntu.com/ubuntu xenial-updates/universe DEP-11 64x64 Icons [162 kB]             
+Fetched 24.5 MB in 5min 53s (69.3 kB/s)                                                                 
+
+** (appstreamcli:16525): CRITICAL **: Error while moving old database out of the way.
+AppStream cache update failed.
+Reading package lists... Done
+W: GPG error: http://ppa.launchpad.net/george-edison55/cmake-3.x/ubuntu xenial InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 084ECFC5828AB726
+W: The repository 'http://ppa.launchpad.net/george-edison55/cmake-3.x/ubuntu xenial InRelease' is not signed.
+N: Data from such a repository can't be authenticated and is therefore potentially dangerous to use.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+ubuntu@ubuntu:~$ sudo apt-get install libboost-all-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
