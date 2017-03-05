@@ -1,0 +1,18 @@
+sudo apt-get install g++
+ sudo apt-get install libssl-dev
+ sudo add-apt-repository universe
+ sudo add-apt update
+ sudo apt-get install libboost-all-dev
+ sudo apt-get install software-properties-common
+ sudo add-apt-repository ppa:george-edison55/cmake-3.x
+ sudo apt-get update
+ sudo apt-get upgrade
+ sudo apt-get install cmake
+ cd Downloads
+ cd TinyGarble-master
+ ./configure
+ cd bin
+ make
+ garbled_circuit/TinyGarble --bob --scd_file bin/scd/netlists/hamming_32bit_1cc.scd --input 12345678
+ ctest -V
+ bin/garbled_circuit/TinyGarble --alice --scd_file bin/scd/netlists/hamming_32bit_1cc.scd --input FF55AA77
