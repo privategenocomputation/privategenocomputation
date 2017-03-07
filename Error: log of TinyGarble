@@ -1,0 +1,126 @@
+Terminal for Alice:
+ubuntu@ubuntu:~$ cd Downloads
+ubuntu@ubuntu:~/Downloads$ cd TinyGarble-master
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ ./configure
+Release build.
+-- Boost version: 1.58.0
+-- Found the following Boost libraries:
+--   program_options
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/Downloads/TinyGarble-master/bin
+Config is done. Now call '$ cd bin' and then '$ make' to compile TinyGarble.
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ cd bin
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ make
+[  1%] Built target Util_Util
+[  3%] Built target A23_Lib_Main
+[  4%] Built target Util_Log
+[  7%] Built target AES
+[ 10%] Built target Bubble_Sort
+[ 14%] Built target Compare
+[ 17%] Built target Merge_Sort
+[ 20%] Built target Dijkstra
+[ 23%] Built target Hamming
+[ 26%] Built target Mem_Test
+[ 29%] Built target Mul
+[ 32%] Built target Matrix_Mul
+[ 35%] Built target Sum
+[ 37%] Built target Crypto_OT
+[ 39%] Built target Crypto_BN
+[ 40%] Built target Crypto_OT_Extension
+[ 42%] Built target TCPIP_TCPIP
+[ 45%] Built target OT_Main
+[ 46%] Built target TCPIP_TCPIP_Testsuit
+[ 50%] Built target OT_Test
+[ 53%] Built target OT_Extension_Test
+[ 56%] Built target BN_Test
+[ 57%] Built target Garbled_Circuit_Garbled_Circuit_High_Mem
+[ 59%] Built target Garbled_Circuit_Garbled_Circuit_Low_Mem
+[ 60%] Built target Garbled_Circuit_Garbled_Circuit_Testing
+[ 62%] Built target Garbled_Circuit_Garbled_Circuit
+[ 64%] Built target Garbled_Circuit_Garbled_Circuit_Util
+[ 65%] Built target SCD_SCD
+[ 68%] Built target TinyGarble
+[ 70%] Built target SCD_SCD_Evaluator
+[ 73%] Built target A23_Test
+[ 76%] Built target Garbled_Circuit_Test
+[ 78%] Built target SCD_V2SCD
+[ 79%] Built target SCD_ParseNetlist
+[ 81%] Built target SCD_Scheduling
+[ 84%] Built target V2SCD_Main
+[ 87%] Built target SCD_Evaluator_Test
+[ 90%] Built target SCD_Evaluator_Main
+[ 93%] Built target V2SCD_Test
+[ 96%] Built target TCPIP_Test
+[100%] Built target Util_Test
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file bin/scd/netlists/hamming_32bit_1cc.scd --input FF55AA77
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file bin/scd/netlists/hamming_32bit_1cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:268 INFO: Open Alice's server on port: 1234
+/home/ubuntu/Downloads/TinyGarble-master/scd/scd.cpp:49 ERROR: can't open bin/scd/netlists/hamming_32bit_1cc.scd
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit.cpp:64 ERROR: Error while reading scd file: bin/scd/netlists/hamming_32bit_1cc.scd
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:279 ERROR: GarbleStr(scd_file_address, p_init_str, p_input_str, init_str, input_str, clock_cycles, output_mask, terminate_period, output_mode, disable_OT, low_mem_foot, &output_str, connfd) failed
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ 
+
+Terminal for Bob:
+ubuntu@ubuntu:~$ cd Downloads
+ubuntu@ubuntu:~/Downloads$ cd TinyGarble-master
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ ./configure
+Release build.
+-- Boost version: 1.58.0
+-- Found the following Boost libraries:
+--   program_options
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/Downloads/TinyGarble-master/bin
+Config is done. Now call '$ cd bin' and then '$ make' to compile TinyGarble.
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ cd bin
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ make
+[  1%] Built target Util_Util
+[  3%] Built target A23_Lib_Main
+[  4%] Built target Util_Log
+[  7%] Built target AES
+[ 10%] Built target Bubble_Sort
+[ 14%] Built target Compare
+[ 17%] Built target Merge_Sort
+[ 20%] Built target Dijkstra
+[ 23%] Built target Hamming
+[ 26%] Built target Mem_Test
+[ 29%] Built target Mul
+[ 32%] Built target Matrix_Mul
+[ 35%] Built target Sum
+[ 37%] Built target Crypto_OT
+[ 39%] Built target Crypto_BN
+[ 40%] Built target Crypto_OT_Extension
+[ 42%] Built target TCPIP_TCPIP
+[ 45%] Built target OT_Main
+[ 46%] Built target TCPIP_TCPIP_Testsuit
+[ 50%] Built target OT_Test
+[ 53%] Built target OT_Extension_Test
+[ 56%] Built target BN_Test
+[ 57%] Built target Garbled_Circuit_Garbled_Circuit_High_Mem
+[ 59%] Built target Garbled_Circuit_Garbled_Circuit_Low_Mem
+[ 60%] Built target Garbled_Circuit_Garbled_Circuit_Testing
+[ 62%] Built target Garbled_Circuit_Garbled_Circuit
+[ 64%] Built target Garbled_Circuit_Garbled_Circuit_Util
+[ 65%] Built target SCD_SCD
+[ 68%] Built target TinyGarble
+[ 70%] Built target SCD_SCD_Evaluator
+[ 73%] Built target A23_Test
+[ 76%] Built target Garbled_Circuit_Test
+[ 78%] Built target SCD_V2SCD
+[ 79%] Built target SCD_ParseNetlist
+[ 81%] Built target SCD_Scheduling
+[ 84%] Built target V2SCD_Main
+[ 87%] Built target SCD_Evaluator_Test
+[ 90%] Built target SCD_Evaluator_Main
+[ 93%] Built target V2SCD_Test
+[ 96%] Built target TCPIP_Test
+[100%] Built target Util_Test
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file bin/scd/netlists/hamming_32bit_1cc.scd --input 12345678
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file bin/scd/netlists/hamming_32bit_1cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:304 INFO: Connect Bob's client to Alice's server on 127.0.0.1:1234
+/home/ubuntu/Downloads/TinyGarble-master/scd/scd.cpp:49 ERROR: can't open bin/scd/netlists/hamming_32bit_1cc.scd
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit.cpp:142 ERROR: Error while reading scd file: bin/scd/netlists/hamming_32bit_1cc.scd
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:316 ERROR: EvaluateStr(scd_file_address, p_init_str, p_input_str, init_str, input_str, clock_cycles, output_mask, terminate_period, output_mode, disable_OT, low_mem_foot, &output_str, connfd) failed
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ 
+
