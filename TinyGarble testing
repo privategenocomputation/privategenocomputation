@@ -1,127 +1,72 @@
 Alice Terminal:
-ubuntu@ubuntu:~$ cd Downloads
-ubuntu@ubuntu:~/Downloads$ cd TinyGarble-master
-ubuntu@ubuntu:~/Downloads/TinyGarble-master$ ./configure
-Release build.
--- Boost version: 1.58.0
--- Found the following Boost libraries:
---   program_options
--- Configuring done
--- Generating done
--- Build files have been written to: /home/ubuntu/Downloads/TinyGarble-master/bin
-Config is done. Now call '$ cd bin' and then '$ make' to compile TinyGarble.
-ubuntu@ubuntu:~/Downloads/TinyGarble-master$ cd bin
-ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ make
-[  1%] Built target Util_Util
-[  3%] Built target A23_Lib_Main
-[  4%] Built target Util_Log
-[  7%] Built target AES
-[ 10%] Built target Bubble_Sort
-[ 14%] Built target Compare
-[ 17%] Built target Merge_Sort
-[ 20%] Built target Dijkstra
-[ 23%] Built target Hamming
-[ 26%] Built target Mem_Test
-[ 29%] Built target Mul
-[ 32%] Built target Matrix_Mul
-[ 35%] Built target Sum
-[ 37%] Built target Crypto_OT
-[ 39%] Built target Crypto_BN
-[ 40%] Built target Crypto_OT_Extension
-[ 42%] Built target TCPIP_TCPIP
-[ 45%] Built target OT_Main
-[ 46%] Built target TCPIP_TCPIP_Testsuit
-[ 50%] Built target OT_Test
-[ 53%] Built target OT_Extension_Test
-[ 56%] Built target BN_Test
-[ 57%] Built target Garbled_Circuit_Garbled_Circuit_High_Mem
-[ 59%] Built target Garbled_Circuit_Garbled_Circuit_Low_Mem
-[ 60%] Built target Garbled_Circuit_Garbled_Circuit_Testing
-[ 62%] Built target Garbled_Circuit_Garbled_Circuit
-[ 64%] Built target Garbled_Circuit_Garbled_Circuit_Util
-[ 65%] Built target SCD_SCD
-[ 68%] Built target TinyGarble
-[ 70%] Built target SCD_SCD_Evaluator
-[ 73%] Built target A23_Test
-[ 76%] Built target Garbled_Circuit_Test
-[ 78%] Built target SCD_V2SCD
-[ 79%] Built target SCD_ParseNetlist
-[ 81%] Built target SCD_Scheduling
-[ 84%] Built target V2SCD_Main
-[ 87%] Built target SCD_Evaluator_Test
-[ 90%] Built target SCD_Evaluator_Main
-[ 93%] Built target V2SCD_Test
-[ 96%] Built target TCPIP_Test
-[100%] Built target Util_Test
 ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/hamming_32bit_1cc.scd --input 8
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/hamming_32bit_1cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:268 INFO: Open Alice's server on port: 1234
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:75 INFO: Alice transfer labels time (cc) = 314441445	(cc/bit) = 9.8263e+06
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:420 INFO: Non-secret skipped non-XOR gates = 0 out of 31	 (0%)
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:426 INFO: Total garbled non-XOR gates = 31
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:429 INFO: Alice communication time (cc) = 423051
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:430 INFO: Alice garbling time (cc) = 82545
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:282 INFO: Alice's output = 0
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:283 INFO: Total Alice time (cc) = 315852932
 0
 ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/sum_8bit_1cc.scd --input 8
 0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/sum_8bit_1cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:268 INFO: Open Alice's server on port: 1234
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:75 INFO: Alice transfer labels time (cc) = 140461509	(cc/bit) = 1.75577e+07
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:420 INFO: Non-secret skipped non-XOR gates = 0 out of 7	 (0%)
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:426 INFO: Total garbled non-XOR gates = 7
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:429 INFO: Alice communication time (cc) = 178149
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:430 INFO: Alice garbling time (cc) = 19359
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:282 INFO: Alice's output = 0
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:283 INFO: Total Alice time (cc) = 143202126
+0
 ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/mult_128bit_128cc.scd --input 8
 0
-ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$
-
-Bob terminal:
-ubuntu@ubuntu:~$ cd Downloads
-ubuntu@ubuntu:~/Downloads$ cd TinyGarble-master
-ubuntu@ubuntu:~/Downloads/TinyGarble-master$ ./configure
-Release build.
--- Boost version: 1.58.0
--- Found the following Boost libraries:
---   program_options
--- Configuring done
--- Generating done
--- Build files have been written to: /home/ubuntu/Downloads/TinyGarble-master/bin
-Config is done. Now call '$ cd bin' and then '$ make' to compile TinyGarble.
-ubuntu@ubuntu:~/Downloads/TinyGarble-master$ cd bin
-ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ make
-[  1%] Built target Util_Util
-[  3%] Built target A23_Lib_Main
-[  4%] Built target Util_Log
-[  7%] Built target AES
-[ 10%] Built target Bubble_Sort
-[ 14%] Built target Compare
-[ 17%] Built target Merge_Sort
-[ 20%] Built target Dijkstra
-[ 23%] Built target Hamming
-[ 26%] Built target Mem_Test
-[ 29%] Built target Mul
-[ 32%] Built target Matrix_Mul
-[ 35%] Built target Sum
-[ 37%] Built target Crypto_OT
-[ 39%] Built target Crypto_BN
-[ 40%] Built target Crypto_OT_Extension
-[ 42%] Built target TCPIP_TCPIP
-[ 45%] Built target OT_Main
-[ 46%] Built target TCPIP_TCPIP_Testsuit
-[ 50%] Built target OT_Test
-[ 53%] Built target OT_Extension_Test
-[ 56%] Built target BN_Test
-[ 57%] Built target Garbled_Circuit_Garbled_Circuit_High_Mem
-[ 59%] Built target Garbled_Circuit_Garbled_Circuit_Low_Mem
-[ 60%] Built target Garbled_Circuit_Garbled_Circuit_Testing
-[ 62%] Built target Garbled_Circuit_Garbled_Circuit
-[ 64%] Built target Garbled_Circuit_Garbled_Circuit_Util
-[ 65%] Built target SCD_SCD
-[ 68%] Built target TinyGarble
-[ 70%] Built target SCD_SCD_Evaluator
-[ 73%] Built target A23_Test
-[ 76%] Built target Garbled_Circuit_Test
-[ 78%] Built target SCD_V2SCD
-[ 79%] Built target SCD_ParseNetlist
-[ 81%] Built target SCD_Scheduling
-[ 84%] Built target V2SCD_Main
-[ 87%] Built target SCD_Evaluator_Test
-[ 90%] Built target SCD_Evaluator_Main
-[ 93%] Built target V2SCD_Test
-[ 96%] Built target TCPIP_Test
-[100%] Built target Util_Test
-ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/hamming_32bit_1cc.scd --input 6
-03
-ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/sum_8bit_1cc.scd --input 6
-0E
-ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/mult_128bit_128cc.scd --input 6
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/mult_128bit_128cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:268 INFO: Open Alice's server on port: 1234
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:75 INFO: Alice transfer labels time (cc) = 37278906	(cc/bit) = 3.72789e+07
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:420 INFO: Non-secret skipped non-XOR gates = 128 out of 256	 (50%)
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:426 INFO: Total garbled non-XOR gates = 128
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:429 INFO: Alice communication time (cc) = 60414
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:430 INFO: Alice garbling time (cc) = 283773
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:282 INFO: Alice's output = 0
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:283 INFO: Total Alice time (cc) = 38897430
 0
 ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ 
 
 
+Bob terminal:
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/hamming_32bit_1cc.scd --input 6
+03
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/hamming_32bit_1cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:304 INFO: Connect Bob's client to Alice's server on 127.0.0.1:1234
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:118 INFO: Bob transfer labels time (cc) = 301551957	(cc/bit) = 9.4235e+06
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:702 INFO: Bob communication time (cc) = 708756
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:703 INFO: Bob evaluation time (cc) = 139494
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:319 INFO: Bob's output = 0
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:320 INFO: Total Bob time (cc) = 302898498
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/sum_8bit_1cc.scd --input 6
+0E
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/sum_8bit_1cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:304 INFO: Connect Bob's client to Alice's server on 127.0.0.1:1234
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:118 INFO: Bob transfer labels time (cc) = 139897962	(cc/bit) = 1.74872e+07
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:702 INFO: Bob communication time (cc) = 606684
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:703 INFO: Bob evaluation time (cc) = 17394
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:319 INFO: Bob's output = 0
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:320 INFO: Total Bob time (cc) = 141886614
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/mult_128bit_128cc.scd --input 6
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/mult_128bit_128cc.scd --log2std
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:304 INFO: Connect Bob's client to Alice's server on 127.0.0.1:1234
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:118 INFO: Bob transfer labels time (cc) = 29886693	(cc/bit) = 2.98867e+07
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:702 INFO: Bob communication time (cc) = 354345
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_high_mem.cpp:703 INFO: Bob evaluation time (cc) = 153357
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:319 INFO: Bob's output = 0
+/home/ubuntu/Downloads/TinyGarble-master/garbled_circuit/garbled_circuit_main.cpp:320 INFO: Total Bob time (cc) = 31935234
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ 
