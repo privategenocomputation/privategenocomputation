@@ -1,0 +1,127 @@
+Alice Terminal:
+ubuntu@ubuntu:~$ cd Downloads
+ubuntu@ubuntu:~/Downloads$ cd TinyGarble-master
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ ./configure
+Release build.
+-- Boost version: 1.58.0
+-- Found the following Boost libraries:
+--   program_options
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/Downloads/TinyGarble-master/bin
+Config is done. Now call '$ cd bin' and then '$ make' to compile TinyGarble.
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ cd bin
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ make
+[  1%] Built target Util_Util
+[  3%] Built target A23_Lib_Main
+[  4%] Built target Util_Log
+[  7%] Built target AES
+[ 10%] Built target Bubble_Sort
+[ 14%] Built target Compare
+[ 17%] Built target Merge_Sort
+[ 20%] Built target Dijkstra
+[ 23%] Built target Hamming
+[ 26%] Built target Mem_Test
+[ 29%] Built target Mul
+[ 32%] Built target Matrix_Mul
+[ 35%] Built target Sum
+[ 37%] Built target Crypto_OT
+[ 39%] Built target Crypto_BN
+[ 40%] Built target Crypto_OT_Extension
+[ 42%] Built target TCPIP_TCPIP
+[ 45%] Built target OT_Main
+[ 46%] Built target TCPIP_TCPIP_Testsuit
+[ 50%] Built target OT_Test
+[ 53%] Built target OT_Extension_Test
+[ 56%] Built target BN_Test
+[ 57%] Built target Garbled_Circuit_Garbled_Circuit_High_Mem
+[ 59%] Built target Garbled_Circuit_Garbled_Circuit_Low_Mem
+[ 60%] Built target Garbled_Circuit_Garbled_Circuit_Testing
+[ 62%] Built target Garbled_Circuit_Garbled_Circuit
+[ 64%] Built target Garbled_Circuit_Garbled_Circuit_Util
+[ 65%] Built target SCD_SCD
+[ 68%] Built target TinyGarble
+[ 70%] Built target SCD_SCD_Evaluator
+[ 73%] Built target A23_Test
+[ 76%] Built target Garbled_Circuit_Test
+[ 78%] Built target SCD_V2SCD
+[ 79%] Built target SCD_ParseNetlist
+[ 81%] Built target SCD_Scheduling
+[ 84%] Built target V2SCD_Main
+[ 87%] Built target SCD_Evaluator_Test
+[ 90%] Built target SCD_Evaluator_Main
+[ 93%] Built target V2SCD_Test
+[ 96%] Built target TCPIP_Test
+[100%] Built target Util_Test
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/hamming_32bit_1cc.scd --input 8
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/sum_8bit_1cc.scd --input 8
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --alice --scd_file scd/netlists/mult_128bit_128cc.scd --input 8
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$
+
+Bob terminal:
+ubuntu@ubuntu:~$ cd Downloads
+ubuntu@ubuntu:~/Downloads$ cd TinyGarble-master
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ ./configure
+Release build.
+-- Boost version: 1.58.0
+-- Found the following Boost libraries:
+--   program_options
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/Downloads/TinyGarble-master/bin
+Config is done. Now call '$ cd bin' and then '$ make' to compile TinyGarble.
+ubuntu@ubuntu:~/Downloads/TinyGarble-master$ cd bin
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ make
+[  1%] Built target Util_Util
+[  3%] Built target A23_Lib_Main
+[  4%] Built target Util_Log
+[  7%] Built target AES
+[ 10%] Built target Bubble_Sort
+[ 14%] Built target Compare
+[ 17%] Built target Merge_Sort
+[ 20%] Built target Dijkstra
+[ 23%] Built target Hamming
+[ 26%] Built target Mem_Test
+[ 29%] Built target Mul
+[ 32%] Built target Matrix_Mul
+[ 35%] Built target Sum
+[ 37%] Built target Crypto_OT
+[ 39%] Built target Crypto_BN
+[ 40%] Built target Crypto_OT_Extension
+[ 42%] Built target TCPIP_TCPIP
+[ 45%] Built target OT_Main
+[ 46%] Built target TCPIP_TCPIP_Testsuit
+[ 50%] Built target OT_Test
+[ 53%] Built target OT_Extension_Test
+[ 56%] Built target BN_Test
+[ 57%] Built target Garbled_Circuit_Garbled_Circuit_High_Mem
+[ 59%] Built target Garbled_Circuit_Garbled_Circuit_Low_Mem
+[ 60%] Built target Garbled_Circuit_Garbled_Circuit_Testing
+[ 62%] Built target Garbled_Circuit_Garbled_Circuit
+[ 64%] Built target Garbled_Circuit_Garbled_Circuit_Util
+[ 65%] Built target SCD_SCD
+[ 68%] Built target TinyGarble
+[ 70%] Built target SCD_SCD_Evaluator
+[ 73%] Built target A23_Test
+[ 76%] Built target Garbled_Circuit_Test
+[ 78%] Built target SCD_V2SCD
+[ 79%] Built target SCD_ParseNetlist
+[ 81%] Built target SCD_Scheduling
+[ 84%] Built target V2SCD_Main
+[ 87%] Built target SCD_Evaluator_Test
+[ 90%] Built target SCD_Evaluator_Main
+[ 93%] Built target V2SCD_Test
+[ 96%] Built target TCPIP_Test
+[100%] Built target Util_Test
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/hamming_32bit_1cc.scd --input 6
+03
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/sum_8bit_1cc.scd --input 6
+0E
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ garbled_circuit/TinyGarble --bob --scd_file scd/netlists/mult_128bit_128cc.scd --input 6
+0
+ubuntu@ubuntu:~/Downloads/TinyGarble-master/bin$ 
+
+
