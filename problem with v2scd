@@ -1,22 +1,2 @@
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master/bin/scd$ cd ..
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master/bin$ cd ..
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master$ bin/scd/V2SCD_Main -i scd/netlists/addition.v -o /bin/scd
+t@t-ThinkPad-T430s:~/下载/TinyGarble-master$ bin/scd/V2SCD_Main -i  scd/netlists/synth.v -o ./下载
 Segmentation fault (core dumped)
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master$ bin/scd/V2SCD_Main -i scd/netlists/addition.v -o /scd
-Segmentation fault (core dumped)
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master$ bin/scd/V2SCD_Main -i scd/netlists/addition.v -o 
-Verilog to SCD, TinyGarble version 3.0.0.
-Allowed options:
-  -h [ --help ]              produce help message.
-  -i [ --netlist ] arg       Input netlist (verilog .v) file address.
-  -b [ --brist_netlist ] arg Input netlist (.txt) file address (in the format 
-                             given by www.cs.bris.ac.uk/Research/CryptographySe
-                             curity/MPC/).
-  -o [ --scd ] arg           Output simple circuit description (scd) file 
-                             address.
-
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master$ bin/scd/V2SCD_Main -i scd/netlists/addition.v -o /bin/scd/netlists
-Segmentation fault (core dumped)
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master$ bin/scd/V2SCD_Main -i scd/netlists/addition.v -o ./下载
-Segmentation fault (core dumped)
-t@t-ThinkPad-T430s:~/下载/TinyGarble-master$ 
